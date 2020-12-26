@@ -5,11 +5,9 @@ import { registerRootComponent } from "expo";
 
 export const Main = () => {
   return (
-    <>
-      <PaperProvider>
-        <App />
-      </PaperProvider>
-    </>
+    <PaperProvider>
+      <App />
+    </PaperProvider>
   );
 };
 
