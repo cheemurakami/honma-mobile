@@ -1,4 +1,3 @@
-// import "react-native-gesture-handler";
 import ChooseDialect from "./src/ChooseDialect";
 import Lesson from "./src/Lesson";
 import React from "react";
