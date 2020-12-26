@@ -25,6 +25,7 @@ export const ChooseDialect = () => {
       {dialects.map((dialect) => {
         return (
           <List.Item
+            key={dialect.en}
             title={dialect.name + " " + dialect.en}
             style={{ width: "100%" }}
             left={(props) => <List.Icon {...props} icon="folder" />}
