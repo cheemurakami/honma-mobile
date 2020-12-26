@@ -1,8 +1,9 @@
-import { List } from "react-native-paper";
+import { List, Text } from "react-native-paper";
 import React from "react";
 import styled from "styled-components/native";
+import { Button } from 'react-native-paper';
 
-export const ChooseDialect = () => {
+const ChooseDialect = ({ navigation }) => {
   const dialects = [
     {
       name: "広島弁",
@@ -32,6 +33,12 @@ export const ChooseDialect = () => {
           />
         );
       })}
+      <Button
+        mode='contained'
+        onPress={() => navigation.navigate("Lesson")}
+      >
+        Go to lesson
+      </Button>
     </Container>
   );
 };
