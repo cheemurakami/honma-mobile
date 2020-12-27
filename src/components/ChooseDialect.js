@@ -1,4 +1,5 @@
-import { List } from "react-native-paper";
+import { Button, List } from "react-native-paper";
+
 import React from "react";
 import styled from "styled-components/native";
 
@@ -32,10 +33,7 @@ const ChooseDialect = ({ navigation }) => {
           />
         );
       })}
-      <Button
-        mode='contained'
-        onPress={() => navigation.navigate("Lesson")}
-      >
+      <Button mode="contained" onPress={() => navigation.navigate("Lesson")}>
         Go to lesson
       </Button>
     </Container>
