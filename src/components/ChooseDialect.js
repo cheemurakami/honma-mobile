@@ -1,7 +1,6 @@
 import { List } from "react-native-paper";
 import React from "react";
 import styled from "styled-components/native";
-import { Button } from 'react-native-paper';
 
 const ChooseDialect = ({ navigation }) => {
   const dialects = [
