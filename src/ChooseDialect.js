@@ -1,8 +1,9 @@
 import { List } from "react-native-paper";
 import React from "react";
 import styled from "styled-components/native";
+import { Button } from 'react-native-paper';
 
-export const ChooseDialect = () => {
+const ChooseDialect = ({ navigation }) => {
   const dialects = [
     {
       name: "広島弁",
@@ -25,12 +26,19 @@ export const ChooseDialect = () => {
       {dialects.map((dialect) => {
         return (
           <List.Item
+            key={dialect.en}
             title={dialect.name + " " + dialect.en}
             style={{ width: "100%" }}
             left={(props) => <List.Icon {...props} icon="folder" />}
           />
         );
       })}
+      <Button
+        mode='contained'
+        onPress={() => navigation.navigate("Lesson")}
+      >
+        Go to lesson
+      </Button>
     </Container>
   );
 };
