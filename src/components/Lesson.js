@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 import FooterButton from "../shared/FooterButton";
 import Icon from "react-native-vector-icons/FontAwesome";
 import React from "react";
+import SoundPlayButton from "../shared/SoundPlayButton";
 import { Title } from "react-native-paper";
 import styled from "styled-components/native";
 
@@ -14,11 +15,14 @@ const Lesson = ({ navigation }) => {
       <Icon
         name="arrow-left"
         size={30}
+        style={{ margin: 10 }}
         onPress={() => navigation.navigate("ChooseDialect")}
       />
       <Title style={{ textAlign: "center" }}>{pageTitle}</Title>
       <BodyContainer>
-        <MediaContainer></MediaContainer>
+        <MediaContainer>
+          <SoundPlayButton soundSource={require("../../assets/IruOru.m4a")} />
+        </MediaContainer>
         <BodyText>いる changes to おる </BodyText>
         <BodyText>おるん for questions</BodyText>
         <ExampleContainer>
@@ -60,7 +64,12 @@ const BodyTextExample = styled.Text`
 `;
 
 const MediaContainer = styled.View`
+  align-items: center;
+  justify-content: center;
   height: 40%;
+  background-color: #5aa9e6;
+  border-radius: 25px;
+  margin: 10px;
 `;
 
 const ExampleContainer = styled.View`
