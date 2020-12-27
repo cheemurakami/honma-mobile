@@ -19,8 +19,8 @@ export default function App() {
             },
           }}
         >
-          <Stack.Screen name="Lesson" component={Lesson} />
           <Stack.Screen name="ChooseDialect" component={ChooseDialect} />
+          <Stack.Screen name="Lesson" component={Lesson} />
         </Stack.Navigator>
       </SafeareaContainer>
     </NavigationContainer>

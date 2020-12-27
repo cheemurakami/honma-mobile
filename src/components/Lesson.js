@@ -1,54 +1,43 @@
-import { Text, View } from "react-native";
-
-import FooterButton from "../shared/FooterButton";
 import Icon from "react-native-vector-icons/FontAwesome";
 import React from "react";
+import ScreenLayout from "../shared/ScreenLayout";
 import SoundPlayButton from "../shared/SoundPlayButton";
-import { Title } from "react-native-paper";
 import styled from "styled-components/native";
 
 const pageTitle = "いる / おる　おるん?";
-const btnTitle = "完了";
+const btnLabel = "完了";
 const Lesson = ({ navigation }) => {
-  return (
-    <View>
+  const backButton = () => {
+    return (
       <Icon
         name="arrow-left"
         size={30}
         style={{ margin: 10 }}
         onPress={() => navigation.navigate("ChooseDialect")}
       />
-      <Title style={{ textAlign: "center" }}>{pageTitle}</Title>
-      <BodyContainer>
-        <MediaContainer>
-          <SoundPlayButton soundSource={require("../../assets/IruOru.m4a")} />
-        </MediaContainer>
-        <BodyText>いる changes to おる </BodyText>
-        <BodyText>おるん for questions</BodyText>
-        <ExampleContainer>
-          <BodyTextExample>Q: 今どこにおるん？</BodyTextExample>
-          <BodyTextExample>A: 広島駅におるよ</BodyTextExample>
-          <BodyTextExample>Q: Where are you now?</BodyTextExample>
-          <BodyTextExample>A: I'm at Hiroshima Station.</BodyTextExample>
-        </ExampleContainer>
-      </BodyContainer>
-
-      <Footer>
-        <FooterButton title={btnTitle} />
-      </Footer>
-    </View>
+    );
+  };
+  return (
+    <ScreenLayout
+      pageTitle={pageTitle}
+      btnLabel={btnLabel}
+      backButton={backButton}
+      soundSource={require("../../assets/IruOru.m4a")}
+    >
+      <MediaContainer>
+        <SoundPlayButton soundSource={require("../../assets/IruOru.m4a")} />
+      </MediaContainer>
+      <BodyText>いる changes to おる </BodyText>
+      <BodyText>おるん for questions</BodyText>
+      <ExampleContainer>
+        <BodyTextExample>Q: 今どこにおるん？</BodyTextExample>
+        <BodyTextExample>A: 広島駅におるよ</BodyTextExample>
+        <BodyTextExample>Q: Where are you now?</BodyTextExample>
+        <BodyTextExample>A: I'm at Hiroshima Station.</BodyTextExample>
+      </ExampleContainer>
+    </ScreenLayout>
   );
 };
-
-const BodyContainer = styled.View`
-  background-color: white;
-  height: 80%;
-  margin: 10px;
-`;
-
-const Footer = styled.View`
-  align-items: center;
-`;
 
 const BodyText = styled.Text`
   text-align: center;
