@@ -8,7 +8,7 @@ const ScreenLayout = (props) => {
   const { pageTitle, btnLabel, backButton, children, onPressHandler } = props;
   return (
     <View>
-      {backButton}
+      {backButton()}
       <Title style={{ textAlign: "center" }}>{pageTitle}</Title>
       <BodyContainer>{children}</BodyContainer>
       <Footer>

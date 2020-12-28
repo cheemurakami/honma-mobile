@@ -2,7 +2,6 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { List } from "react-native-paper";
 import React from "react";
 import ScreenLayout from "../shared/ScreenLayout";
-import { TouchableHighlight } from "react-native";
 import styled from "styled-components/native";
 
 const pageTitle = "Choose your patterns";
