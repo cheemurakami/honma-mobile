@@ -16,29 +16,30 @@ const patterns = [
 ];
 
 export const PatternList = ({ navigation }) => {
-  const backButton = () => {
-    return (
-      <Icon
-        name="arrow-left"
-        size={30}
-        style={{ margin: 10 }}
-        onPress={() => navigation.navigate("ChooseDialect")}
-      />
-    );
-  };
-
   return (
     <ScreenLayout
       pageTitle={pageTitle}
       btnLabel={btnLabel}
-      backButton={backButton}
+      backComponentName={"ChooseDialect"}
       onPressHandler={() => navigation.navigate("Lesson")}
     >
       <PatternContainer>
         {patterns.map((pattern, index) => {
           return (
             <ListTouchable key={index} onPress={() => console.log(pattern)}>
-              <List.Item title={pattern} style={{ width: "100%" }} />
+              <List.Item
+                title={pattern}
+                titleNumberOfLines={2}
+                titleStyle={{ fontSize: 20 }}
+                style={{ width: "100%" }}
+                left={() => (
+                  <Icon
+                    name="leaf"
+                    size={30}
+                    style={{ margin: 10, color: "#aacc00" }}
+                  />
+                )}
+              />
             </ListTouchable>
           );
         })}
@@ -51,12 +52,12 @@ const PatternContainer = styled.View`
   flex: 1;
   justify-content: center;
   padding: 10px;
-  margin-top: 30px;
 `;
 
 const ListTouchable = styled.TouchableHighlight.attrs({
   underlayColor: "#7fc8f8",
 })`
+  margin-top: 10px;
   border-radius: 25px;
 `;
 

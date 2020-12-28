@@ -33,7 +33,10 @@ const ChooseDialect = ({ navigation }) => {
           />
         );
       })}
-      <Button mode="contained" onPress={() => navigation.navigate("PatternList")}>
+      <Button
+        mode="contained"
+        onPress={() => navigation.navigate("PatternList")}
+      >
         Go to lesson
       </Button>
     </Container>

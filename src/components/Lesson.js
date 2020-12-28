@@ -1,4 +1,3 @@
-import Icon from "react-native-vector-icons/FontAwesome";
 import React from "react";
 import ScreenLayout from "../shared/ScreenLayout";
 import SoundPlayButton from "../shared/SoundPlayButton";
@@ -6,22 +5,13 @@ import styled from "styled-components/native";
 
 const pageTitle = "いる / おる　おるん?";
 const btnLabel = "完了";
-const Lesson = ({ navigation }) => {
-  const backButton = () => {
-    return (
-      <Icon
-        name="arrow-left"
-        size={30}
-        style={{ margin: 10 }}
-        onPress={() => navigation.navigate("PatternList")}
-      />
-    );
-  };
+
+const Lesson = () => {
   return (
     <ScreenLayout
       pageTitle={pageTitle}
       btnLabel={btnLabel}
-      backButton={backButton}
+      backComponentName={"PatternList"}
       soundSource={require("../../assets/IruOru.m4a")}
     >
       <MediaContainer>
