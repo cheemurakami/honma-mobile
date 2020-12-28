@@ -2,7 +2,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { List } from "react-native-paper";
 import React from "react";
 import ScreenLayout from "../shared/ScreenLayout";
-import { View } from "react-native";
+import { TouchableHighlight } from "react-native";
 import styled from "styled-components/native";
 
 const pageTitle = "Choose your patterns";
@@ -38,7 +38,9 @@ export const PatternList = ({ navigation }) => {
       <PatternContainer>
         {patterns.map((pattern, index) => {
           return (
-            <List.Item key={index} title={pattern} style={{ width: "100%" }} />
+            <ListTouchable key={index} onPress={() => console.log(pattern)}>
+              <List.Item title={pattern} style={{ width: "100%" }} />
+            </ListTouchable>
           );
         })}
       </PatternContainer>
@@ -51,6 +53,12 @@ const PatternContainer = styled.View`
   justify-content: center;
   padding: 10px;
   margin-top: 30px;
+`;
+
+const ListTouchable = styled.TouchableHighlight.attrs({
+  underlayColor: "#7fc8f8",
+})`
+  border-radius: 25px;
 `;
 
 export default PatternList;
