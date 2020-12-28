@@ -5,14 +5,14 @@ import { View } from "react-native";
 import styled from "styled-components/native";
 
 const ScreenLayout = (props) => {
-  const { pageTitle, btnLabel, backButton, children } = props;
+  const { pageTitle, btnLabel, backButton, children, onPressHandler } = props;
   return (
     <View>
       {backButton}
       <Title style={{ textAlign: "center" }}>{pageTitle}</Title>
       <BodyContainer>{children}</BodyContainer>
       <Footer>
-        <FooterButton title={btnLabel} />
+        <FooterButton title={btnLabel} onPressHandler={onPressHandler} />
       </Footer>
     </View>
   );

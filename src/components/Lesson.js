@@ -13,7 +13,7 @@ const Lesson = ({ navigation }) => {
         name="arrow-left"
         size={30}
         style={{ margin: 10 }}
-        onPress={() => navigation.navigate("ChooseDialect")}
+        onPress={() => navigation.navigate("PatternList")}
       />
     );
   };
