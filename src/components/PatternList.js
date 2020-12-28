@@ -1,9 +1,18 @@
 import Icon from "react-native-vector-icons/FontAwesome";
+import { List } from "react-native-paper";
 import React from "react";
 import ScreenLayout from "../shared/ScreenLayout";
 
 const pageTitle = "Choose your patterns";
 const btnLabel = "次行くで";
+const patterns = [
+  "いる / おる　おるん?",
+  "よ / なんよ",
+  "ない / ん",
+  "しないで / しんさんな、せんといて",
+  "だ / じゃ",
+  "だろう / じゃろう",
+];
 
 export const PatternList = ({ navigation }) => {
   const backButton = () => {
@@ -23,7 +32,18 @@ export const PatternList = ({ navigation }) => {
       btnLabel={btnLabel}
       backButton={backButton}
       onPressHandler={() => navigation.navigate("Lesson")}
-    ></ScreenLayout>
+    >
+      {patterns.map((pattern, index) => {
+        return (
+          <List.Item
+            key={index}
+            title={pattern}
+            style={{ width: "100%" }}
+            left={(props) => <List.Icon {...props} icon="folder" />}
+          />
+        );
+      })}
+    </ScreenLayout>
   );
 };
 export default PatternList;
