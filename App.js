@@ -1,6 +1,7 @@
 import ChooseDialect from "./src/components/ChooseDialect";
 import Lesson from "./src/components/Lesson";
 import { NavigationContainer } from "@react-navigation/native";
+import PatternList from "./src/components/PatternList";
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import styled from "styled-components/native";
@@ -20,6 +21,7 @@ export default function App() {
           }}
         >
           <Stack.Screen name="ChooseDialect" component={ChooseDialect} />
+          <Stack.Screen name="PatternList" component={PatternList} />
           <Stack.Screen name="Lesson" component={Lesson} />
         </Stack.Navigator>
       </SafeareaContainer>

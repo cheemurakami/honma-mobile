@@ -1,18 +1,36 @@
 import FooterButton from "../shared/FooterButton";
+import Icon from "react-native-vector-icons/FontAwesome";
 import React from "react";
 import { Title } from "react-native-paper";
 import { View } from "react-native";
 import styled from "styled-components/native";
+import { useNavigation } from "@react-navigation/native";
 
 const ScreenLayout = (props) => {
-  const { pageTitle, btnLabel, backButton, children } = props;
+  const navigation = useNavigation();
+
+  const {
+    pageTitle,
+    btnLabel,
+    backComponentName,
+    children,
+    onPressHandler,
+  } = props;
+
   return (
     <View>
-      {backButton}
+      {backComponentName && (
+        <Icon
+          name="arrow-left"
+          size={30}
+          style={{ margin: 10 }}
+          onPress={() => navigation.navigate(backComponentName)}
+        />
+      )}
       <Title style={{ textAlign: "center" }}>{pageTitle}</Title>
       <BodyContainer>{children}</BodyContainer>
       <Footer>
-        <FooterButton title={btnLabel} />
+        <FooterButton title={btnLabel} onPressHandler={onPressHandler} />
       </Footer>
     </View>
   );
