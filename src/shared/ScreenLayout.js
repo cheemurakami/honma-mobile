@@ -19,12 +19,14 @@ const ScreenLayout = (props) => {
 
   return (
     <View>
-      <Icon
-        name="arrow-left"
-        size={30}
-        style={{ margin: 10 }}
-        onPress={() => navigation.navigate(backComponentName)}
-      />
+      {backComponentName && (
+        <Icon
+          name="arrow-left"
+          size={30}
+          style={{ margin: 10 }}
+          onPress={() => navigation.navigate(backComponentName)}
+        />
+      )}
       <Title style={{ textAlign: "center" }}>{pageTitle}</Title>
       <BodyContainer>{children}</BodyContainer>
       <Footer>

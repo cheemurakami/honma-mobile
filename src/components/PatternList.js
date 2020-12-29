@@ -26,7 +26,7 @@ export const PatternList = ({ navigation }) => {
       <PatternContainer>
         {patterns.map((pattern, index) => {
           return (
-            <ListTouchable key={index} onPress={() => console.log(pattern)}>
+            <ListTouchable key={index} onPress={() => navigation.navigate("Lesson")}>
               <List.Item
                 title={pattern}
                 titleNumberOfLines={2}
