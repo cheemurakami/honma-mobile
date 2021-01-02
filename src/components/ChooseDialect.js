@@ -1,11 +1,13 @@
+import React, { useEffect } from "react";
+
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { List } from "react-native-paper";
-import React from "react";
 import ScreenLayout from "../shared/ScreenLayout";
 import styled from "styled-components/native";
 
 const pageTitle = "Choose your dialect";
 const btnLabel = "はじめるで";
+
 const dialects = [
   {
     name: "広島弁",
@@ -22,6 +24,13 @@ const dialects = [
 ];
 
 const ChooseDialect = ({ navigation }) => {
+  useEffect(() => {
+    fetch("http://localhost:3000/api/dialects")
+      .then((resp) => resp.json())
+      .then((resp) => console.log(resp));
+    return () => {};
+  }, []);
+
   return (
     <ScreenLayout
       pageTitle={pageTitle}
