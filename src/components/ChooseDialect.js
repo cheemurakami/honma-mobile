@@ -1,3 +1,5 @@
+import * as a from '../rdx/actions'
+
 import React, { useEffect } from "react";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -27,7 +29,7 @@ const ChooseDialect = ({ navigation }) => {
   useEffect(() => {
     fetch("http://localhost:3000/api/dialects")
       .then((resp) => resp.json())
-      .then((resp) => console.log(resp));
+      .then((resp) => a.loadedDialects(resp));
     return () => {};
   }, []);
 
