@@ -6,16 +6,9 @@ import styled from "styled-components/native";
 
 const pageTitle = "Choose your patterns";
 const btnLabel = "次行くで";
-const patterns = [
-  "いる / おる　おるん?",
-  "よ / なんよ",
-  "ない / ん",
-  "しないで / しんさんな、せんといて",
-  "だ / じゃ",
-  "だろう / じゃろう",
-];
 
-export const PatternList = ({ navigation }) => {
+export const PatternList = ({ route, navigation }) => {
+  const { grammars } = route.params;
   return (
     <ScreenLayout
       pageTitle={pageTitle}
@@ -24,11 +17,11 @@ export const PatternList = ({ navigation }) => {
       onPressHandler={() => navigation.navigate("Lesson")}
     >
       <PatternContainer>
-        {patterns.map((pattern, index) => {
+        {grammars.map((grammar, index) => {
           return (
-            <ListTouchable key={index} onPress={() => navigation.navigate("Lesson")}>
+            <ListTouchable key={index} onPress={() => navigation.navigate("Lesson", {examples: grammar.examples})}>
               <List.Item
-                title={pattern}
+                title={grammar.description}
                 titleNumberOfLines={2}
                 titleStyle={{ fontSize: 20 }}
                 style={{ width: "100%" }}

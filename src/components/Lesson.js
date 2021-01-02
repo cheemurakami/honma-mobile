@@ -6,7 +6,11 @@ import styled from "styled-components/native";
 const pageTitle = "いる / おる　おるん?";
 const btnLabel = "完了";
 
-const Lesson = () => {
+const Lesson = ({ route }) => {
+  const { examples } = route.params;
+  const jpExample = examples.find((example) => example.language === "japanese")
+  const enExample = examples.find((example) => example.language === "english")
+  
   return (
     <ScreenLayout
       pageTitle={pageTitle}
@@ -20,10 +24,10 @@ const Lesson = () => {
       <BodyText>いる changes to おる </BodyText>
       <BodyText>おるん for questions</BodyText>
       <ExampleContainer>
-        <BodyTextExample>Q: 今どこにおるん？</BodyTextExample>
-        <BodyTextExample>A: 広島駅におるよ</BodyTextExample>
-        <BodyTextExample>Q: Where are you now?</BodyTextExample>
-        <BodyTextExample>A: I'm at Hiroshima Station.</BodyTextExample>
+        <BodyTextExample>A: {jpExample.sentence1}</BodyTextExample>
+        <BodyTextExample>B: {jpExample.sentence2}</BodyTextExample>
+        <BodyTextExample>A: {enExample.sentence1}</BodyTextExample>
+        <BodyTextExample>B: {enExample.sentence2}</BodyTextExample>
       </ExampleContainer>
     </ScreenLayout>
   );

@@ -31,7 +31,7 @@ const ChooseDialect = ({ navigation, dispatch, dialects}) => {
           return (
             <DialectTouchable
               key={index}
-              onPress={() => navigation.navigate("PatternList")}
+              onPress={() => navigation.navigate("PatternList", {grammars: dialect.grammars})}
             >
               <List.Item
                 title={dialect.name_jp + " " + dialect.name_en}
