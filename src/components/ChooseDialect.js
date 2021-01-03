@@ -14,7 +14,7 @@ const btnLabel = "はじめるで";
 const ChooseDialect = ({ navigation, dispatch, dialects}) => {
   
   useEffect(() => {
-    fetch("http://localhost:3000/api/dialects")
+    fetch("http://http://honma-api.herokuapp.com/dialects")
       .then((resp) => resp.json())
       .then((resp) => dispatch(a.loadedDialects(resp)));
     return () => {};
