@@ -23,13 +23,12 @@ export const PatternList = ({ route, navigation }) => {
               key={index}
               onPress={() =>
                 navigation.navigate("Lesson", {
-                  description: grammar.description,
-                  examples: grammar.examples,
+                  grammar,
                 })
               }
             >
               <List.Item
-                title={grammar.description}
+                title={grammar.label}
                 titleNumberOfLines={2}
                 titleStyle={{ fontSize: 20 }}
                 style={{ width: "100%" }}

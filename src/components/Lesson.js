@@ -6,13 +6,13 @@ import styled from "styled-components/native";
 const btnLabel = "完了";
 
 const Lesson = ({ route }) => {
-  const { description, examples } = route.params;
-  const jpExample = examples.find((example) => example.language === "japanese");
-  const enExample = examples.find((example) => example.language === "english");
+  const { grammar } = route.params;
+  const jpExample = grammar.examples.find((example) => example.language === "jp");
+  const enExample = grammar.examples.find((example) => example.language === "en");
 
   return (
     <ScreenLayout
-      pageTitle={description}
+      pageTitle={grammar.label}
       btnLabel={btnLabel}
       backComponentName={"PatternList"}
       soundSource={require("../../assets/IruOru.m4a")}
@@ -20,8 +20,7 @@ const Lesson = ({ route }) => {
       <MediaContainer>
         <SoundPlayButton soundSource={require("../../assets/IruOru.m4a")} />
       </MediaContainer>
-      <BodyText>いる changes to おる </BodyText>
-      <BodyText>おるん for questions</BodyText>
+      <BodyText>{grammar.description}</BodyText>
       <ExampleContainer>
         <BodyTextExample>A: {jpExample.sentence1}</BodyTextExample>
         <BodyTextExample>B: {jpExample.sentence2}</BodyTextExample>
