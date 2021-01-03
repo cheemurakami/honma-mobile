@@ -7,18 +7,23 @@ const btnLabel = "完了";
 
 const Lesson = ({ route }) => {
   const { grammar } = route.params;
-  const jpExample = grammar.examples.find((example) => example.language === "jp");
-  const enExample = grammar.examples.find((example) => example.language === "en");
+  const jpExample = grammar.examples.find(
+    (example) => example.language === "jp"
+  );
+  const enExample = grammar.examples.find(
+    (example) => example.language === "en"
+  );
 
   return (
     <ScreenLayout
       pageTitle={grammar.label}
       btnLabel={btnLabel}
       backComponentName={"PatternList"}
-      soundSource={require("../../assets/IruOru.m4a")}
     >
       <MediaContainer>
-        <SoundPlayButton soundSource={require("../../assets/IruOru.m4a")} />
+        <SoundPlayButton
+          soundSource={require("../../assets/audio/hiroshima/iru_oru.m4a")}
+        />
       </MediaContainer>
       <BodyText>{grammar.description}</BodyText>
       <ExampleContainer>
