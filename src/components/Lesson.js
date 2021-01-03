@@ -3,17 +3,16 @@ import ScreenLayout from "../shared/ScreenLayout";
 import SoundPlayButton from "../shared/SoundPlayButton";
 import styled from "styled-components/native";
 
-const pageTitle = "いる / おる　おるん?";
 const btnLabel = "完了";
 
 const Lesson = ({ route }) => {
-  const { examples } = route.params;
-  const jpExample = examples.find((example) => example.language === "japanese")
-  const enExample = examples.find((example) => example.language === "english")
-  
+  const { description, examples } = route.params;
+  const jpExample = examples.find((example) => example.language === "japanese");
+  const enExample = examples.find((example) => example.language === "english");
+
   return (
     <ScreenLayout
-      pageTitle={pageTitle}
+      pageTitle={description}
       btnLabel={btnLabel}
       backComponentName={"PatternList"}
       soundSource={require("../../assets/IruOru.m4a")}

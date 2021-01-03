@@ -19,7 +19,15 @@ export const PatternList = ({ route, navigation }) => {
       <PatternContainer>
         {grammars.map((grammar, index) => {
           return (
-            <ListTouchable key={index} onPress={() => navigation.navigate("Lesson", {examples: grammar.examples})}>
+            <ListTouchable
+              key={index}
+              onPress={() =>
+                navigation.navigate("Lesson", {
+                  description: grammar.description,
+                  examples: grammar.examples,
+                })
+              }
+            >
               <List.Item
                 title={grammar.description}
                 titleNumberOfLines={2}
