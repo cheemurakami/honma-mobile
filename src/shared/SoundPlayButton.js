@@ -1,13 +1,10 @@
-import { Button, Text, View } from "react-native";
-
 import { Audio } from "expo-av";
 import Icon from "react-native-vector-icons/FontAwesome";
 import React from "react";
-
 const SoundPlayButton = ({ soundSource }) => {
   const [sound, setSound] = React.useState();
   async function playSound() {
-    const { sound } = await Audio.Sound.createAsync(soundSource);
+    const { sound } = await Audio.Sound.createAsync({ uri: soundSource });
     setSound(sound);
 
     await sound.playAsync();
