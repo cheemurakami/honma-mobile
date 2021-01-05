@@ -1,6 +1,6 @@
 import * as a from "../rdx/actions";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { List } from "react-native-paper";
@@ -11,8 +11,9 @@ import styled from "styled-components/native";
 const pageTitle = "Choose your dialect";
 const btnLabel = "はじめるで";
 
-const ChooseDialect = ({ navigation, dispatch, dialects}) => {
-  
+const ChooseDialect = ({ navigation, dispatch, dialects }) => {
+  const [selectedDialectId, setSelectedDialectId] = useState("");
+
   useEffect(() => {
     fetch("http://honma-api.herokuapp.com/api/dialects")
       .then((resp) => resp.json())
@@ -27,11 +28,19 @@ const ChooseDialect = ({ navigation, dispatch, dialects}) => {
       onPressHandler={() => navigation.navigate("PatternList")}
     >
       <DialectContainer>
-          {dialects && dialects.map((dialect, index) => {
+        {dialects &&
+          dialects.map((dialect, index) => {
             return (
               <DialectTouchable
                 key={index}
-                onPress={() => navigation.navigate("PatternList", {grammars: dialect.grammars})}
+                onPress={() => setSelectedDialectId(dialect.id)}
+                style={
+                  selectedDialectId === dialect.id
+                    ? {
+                        backgroundColor: "#7fc8f8",
+                      }
+                    : { backgroundColor: "#fff" }
+                }
               >
                 <List.Item
                   title={dialect.name_jp + " " + dialect.name_en}
@@ -63,6 +72,7 @@ const DialectContainer = styled.View`
 const DialectTouchable = styled.TouchableHighlight.attrs({
   underlayColor: "#7fc8f8",
 })`
+  background-color: #fff;
   margin-top: 10px;
   border-radius: 25px;
 `;
