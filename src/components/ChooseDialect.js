@@ -28,17 +28,24 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
     if (counter === 1) {
       setTimeout(() => {
         counter = 0;
-      }, 1000);
+      }, 200);
     } else if (counter === 2) {
       navigation.navigate("PatternList", { grammars });
     }
   };
 
+  const navigateBtn = (id) => {
+    if (id) {
+      const selectedDialect = dialects.find((dialect) => dialect.id === id);
+      const showGrammars = selectedDialect.grammars;
+      navigation.navigate("PatternList", { grammars: showGrammars });
+    }
+  };
   return (
     <ScreenLayout
       pageTitle={pageTitle}
       btnLabel={btnLabel}
-      onPressHandler={() => navigation.navigate("PatternList")}
+      onPressHandler={() => navigateBtn(selectedDialectId)}
     >
       <DialectContainer>
         {dialects &&
