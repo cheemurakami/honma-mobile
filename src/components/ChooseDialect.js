@@ -10,6 +10,7 @@ import styled from "styled-components/native";
 
 const pageTitle = "Choose your dialect";
 const btnLabel = "はじめるで";
+let counter = 0;
 
 const ChooseDialect = ({ navigation, dispatch, dialects }) => {
   const [selectedDialectId, setSelectedDialectId] = useState("");
@@ -20,6 +21,18 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
       .then((resp) => dispatch(a.loadedDialects(resp)));
     return () => {};
   }, []);
+
+  const doubleTap = (id, grammars) => {
+    setSelectedDialectId(id);
+    counter++;
+    if (counter === 1) {
+      setTimeout(() => {
+        counter = 0;
+      }, 1000);
+    } else if (counter === 2) {
+      navigation.navigate("PatternList", { grammars });
+    }
+  };
 
   return (
     <ScreenLayout
@@ -33,7 +46,7 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
             return (
               <DialectTouchable
                 key={index}
-                onPress={() => setSelectedDialectId(dialect.id)}
+                onPress={() => doubleTap(dialect.id, dialect.grammars)}
                 style={
                   selectedDialectId === dialect.id
                     ? {
@@ -72,7 +85,6 @@ const DialectContainer = styled.View`
 const DialectTouchable = styled.TouchableHighlight.attrs({
   underlayColor: "#7fc8f8",
 })`
-  background-color: #fff;
   margin-top: 10px;
   border-radius: 25px;
 `;
