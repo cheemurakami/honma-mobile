@@ -42,10 +42,10 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
   const navigateBtn = (id) => {
     if (id) {
       const selectedDialect = dialects.find((dialect) => dialect.id === id);
-      const showGrammars = selectedDialect.grammars;
-      navigation.navigate("PatternList", { grammars: showGrammars });
+      navigation.navigate("PatternList", { grammars: selectedDialect.grammars });
     }
   };
+  
   return (
     <ScreenLayout
       pageTitle={pageTitle}
