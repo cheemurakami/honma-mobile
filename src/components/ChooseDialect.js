@@ -1,6 +1,6 @@
 import * as a from "../rdx/actions";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { List } from "react-native-paper";
@@ -10,9 +10,11 @@ import styled from "styled-components/native";
 
 const pageTitle = "Choose your dialect";
 const btnLabel = "はじめるで";
+let counter = 0;
 
-const ChooseDialect = ({ navigation, dispatch, dialects}) => {
-  
+const ChooseDialect = ({ navigation, dispatch, dialects }) => {
+  const [selectedDialectId, setSelectedDialectId] = useState(null);
+
   useEffect(() => {
     fetch("http://honma-api.herokuapp.com/api/dialects")
       .then((resp) => resp.json())
@@ -20,18 +22,50 @@ const ChooseDialect = ({ navigation, dispatch, dialects}) => {
     return () => {};
   }, []);
 
+  const doubleTap = (id, grammars) => {
+    if (selectedDialectId == id || selectedDialectId == null) {
+      setSelectedDialectId(id);
+      counter++;
+      if (counter === 1) {
+        setTimeout(() => {
+          counter = 0;
+        }, 1200);
+      } else if (counter === 2) {
+        navigation.navigate("PatternList", { grammars });
+      }
+    } else {
+      setSelectedDialectId(id);
+      counter = 1;
+    }
+  };
+
+  const navigateBtn = (id) => {
+    if (id) {
+      const selectedDialect = dialects.find((dialect) => dialect.id === id);
+      navigation.navigate("PatternList", { grammars: selectedDialect.grammars });
+    }
+  };
+  
   return (
     <ScreenLayout
       pageTitle={pageTitle}
       btnLabel={btnLabel}
-      onPressHandler={() => navigation.navigate("PatternList")}
+      onPressHandler={() => navigateBtn(selectedDialectId)}
     >
       <DialectContainer>
-          {dialects && dialects.map((dialect, index) => {
+        {dialects &&
+          dialects.map((dialect, index) => {
             return (
               <DialectTouchable
                 key={index}
-                onPress={() => navigation.navigate("PatternList", {grammars: dialect.grammars})}
+                onPress={() => doubleTap(dialect.id, dialect.grammars)}
+                style={
+                  selectedDialectId === dialect.id
+                    ? {
+                        backgroundColor: "#7fc8f8",
+                      }
+                    : { backgroundColor: "#fff" }
+                }
               >
                 <List.Item
                   title={dialect.name_jp + " " + dialect.name_en}
