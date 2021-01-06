@@ -13,7 +13,7 @@ const btnLabel = "はじめるで";
 let counter = 0;
 
 const ChooseDialect = ({ navigation, dispatch, dialects }) => {
-  const [selectedDialectId, setSelectedDialectId] = useState("");
+  const [selectedDialectId, setSelectedDialectId] = useState(null);
 
   useEffect(() => {
     fetch("http://honma-api.herokuapp.com/api/dialects")
@@ -23,14 +23,19 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
   }, []);
 
   const doubleTap = (id, grammars) => {
-    setSelectedDialectId(id);
-    counter++;
-    if (counter === 1) {
-      setTimeout(() => {
-        counter = 0;
-      }, 200);
-    } else if (counter === 2) {
-      navigation.navigate("PatternList", { grammars });
+    if (selectedDialectId == id || selectedDialectId == null) {
+      setSelectedDialectId(id);
+      counter++;
+      if (counter === 1) {
+        setTimeout(() => {
+          counter = 0;
+        }, 1200);
+      } else if (counter === 2) {
+        navigation.navigate("PatternList", { grammars });
+      }
+    } else {
+      setSelectedDialectId(id);
+      counter = 1;
     }
   };
 
