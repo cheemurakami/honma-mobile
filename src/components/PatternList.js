@@ -8,10 +8,10 @@ import styled from "styled-components/native";
 
 const pageTitle = "Choose your patterns";
 
-export const PatternList = ({ route, navigation, dialects }) => {
-  const { grammars, id } = route.params;
+export const PatternList = ({ route, navigation }) => {
+  const { selectedDialect } = route.params;
 
-  const btnLabel = dialects.find((dialect) => dialect.id === id).next_btn_text;
+  const btnLabel = selectedDialect.next_btn_text;
 
   return (
     <ScreenLayout
@@ -22,7 +22,7 @@ export const PatternList = ({ route, navigation, dialects }) => {
     >
       <ScrollView>
         <PatternContainer>
-          {grammars.map((grammar, index) => {
+          {selectedDialect.grammars.map((grammar, index) => {
             return (
               <ListTouchable
                 key={index}
@@ -69,7 +69,6 @@ const ListTouchable = styled.TouchableHighlight.attrs({
 
 const mapStateToProps = (state) => {
   return {
-    dialects: state.dialectReducer.dialects,
   };
 };
 export default connect(mapStateToProps)(PatternList);

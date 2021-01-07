@@ -22,8 +22,9 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
     return () => {};
   }, []);
 
-  const doubleTap = (id, grammars) => {
+  const doubleTap = (id) => {
     changeBtnText(id);
+    const selectedDialect = dialects.find((dialect) => dialect.id === id);
     if (selectedDialectId == id || selectedDialectId == null) {
       setSelectedDialectId(id);
       counter++;
@@ -32,7 +33,7 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
           counter = 0;
         }, 1200);
       } else if (counter === 2) {
-        navigation.navigate("PatternList", { grammars, id });
+        navigation.navigate("PatternList", { selectedDialect });
       }
     } else {
       setSelectedDialectId(id);
@@ -49,8 +50,7 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
     if (id) {
       const selectedDialect = dialects.find((dialect) => dialect.id === id);
       navigation.navigate("PatternList", {
-        grammars: selectedDialect.grammars,
-        id
+        selectedDialect,
       });
     }
   };
@@ -67,7 +67,7 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
             return (
               <DialectTouchable
                 key={index}
-                onPress={() => doubleTap(dialect.id, dialect.grammars)}
+                onPress={() => doubleTap(dialect.id)}
                 style={
                   selectedDialectId === dialect.id
                     ? {
