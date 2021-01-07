@@ -3,7 +3,6 @@ import { List } from "react-native-paper";
 import React from "react";
 import ScreenLayout from "../shared/ScreenLayout";
 import { ScrollView } from "react-native";
-import { connect } from "react-redux";
 import styled from "styled-components/native";
 
 const pageTitle = "Choose your patterns";
@@ -67,4 +66,4 @@ const ListTouchable = styled.TouchableHighlight.attrs({
   border-radius: 25px;
 `;
 
-export default connect()(PatternList);
+export default PatternList;
