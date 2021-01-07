@@ -9,11 +9,11 @@ import { connect } from "react-redux";
 import styled from "styled-components/native";
 
 const pageTitle = "Choose your dialect";
-const btnLabel = "はじめるで";
 let counter = 0;
 
 const ChooseDialect = ({ navigation, dispatch, dialects }) => {
   const [selectedDialectId, setSelectedDialectId] = useState(null);
+  const [btnText, setBtnText] = useState("はじめましょう!!");
 
   useEffect(() => {
     fetch("http://honma-api.herokuapp.com/api/dialects")
@@ -23,6 +23,7 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
   }, []);
 
   const doubleTap = (id, grammars) => {
+    changeBtnText(id);
     if (selectedDialectId == id || selectedDialectId == null) {
       setSelectedDialectId(id);
       counter++;
@@ -39,17 +40,24 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
     }
   };
 
+  const changeBtnText = (id) => {
+    const selectedDialect = dialects.find((dialect) => dialect.id === id);
+    setBtnText(selectedDialect.start_btn_text);
+  };
+
   const navigateBtn = (id) => {
     if (id) {
       const selectedDialect = dialects.find((dialect) => dialect.id === id);
-      navigation.navigate("PatternList", { grammars: selectedDialect.grammars });
+      navigation.navigate("PatternList", {
+        grammars: selectedDialect.grammars,
+      });
     }
   };
-  
+
   return (
     <ScreenLayout
       pageTitle={pageTitle}
-      btnLabel={btnLabel}
+      btnLabel={btnText}
       onPressHandler={() => navigateBtn(selectedDialectId)}
     >
       <DialectContainer>
