@@ -2,6 +2,7 @@ import * as a from "../rdx/actions";
 
 import React, { useEffect, useState } from "react";
 
+import { Alert } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { List } from "react-native-paper";
 import ScreenLayout from "../shared/ScreenLayout";
@@ -56,6 +57,8 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
       navigation.navigate("PatternList", {
         selectedDialect,
       });
+    } else {
+      Alert.alert("Please selet dialect");
     }
   };
 
