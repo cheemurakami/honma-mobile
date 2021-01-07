@@ -6,25 +6,27 @@ import { ScrollView } from "react-native";
 import styled from "styled-components/native";
 
 const pageTitle = "Choose your patterns";
-const btnLabel = "次行くで";
 
 export const PatternList = ({ route, navigation }) => {
-  const { grammars } = route.params;
+  const { selectedDialect } = route.params;
+  const btnLabel = selectedDialect.next_btn_text;
+
   return (
     <ScreenLayout
       pageTitle={pageTitle}
       btnLabel={btnLabel}
       backComponentName={"ChooseDialect"}
-      onPressHandler={() => navigation.navigate("Lesson")}
+      onPressHandler={() => navigation.navigate("Lesson", { selectedDialect })}
     >
       <ScrollView>
         <PatternContainer>
-          {grammars.map((grammar, index) => {
+          {selectedDialect.grammars.map((grammar, index) => {
             return (
               <ListTouchable
                 key={index}
                 onPress={() =>
                   navigation.navigate("Lesson", {
+                    selectedDialect,
                     grammar,
                   })
                 }

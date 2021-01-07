@@ -2,6 +2,7 @@ import * as a from "../rdx/actions";
 
 import React, { useEffect, useState } from "react";
 
+import { Alert } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { List } from "react-native-paper";
 import ScreenLayout from "../shared/ScreenLayout";
@@ -9,11 +10,11 @@ import { connect } from "react-redux";
 import styled from "styled-components/native";
 
 const pageTitle = "Choose your dialect";
-const btnLabel = "はじめるで";
 let counter = 0;
 
 const ChooseDialect = ({ navigation, dispatch, dialects }) => {
   const [selectedDialectId, setSelectedDialectId] = useState(null);
+  const [btnText, setBtnText] = useState("はじめましょう!!");
 
   useEffect(() => {
     fetch("http://honma-api.herokuapp.com/api/dialects")
@@ -22,7 +23,13 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
     return () => {};
   }, []);
 
-  const doubleTap = (id, grammars) => {
+  const findDialectById = (id) => {
+    return dialects.find((dialect) => dialect.id === id);
+  };
+
+  const doubleTap = (id) => {
+    changeBtnText(id);
+    const selectedDialect = findDialectById(id);
     if (selectedDialectId == id || selectedDialectId == null) {
       setSelectedDialectId(id);
       counter++;
@@ -31,7 +38,7 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
           counter = 0;
         }, 1200);
       } else if (counter === 2) {
-        navigation.navigate("PatternList", { grammars });
+        navigation.navigate("PatternList", { selectedDialect });
       }
     } else {
       setSelectedDialectId(id);
@@ -39,17 +46,26 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
     }
   };
 
+  const changeBtnText = (id) => {
+    const selectedDialect = findDialectById(id);
+    setBtnText(selectedDialect.start_btn_text);
+  };
+
   const navigateBtn = (id) => {
     if (id) {
-      const selectedDialect = dialects.find((dialect) => dialect.id === id);
-      navigation.navigate("PatternList", { grammars: selectedDialect.grammars });
+      const selectedDialect = findDialectById(id);
+      navigation.navigate("PatternList", {
+        selectedDialect,
+      });
+    } else {
+      Alert.alert("Please selet dialect");
     }
   };
-  
+
   return (
     <ScreenLayout
       pageTitle={pageTitle}
-      btnLabel={btnLabel}
+      btnLabel={btnText}
       onPressHandler={() => navigateBtn(selectedDialectId)}
     >
       <DialectContainer>
@@ -58,7 +74,7 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
             return (
               <DialectTouchable
                 key={index}
-                onPress={() => doubleTap(dialect.id, dialect.grammars)}
+                onPress={() => doubleTap(dialect.id)}
                 style={
                   selectedDialectId === dialect.id
                     ? {
