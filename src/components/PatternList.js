@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 
+import { Alert } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { List } from "react-native-paper";
 import ScreenLayout from "../shared/ScreenLayout";
 import { ScrollView } from "react-native";
 import styled from "styled-components/native";
 
-const pageTitle = "Choose your patterns";
+const pageTitle = "Choose your pattern";
 
 export const PatternList = ({ route, navigation }) => {
   const { selectedDialect } = route.params;
@@ -16,13 +17,17 @@ export const PatternList = ({ route, navigation }) => {
   const findGrammarById = (id) => {
     return selectedDialect.grammars.find((grammar) => grammar.id === id);
   };
-  
+
   const navigateBtn = (id) => {
-    const selectedGrammar = findGrammarById(id);
-    navigation.navigate("Lesson", {
-      selectedDialect,
-      grammar: selectedGrammar,
-    });
+    if (id) {
+      const selectedGrammar = findGrammarById(id);
+      navigation.navigate("Lesson", {
+        selectedDialect,
+        grammar: selectedGrammar,
+      });
+    } else {
+      Alert.alert("Please select pattern");
+    }
   };
 
   return (
