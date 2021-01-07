@@ -10,7 +10,6 @@ const pageTitle = "Choose your patterns";
 
 export const PatternList = ({ route, navigation }) => {
   const { selectedDialect } = route.params;
-
   const btnLabel = selectedDialect.next_btn_text;
 
   return (
@@ -18,7 +17,7 @@ export const PatternList = ({ route, navigation }) => {
       pageTitle={pageTitle}
       btnLabel={btnLabel}
       backComponentName={"ChooseDialect"}
-      onPressHandler={() => navigation.navigate("Lesson")}
+      onPressHandler={() => navigation.navigate("Lesson", { selectedDialect })}
     >
       <ScrollView>
         <PatternContainer>
@@ -28,6 +27,7 @@ export const PatternList = ({ route, navigation }) => {
                 key={index}
                 onPress={() =>
                   navigation.navigate("Lesson", {
+                    selectedDialect,
                     grammar,
                   })
                 }
@@ -67,8 +67,4 @@ const ListTouchable = styled.TouchableHighlight.attrs({
   border-radius: 25px;
 `;
 
-const mapStateToProps = (state) => {
-  return {
-  };
-};
-export default connect(mapStateToProps)(PatternList);
+export default connect()(PatternList);

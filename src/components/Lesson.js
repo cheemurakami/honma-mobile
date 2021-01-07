@@ -3,10 +3,9 @@ import ScreenLayout from "../shared/ScreenLayout";
 import SoundPlayButton from "../shared/SoundPlayButton";
 import styled from "styled-components/native";
 
-const btnLabel = "完了";
-
 const Lesson = ({ route }) => {
-  const { grammar } = route.params;
+  const { selectedDialect, grammar } = route.params;
+  const btnLabel = selectedDialect.complete_btn_text;
   const jpExample = grammar.examples.find(
     (example) => example.language === "jp"
   );
