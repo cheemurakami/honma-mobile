@@ -3,13 +3,16 @@ import { List } from "react-native-paper";
 import React from "react";
 import ScreenLayout from "../shared/ScreenLayout";
 import { ScrollView } from "react-native";
+import { connect } from "react-redux";
 import styled from "styled-components/native";
 
 const pageTitle = "Choose your patterns";
-const btnLabel = "次行くで";
 
-export const PatternList = ({ route, navigation }) => {
-  const { grammars } = route.params;
+export const PatternList = ({ route, navigation, dialects }) => {
+  const { grammars, id } = route.params;
+
+  const btnLabel = dialects.find((dialect) => dialect.id === id).next_btn_text;
+
   return (
     <ScreenLayout
       pageTitle={pageTitle}
@@ -64,4 +67,9 @@ const ListTouchable = styled.TouchableHighlight.attrs({
   border-radius: 25px;
 `;
 
-export default PatternList;
+const mapStateToProps = (state) => {
+  return {
+    dialects: state.dialectReducer.dialects,
+  };
+};
+export default connect(mapStateToProps)(PatternList);

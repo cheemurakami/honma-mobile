@@ -32,7 +32,7 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
           counter = 0;
         }, 1200);
       } else if (counter === 2) {
-        navigation.navigate("PatternList", { grammars });
+        navigation.navigate("PatternList", { grammars, id });
       }
     } else {
       setSelectedDialectId(id);
@@ -50,6 +50,7 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
       const selectedDialect = dialects.find((dialect) => dialect.id === id);
       navigation.navigate("PatternList", {
         grammars: selectedDialect.grammars,
+        id
       });
     }
   };
