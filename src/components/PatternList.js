@@ -13,12 +13,24 @@ export const PatternList = ({ route, navigation }) => {
   const btnLabel = selectedDialect.next_btn_text;
   const [selectedGrammarId, setSelectedGrammarId] = useState(null);
 
+  const findGrammarById = (id) => {
+    return selectedDialect.grammars.find((grammar) => grammar.id === id);
+  };
+  
+  const navigateBtn = (id) => {
+    const selectedGrammar = findGrammarById(id);
+    navigation.navigate("Lesson", {
+      selectedDialect,
+      grammar: selectedGrammar,
+    });
+  };
+
   return (
     <ScreenLayout
       pageTitle={pageTitle}
       btnLabel={btnLabel}
       backComponentName={"ChooseDialect"}
-      onPressHandler={() => navigation.navigate("Lesson", { selectedDialect })}
+      onPressHandler={() => navigateBtn(selectedGrammarId)}
     >
       <ScrollView>
         <PatternContainer>
