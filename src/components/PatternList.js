@@ -8,6 +8,7 @@ import { ScrollView } from "react-native";
 import styled from "styled-components/native";
 
 const pageTitle = "Choose your pattern";
+let counter = 0;
 
 export const PatternList = ({ route, navigation }) => {
   const { selectedDialect } = route.params;
@@ -30,6 +31,27 @@ export const PatternList = ({ route, navigation }) => {
     }
   };
 
+  const doubleTap = (id) => {
+    const selectedGrammar = findGrammarById(id);
+    if (selectedGrammarId == id || selectedGrammarId == null) {
+      setSelectedGrammarId(id);
+      counter++;
+      if (counter === 1) {
+        setTimeout(() => {
+          counter = 0;
+        }, 1200);
+      } else if (counter === 2) {
+        navigation.navigate("Lesson", {
+          selectedDialect,
+          grammar: selectedGrammar,
+        });
+      }
+    } else {
+      setSelectedGrammarId(id);
+      counter = 1;
+    }
+  };
+  
   return (
     <ScreenLayout
       pageTitle={pageTitle}
@@ -39,35 +61,36 @@ export const PatternList = ({ route, navigation }) => {
     >
       <ScrollView>
         <PatternContainer>
-          {selectedDialect.grammars.map((grammar, index) => {
-            return (
-              <ListTouchable
-                key={index}
-                onPress={() => setSelectedGrammarId(grammar.id)}
-                style={
-                  selectedGrammarId === grammar.id
-                    ? {
-                        backgroundColor: "#7fc8f8",
-                      }
-                    : { backgroundColor: "#fff" }
-                }
-              >
-                <List.Item
-                  title={grammar.label}
-                  titleNumberOfLines={2}
-                  titleStyle={{ fontSize: 20 }}
-                  style={{ width: "100%" }}
-                  left={() => (
-                    <Icon
-                      name="leaf"
-                      size={30}
-                      style={{ margin: 10, color: "#aacc00" }}
-                    />
-                  )}
-                />
-              </ListTouchable>
-            );
-          })}
+          {selectedDialect.grammars &&
+            selectedDialect.grammars.map((grammar, index) => {
+              return (
+                <ListTouchable
+                  key={index}
+                  onPress={() => doubleTap(grammar.id)}
+                  style={
+                    selectedGrammarId === grammar.id
+                      ? {
+                          backgroundColor: "#7fc8f8",
+                        }
+                      : { backgroundColor: "#fff" }
+                  }
+                >
+                  <List.Item
+                    title={grammar.label}
+                    titleNumberOfLines={2}
+                    titleStyle={{ fontSize: 20 }}
+                    style={{ width: "100%" }}
+                    left={() => (
+                      <Icon
+                        name="leaf"
+                        size={30}
+                        style={{ margin: 10, color: "#aacc00" }}
+                      />
+                    )}
+                  />
+                </ListTouchable>
+              );
+            })}
         </PatternContainer>
       </ScrollView>
     </ScreenLayout>
