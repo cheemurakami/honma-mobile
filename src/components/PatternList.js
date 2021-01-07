@@ -1,6 +1,7 @@
+import React, { useState } from "react";
+
 import Icon from "react-native-vector-icons/FontAwesome";
 import { List } from "react-native-paper";
-import React from "react";
 import ScreenLayout from "../shared/ScreenLayout";
 import { ScrollView } from "react-native";
 import styled from "styled-components/native";
@@ -10,6 +11,7 @@ const pageTitle = "Choose your patterns";
 export const PatternList = ({ route, navigation }) => {
   const { selectedDialect } = route.params;
   const btnLabel = selectedDialect.next_btn_text;
+  const [selectedGrammarId, setSelectedGrammarId] = useState(null);
 
   return (
     <ScreenLayout
@@ -24,11 +26,13 @@ export const PatternList = ({ route, navigation }) => {
             return (
               <ListTouchable
                 key={index}
-                onPress={() =>
-                  navigation.navigate("Lesson", {
-                    selectedDialect,
-                    grammar,
-                  })
+                onPress={() => setSelectedGrammarId(grammar.id)}
+                style={
+                  selectedGrammarId === grammar.id
+                    ? {
+                        backgroundColor: "#7fc8f8",
+                      }
+                    : { backgroundColor: "#fff" }
                 }
               >
                 <List.Item
