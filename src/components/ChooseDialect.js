@@ -22,9 +22,13 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
     return () => {};
   }, []);
 
+  const findDialectById = (id) => {
+    return dialects.find((dialect) => dialect.id === id);
+  };
+
   const doubleTap = (id) => {
     changeBtnText(id);
-    const selectedDialect = dialects.find((dialect) => dialect.id === id);
+    const selectedDialect = findDialectById(id);
     if (selectedDialectId == id || selectedDialectId == null) {
       setSelectedDialectId(id);
       counter++;
@@ -42,13 +46,13 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
   };
 
   const changeBtnText = (id) => {
-    const selectedDialect = dialects.find((dialect) => dialect.id === id);
+    const selectedDialect = findDialectById(id);
     setBtnText(selectedDialect.start_btn_text);
   };
 
   const navigateBtn = (id) => {
     if (id) {
-      const selectedDialect = dialects.find((dialect) => dialect.id === id);
+      const selectedDialect = findDialectById(id);
       navigation.navigate("PatternList", {
         selectedDialect,
       });
