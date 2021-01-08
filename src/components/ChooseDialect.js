@@ -58,7 +58,7 @@ const ChooseDialect = ({ navigation, dispatch, dialects }) => {
         selectedDialect,
       });
     } else {
-      Alert.alert("Please selet dialect");
+      Alert.alert("Please select dialect");
     }
   };
 
