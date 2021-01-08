@@ -51,7 +51,7 @@ export const PatternList = ({ route, navigation }) => {
       counter = 1;
     }
   };
-  
+
   return (
     <ScreenLayout
       pageTitle={pageTitle}
@@ -76,9 +76,11 @@ export const PatternList = ({ route, navigation }) => {
                   }
                 >
                   <List.Item
-                    title={grammar.label}
-                    titleNumberOfLines={2}
-                    titleStyle={{ fontSize: 20 }}
+                    title={`Lesson ${grammar.position + 1}`}
+                    description={grammar.label}
+                    titleNumberOfLines={1}
+                    descriptionStyle={{ fontSize: 20, color: "black" }}
+                    titleStyle={{ fontSize: 16 }}
                     style={{ width: "100%" }}
                     left={() => (
                       <Icon
