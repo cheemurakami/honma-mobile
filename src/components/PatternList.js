@@ -7,13 +7,13 @@ import ScreenLayout from "../shared/ScreenLayout";
 import { ScrollView } from "react-native";
 import styled from "styled-components/native";
 
-const pageTitle = "Choose your pattern";
 let counter = 0;
 
 export const PatternList = ({ route, navigation }) => {
   const { selectedDialect } = route.params;
   const btnLabel = selectedDialect.next_btn_text;
   const [selectedGrammarId, setSelectedGrammarId] = useState(null);
+  const pageTitle = selectedDialect.name_jp + " " + selectedDialect.name_en;
 
   const findGrammarById = (id) => {
     return selectedDialect.grammars.find((grammar) => grammar.id === id);
@@ -51,7 +51,7 @@ export const PatternList = ({ route, navigation }) => {
       counter = 1;
     }
   };
-  
+
   return (
     <ScreenLayout
       pageTitle={pageTitle}
@@ -76,9 +76,11 @@ export const PatternList = ({ route, navigation }) => {
                   }
                 >
                   <List.Item
-                    title={grammar.label}
-                    titleNumberOfLines={2}
-                    titleStyle={{ fontSize: 20 }}
+                    title={`Lesson ${grammar.position + 1}`}
+                    description={grammar.label}
+                    titleNumberOfLines={1}
+                    descriptionStyle={{ fontSize: 20, color: "black" }}
+                    titleStyle={{ fontSize: 16 }}
                     style={{ width: "100%" }}
                     left={() => (
                       <Icon
