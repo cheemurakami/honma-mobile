@@ -7,13 +7,13 @@ import ScreenLayout from "../shared/ScreenLayout";
 import { ScrollView } from "react-native";
 import styled from "styled-components/native";
 
-const pageTitle = "Choose your pattern";
 let counter = 0;
 
 export const PatternList = ({ route, navigation }) => {
   const { selectedDialect } = route.params;
   const btnLabel = selectedDialect.next_btn_text;
   const [selectedGrammarId, setSelectedGrammarId] = useState(null);
+  const pageTitle = selectedDialect.name_jp + " " + selectedDialect.name_en;
 
   const findGrammarById = (id) => {
     return selectedDialect.grammars.find((grammar) => grammar.id === id);
