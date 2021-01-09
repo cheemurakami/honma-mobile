@@ -13,9 +13,9 @@ const Lesson = ({ route, navigation }) => {
     (example) => example.language === "en"
   );
 
-  const navigateBtn = (position) => {
+  const navigateBtn = () => {
     const nextGrammar = selectedDialect.grammars.find(
-      (grammar) => grammar.position === position + 1
+      (g) => g.position === grammar.position + 1
     );
     if (nextGrammar) {
       navigation.navigate("Lesson", { selectedDialect, grammar: nextGrammar });
@@ -29,7 +29,7 @@ const Lesson = ({ route, navigation }) => {
       pageTitle={grammar.label}
       btnLabel={btnLabel}
       backComponentName={"PatternList"}
-      onPressHandler={() => navigateBtn(grammar.position)}
+      onPressHandler={() => navigateBtn()}
     >
       <MediaContainer>
         {jpExample.audio_clip_url && (
