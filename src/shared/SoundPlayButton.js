@@ -1,9 +1,12 @@
+import React, { useState } from "react";
+
 import { Audio } from "expo-av";
 import Icon from "react-native-vector-icons/FontAwesome";
-import React from "react";
 
 const SoundPlayButton = ({ soundSource }) => {
-  const [sound, setSound] = React.useState();
+  const [sound, setSound] = useState();
+  const [isPressed, setIsPressed] = useState(false);
+
   async function playSound() {
     const { sound } = await Audio.Sound.createAsync({ uri: soundSource });
     setSound(sound);
@@ -19,12 +22,19 @@ const SoundPlayButton = ({ soundSource }) => {
       : undefined;
   }, [sound]);
 
+  const btnPressed = () => {
+    setIsPressed(true);
+    setTimeout(() => {
+      setIsPressed(false);
+    }, 200);
+  };
+
   return (
     <Icon
       name="play-circle-o"
-      style={{ color: "#EBEBEB" }}
+      style={isPressed ? { color: "#7d8b91" } : { color: "#EBEBEB" }}
       size={150}
-      onPress={playSound}
+      onPress={(playSound, () => btnPressed())}
     />
   );
 };
