@@ -3,7 +3,7 @@ import ScreenLayout from "../shared/ScreenLayout";
 import SoundPlayButton from "../shared/SoundPlayButton";
 import styled from "styled-components/native";
 
-const Lesson = ({ route }) => {
+const Lesson = ({ route, navigation }) => {
   const { selectedDialect, grammar } = route.params;
   const btnLabel = selectedDialect.complete_btn_text;
   const jpExample = grammar.examples.find(
@@ -12,11 +12,24 @@ const Lesson = ({ route }) => {
   const enExample = grammar.examples.find(
     (example) => example.language === "en"
   );
+
+  const navigateBtn = (position) => {
+    const nextGrammar = selectedDialect.grammars.find(
+      (grammar) => grammar.position === position + 1
+    );
+    if (nextGrammar) {
+      navigation.navigate("Lesson", { selectedDialect, grammar: nextGrammar });
+    } else {
+      navigation.navigate("PatternList", { selectedDialect });
+    }
+  };
+
   return (
     <ScreenLayout
       pageTitle={grammar.label}
       btnLabel={btnLabel}
       backComponentName={"PatternList"}
+      onPressHandler={() => navigateBtn(grammar.position)}
     >
       <MediaContainer>
         {jpExample.audio_clip_url && (
