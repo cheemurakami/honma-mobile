@@ -4,9 +4,9 @@ import React from "react";
 import ScreenLayout from "../shared/ScreenLayout";
 import SoundPlayButton from "../shared/SoundPlayButton";
 import { connect } from "react-redux";
-import styled from "styled-components/native"
+import styled from "styled-components/native";
 
-const Lesson = ({ route, navigation, dispatch }) => {
+const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
   const { selectedDialect, grammar } = route.params;
   const btnLabel = selectedDialect.complete_btn_text;
   const jpExample = grammar.examples.find(
@@ -17,8 +17,8 @@ const Lesson = ({ route, navigation, dispatch }) => {
   );
 
   const completeBtn = () => {
-    const action = a.completedGrammars(grammar.id)
-    dispatch(action)
+    const action = a.completedGrammars(grammar.id);
+    dispatch(action);
     const nextGrammar = selectedDialect.grammars.find(
       (g) => g.position === grammar.position + 1
     );
@@ -26,6 +26,15 @@ const Lesson = ({ route, navigation, dispatch }) => {
       navigation.navigate("Lesson", { selectedDialect, grammar: nextGrammar });
     } else {
       navigation.navigate("PatternList", { selectedDialect });
+    }
+  };
+
+  const showCompletedAt = () => {
+    if (completedGrammars[grammar.id]) {
+      const completedDate = new Date(
+        completedGrammars[grammar.id]
+      ).toLocaleDateString();
+      return <BodySubText>Completed at {completedDate}</BodySubText>;
     }
   };
 
@@ -42,6 +51,7 @@ const Lesson = ({ route, navigation, dispatch }) => {
         )}
       </MediaContainer>
       <BodyText>{grammar.description}</BodyText>
+      {showCompletedAt()}
       <ExampleContainer>
         <BodyTextExample>A: {jpExample.sentence1}</BodyTextExample>
         <BodyTextExample>B: {jpExample.sentence2}</BodyTextExample>
@@ -57,6 +67,14 @@ const BodyText = styled.Text`
   font-size: 20px;
   margin: 10px;
   font-weight: bold;
+`;
+
+const BodySubText = styled.Text`
+  text-align: center;
+  font-size: 18px;
+  margin: 8px;
+  font-weight: bold;
+  color: #a3a3a3;
 `;
 
 const BodyTextExample = styled.Text`
@@ -76,7 +94,12 @@ const MediaContainer = styled.View`
 
 const ExampleContainer = styled.View`
   padding: 10px;
-  margin-top: 30px;
+  margin-top: 10px;
 `;
 
-export default connect()(Lesson);
+const mapStateToProps = (state) => {
+  return {
+    completedGrammars: state.completedGrammarsReducer,
+  };
+};
+export default connect(mapStateToProps)(Lesson);
