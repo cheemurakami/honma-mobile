@@ -5,11 +5,12 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { List } from "react-native-paper";
 import ScreenLayout from "../shared/ScreenLayout";
 import { ScrollView } from "react-native";
+import { connect } from "react-redux";
 import styled from "styled-components/native";
 
 let counter = 0;
 
-export const PatternList = ({ route, navigation }) => {
+const PatternList = ({ route, navigation, completedGrammars }) => {
   const { selectedDialect } = route.params;
   const btnLabel = selectedDialect.next_btn_text;
   const [selectedGrammarId, setSelectedGrammarId] = useState(null);
@@ -112,4 +113,11 @@ const ListTouchable = styled.TouchableHighlight.attrs({
   border-radius: 25px;
 `;
 
-export default PatternList;
+const mapStateToProps = (state) => {
+  console.log(state.completedGrammarsReducer)
+  return {
+    completedGrammars: state.completedGrammarsReducer,
+  };
+};
+
+export default connect(mapStateToProps)(PatternList);

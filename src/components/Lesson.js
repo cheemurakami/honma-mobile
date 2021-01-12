@@ -1,9 +1,12 @@
+import * as a from "../rdx/actions";
+
 import React from "react";
 import ScreenLayout from "../shared/ScreenLayout";
 import SoundPlayButton from "../shared/SoundPlayButton";
-import styled from "styled-components/native";
+import { connect } from "react-redux";
+import styled from "styled-components/native"
 
-const Lesson = ({ route, navigation }) => {
+const Lesson = ({ route, navigation, dispatch }) => {
   const { selectedDialect, grammar } = route.params;
   const btnLabel = selectedDialect.complete_btn_text;
   const jpExample = grammar.examples.find(
@@ -14,6 +17,8 @@ const Lesson = ({ route, navigation }) => {
   );
 
   const completeBtn = () => {
+    const action = a.completedGrammars(grammar.id)
+    dispatch(action)
     const nextGrammar = selectedDialect.grammars.find(
       (g) => g.position === grammar.position + 1
     );
@@ -74,4 +79,4 @@ const ExampleContainer = styled.View`
   margin-top: 30px;
 `;
 
-export default Lesson;
+export default connect()(Lesson);

@@ -6,8 +6,7 @@ export default (state = {}, action) => {
       const currentState = {...state}
       return {
         ...currentState,
-        completedGrammarId: action.id, 
-        completedAt: new Date(),
+        [action.id]: new Date(),
       }
     }
     default:
