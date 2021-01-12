@@ -1,10 +1,13 @@
+import { Dimensions, View } from "react-native";
+
 import FooterButton from "../shared/FooterButton";
 import Icon from "react-native-vector-icons/FontAwesome";
 import React from "react";
 import { Title } from "react-native-paper";
-import { View } from "react-native";
 import styled from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
+
+const { height } = Dimensions.get("window");
 
 const ScreenLayout = (props) => {
   const navigation = useNavigation();
@@ -38,7 +41,7 @@ const ScreenLayout = (props) => {
 
 const BodyContainer = styled.View`
   background-color: white;
-  height: 80%;
+  height: ${height * 0.7};
   margin: 10px;
 `;
 
