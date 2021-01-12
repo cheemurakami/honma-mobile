@@ -5,11 +5,12 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { List } from "react-native-paper";
 import ScreenLayout from "../shared/ScreenLayout";
 import { ScrollView } from "react-native";
+import { connect } from "react-redux";
 import styled from "styled-components/native";
 
 let counter = 0;
 
-export const PatternList = ({ route, navigation }) => {
+const PatternList = ({ route, navigation, completedGrammars }) => {
   const { selectedDialect } = route.params;
   const btnLabel = selectedDialect.next_btn_text;
   const [selectedGrammarId, setSelectedGrammarId] = useState(null);
@@ -52,6 +53,14 @@ export const PatternList = ({ route, navigation }) => {
     }
   };
 
+  const iconName = (id) => {
+    if (completedGrammars[id]){
+      return "check"
+    } else {
+      return "leaf"
+    }
+  }
+  
   return (
     <ScreenLayout
       pageTitle={pageTitle}
@@ -84,7 +93,7 @@ export const PatternList = ({ route, navigation }) => {
                     style={{ width: "100%" }}
                     left={() => (
                       <Icon
-                        name="leaf"
+                        name={iconName(grammar.id)}
                         size={30}
                         style={{ margin: 10, color: "#aacc00" }}
                       />
@@ -112,4 +121,11 @@ const ListTouchable = styled.TouchableHighlight.attrs({
   border-radius: 25px;
 `;
 
-export default PatternList;
+const mapStateToProps = (state) => {
+  return {
+    completedGrammars: state.completedGrammarsReducer,
+  };
+};
+
+export default connect(mapStateToProps)(PatternList);
+// 
