@@ -53,6 +53,14 @@ const PatternList = ({ route, navigation, completedGrammars }) => {
     }
   };
 
+  const iconName = (id) => {
+    if (completedGrammars[id]){
+      return "check"
+    } else {
+      return "leaf"
+    }
+  }
+  
   return (
     <ScreenLayout
       pageTitle={pageTitle}
@@ -85,7 +93,7 @@ const PatternList = ({ route, navigation, completedGrammars }) => {
                     style={{ width: "100%" }}
                     left={() => (
                       <Icon
-                        name="leaf"
+                        name={iconName(grammar.id)}
                         size={30}
                         style={{ margin: 10, color: "#aacc00" }}
                       />
@@ -114,7 +122,6 @@ const ListTouchable = styled.TouchableHighlight.attrs({
 `;
 
 const mapStateToProps = (state) => {
-  console.log(state.completedGrammarsReducer)
   return {
     completedGrammars: state.completedGrammarsReducer,
   };
