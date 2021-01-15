@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { Text, View } from "react-native";
 
 import { connect } from "react-redux";
+import styled from "styled-components/native";
 
 const Loading = ({ navigation, dialects, dispatch }) => {
   useEffect(() => {
@@ -15,15 +16,30 @@ const Loading = ({ navigation, dialects, dispatch }) => {
 
   if (dialects && dialects.length > 0) {
     navigation.navigate("ChooseDialect");
-    return null
+    return null;
   } else {
     return (
-      <View>
-        <Text>Hello</Text>
-      </View>
+      <LoadingContainer>
+        <TextHonma>Honma</TextHonma>
+        <TextLoading>Loading...</TextLoading>
+      </LoadingContainer>
     );
   }
 };
+
+const LoadingContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+const TextHonma = styled.Text`
+  font-size: 48px;
+  color: #fff;
+  font-weight: bold;
+`;
+const TextLoading = styled.Text`
+  font-size: 18px;
+`;
 
 const mapStateToProps = (state) => {
   return {
