@@ -69,16 +69,16 @@ const ChooseDialect = ({ navigation, dialects }) => {
                 style={
                   selectedDialectId === dialect.id
                     ? {
-                        backgroundColor: "#7fc8f8",
-                      }
+                      backgroundColor: "#7fc8f8",
+                    }
                     : { backgroundColor: "#fff" }
                 }
               >
                 <List.Item
                   title={dialect.name_jp + " " + dialect.name_en}
                   titleNumberOfLines={2}
-                  titleStyle={{ fontSize: 20 }}
-                  style={{ width: "100%" }}
+                  titleStyle={ selectedDialectId === dialect.id ? { fontSize: 20, color: "#fff" } : {fontSize: 20}}
+                  style={{ width: "100%", }}
                   left={() => (
                     <Icon
                       name="flower-poppy"

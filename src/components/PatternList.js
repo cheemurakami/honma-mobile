@@ -88,8 +88,10 @@ const PatternList = ({ route, navigation, completedGrammars }) => {
                     title={`Lesson ${grammar.position + 1}`}
                     description={grammar.label}
                     titleNumberOfLines={1}
-                    descriptionStyle={{ fontSize: 20, color: "black" }}
-                    titleStyle={{ fontSize: 16 }}
+                    descriptionStyle={selectedGrammarId === grammar.id
+                      ? { fontSize: 20, color: "#fff" }: { fontSize: 20}}
+                    titleStyle={selectedGrammarId === grammar.id
+                      ? { fontSize: 16, color: "#fff" }:{ fontSize: 16 }}
                     style={{ width: "100%" }}
                     left={() => (
                       <Icon
