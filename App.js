@@ -1,5 +1,6 @@
 import ChooseDialect from "./src/components/ChooseDialect";
 import Lesson from "./src/components/Lesson";
+import Loading from "./src/components/Loading";
 import { NavigationContainer } from "@react-navigation/native";
 import PatternList from "./src/components/PatternList";
 import { Provider } from "react-redux";
@@ -23,6 +24,7 @@ export default function App() {
               },
             }}
           >
+            <Stack.Screen name="Loading" component={Loading} />
             <Stack.Screen name="ChooseDialect" component={ChooseDialect} />
             <Stack.Screen name="PatternList" component={PatternList} />
             <Stack.Screen name="Lesson" component={Lesson} />
