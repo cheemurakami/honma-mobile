@@ -1,6 +1,4 @@
-import * as a from "../rdx/actions";
-
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { Alert } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -12,16 +10,9 @@ import styled from "styled-components/native";
 const pageTitle = "Choose your dialect";
 let counter = 0;
 
-const ChooseDialect = ({ navigation, dispatch, dialects }) => {
+const ChooseDialect = ({ navigation, dialects }) => {
   const [selectedDialectId, setSelectedDialectId] = useState(null);
   const [btnText, setBtnText] = useState("はじめましょう!!");
-
-  useEffect(() => {
-    fetch("http://honma-api.herokuapp.com/api/dialects")
-      .then((resp) => resp.json())
-      .then((resp) => dispatch(a.loadedDialects(resp)));
-    return () => {};
-  }, []);
 
   const findDialectById = (id) => {
     return dialects.find((dialect) => dialect.id === id);
