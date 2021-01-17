@@ -9,6 +9,8 @@ import styled from "styled-components/native";
 
 const pageTitle = "Choose your dialect";
 let counter = 0;
+const defaultTitleStyle = { fontSize: 20 };
+const selectedTitleStyle = { ...defaultTitleStyle, color: "#fff" };
 
 const ChooseDialect = ({ navigation, dialects }) => {
   const [selectedDialectId, setSelectedDialectId] = useState(null);
@@ -69,16 +71,16 @@ const ChooseDialect = ({ navigation, dialects }) => {
                 style={
                   selectedDialectId === dialect.id
                     ? {
-                        backgroundColor: "#7fc8f8",
-                      }
+                      backgroundColor: "#7fc8f8",
+                    }
                     : { backgroundColor: "#fff" }
                 }
               >
                 <List.Item
                   title={dialect.name_jp + " " + dialect.name_en}
                   titleNumberOfLines={2}
-                  titleStyle={{ fontSize: 20 }}
-                  style={{ width: "100%" }}
+                  titleStyle={ selectedDialectId === dialect.id ? selectedTitleStyle : defaultTitleStyle}
+                  style={{ width: "100%", }}
                   left={() => (
                     <Icon
                       name="flower-poppy"

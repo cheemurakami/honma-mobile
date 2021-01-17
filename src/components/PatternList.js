@@ -9,6 +9,10 @@ import { connect } from "react-redux";
 import styled from "styled-components/native";
 
 let counter = 0;
+const defaultDescriptionStyle = { fontSize: 20 };
+const selectedDescriptionStyle = { ...defaultDescriptionStyle, color: "#fff" };
+const defaultTitleStyle = { fontSize: 16 };
+const selectedTitleStyle = { ...defaultTitleStyle, color: "#fff" };
 
 const PatternList = ({ route, navigation, completedGrammars }) => {
   const { selectedDialect } = route.params;
@@ -54,13 +58,13 @@ const PatternList = ({ route, navigation, completedGrammars }) => {
   };
 
   const iconName = (id) => {
-    if (completedGrammars[id]){
-      return "check"
+    if (completedGrammars[id]) {
+      return "check";
     } else {
-      return "leaf"
+      return "leaf";
     }
-  }
-  
+  };
+
   return (
     <ScreenLayout
       pageTitle={pageTitle}
@@ -88,8 +92,16 @@ const PatternList = ({ route, navigation, completedGrammars }) => {
                     title={`Lesson ${grammar.position + 1}`}
                     description={grammar.label}
                     titleNumberOfLines={1}
-                    descriptionStyle={{ fontSize: 20, color: "black" }}
-                    titleStyle={{ fontSize: 16 }}
+                    descriptionStyle={
+                      selectedGrammarId === grammar.id
+                        ? selectedDescriptionStyle
+                        : defaultDescriptionStyle
+                    }
+                    titleStyle={
+                      selectedGrammarId === grammar.id
+                        ? selectedTitleStyle
+                        : defaultTitleStyle
+                    }
                     style={{ width: "100%" }}
                     left={() => (
                       <Icon
@@ -128,4 +140,4 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(PatternList);
-// 
+//
