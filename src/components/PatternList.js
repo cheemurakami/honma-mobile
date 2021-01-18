@@ -23,7 +23,7 @@ const PatternList = ({ route, navigation, completedGrammars }) => {
 
   const navigateBtn = () => {
     if (selectedGrammarId) {
-      const selectedGrammar = FindById(selectedDialect.grammars, id);
+      const selectedGrammar = FindById(selectedDialect.grammars, selectedGrammarId);
       navigation.navigate("Lesson", {
         selectedDialect,
         grammar: selectedGrammar,
