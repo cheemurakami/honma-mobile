@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { Alert } from "react-native";
+import FindById from "./helpers/FindById";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { List } from "react-native-paper";
 import ScreenLayout from "../shared/ScreenLayout";
@@ -16,13 +17,9 @@ const ChooseDialect = ({ navigation, dialects }) => {
   const [selectedDialectId, setSelectedDialectId] = useState(null);
   const [btnText, setBtnText] = useState("はじめましょう!!");
 
-  const findDialectById = (id) => {
-    return dialects.find((dialect) => dialect.id === id);
-  };
-
   const doubleTap = (id) => {
     changeBtnText(id);
-    const selectedDialect = findDialectById(id);
+    const selectedDialect = FindById(dialects, id);
     if (selectedDialectId == id || selectedDialectId == null) {
       setSelectedDialectId(id);
       counter++;
@@ -40,13 +37,13 @@ const ChooseDialect = ({ navigation, dialects }) => {
   };
 
   const changeBtnText = (id) => {
-    const selectedDialect = findDialectById(id);
+    const selectedDialect = FindById(dialects,id);
     setBtnText(selectedDialect.start_btn_text);
   };
 
   const navigateBtn = (id) => {
     if (id) {
-      const selectedDialect = findDialectById(id);
+      const selectedDialect = FindById(dialects, id);
       navigation.navigate("PatternList", {
         selectedDialect,
       });

@@ -1,7 +1,6 @@
 import * as a from "../rdx/actions";
 
 import React, { useEffect } from "react";
-import { Text, View } from "react-native";
 
 import { connect } from "react-redux";
 import styled from "styled-components/native";

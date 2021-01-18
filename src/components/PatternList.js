@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { Alert } from "react-native";
+import FindById from "./helpers/FindById"
 import Icon from "react-native-vector-icons/FontAwesome";
 import { List } from "react-native-paper";
 import ScreenLayout from "../shared/ScreenLayout";
@@ -20,13 +21,9 @@ const PatternList = ({ route, navigation, completedGrammars }) => {
   const [selectedGrammarId, setSelectedGrammarId] = useState(null);
   const pageTitle = selectedDialect.name_jp + " " + selectedDialect.name_en;
 
-  const findGrammarById = (id) => {
-    return selectedDialect.grammars.find((grammar) => grammar.id === id);
-  };
-
-  const navigateBtn = (id) => {
-    if (id) {
-      const selectedGrammar = findGrammarById(id);
+  const navigateBtn = () => {
+    if (selectedGrammarId) {
+      const selectedGrammar = FindById(selectedDialect.grammars, id);
       navigation.navigate("Lesson", {
         selectedDialect,
         grammar: selectedGrammar,
@@ -37,7 +34,7 @@ const PatternList = ({ route, navigation, completedGrammars }) => {
   };
 
   const doubleTap = (id) => {
-    const selectedGrammar = findGrammarById(id);
+    const selectedGrammar = FindById(selectedDialect.grammars, id);
     if (selectedGrammarId == id || selectedGrammarId == null) {
       setSelectedGrammarId(id);
       counter++;
@@ -70,7 +67,7 @@ const PatternList = ({ route, navigation, completedGrammars }) => {
       pageTitle={pageTitle}
       btnLabel={btnLabel}
       backComponentName={"ChooseDialect"}
-      onPressHandler={() => navigateBtn(selectedGrammarId)}
+      onPressHandler={() => navigateBtn()}
     >
       <ScrollView>
         <PatternContainer>
