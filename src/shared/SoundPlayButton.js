@@ -8,6 +8,7 @@ const SoundPlayButton = ({ soundSource }) => {
   const [isPressed, setIsPressed] = useState(false);
 
   async function playSound() {
+    btnPressed();
     const { sound } = await Audio.Sound.createAsync({ uri: soundSource });
     setSound(sound);
 
@@ -34,7 +35,7 @@ const SoundPlayButton = ({ soundSource }) => {
       name="play-circle-o"
       style={isPressed ? { color: "#7d8b91" } : { color: "#EBEBEB" }}
       size={150}
-      onPress={(playSound, () => btnPressed())}
+      onPress={() => playSound()}
     />
   );
 };

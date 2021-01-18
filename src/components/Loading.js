@@ -10,21 +10,16 @@ const Loading = ({ navigation, dialects, dispatch }) => {
   useEffect(() => {
     fetch("http://honma-api.herokuapp.com/api/dialects")
       .then((resp) => resp.json())
-      .then((resp) => dispatch(a.loadedDialects(resp)));
+      .then((resp) => dispatch(a.loadedDialects(resp)))
+      .then(() => navigation.navigate("ChooseDialect"));
     return () => {};
   }, []);
-
-  if (dialects && dialects.length > 0) {
-    navigation.navigate("ChooseDialect");
-    return null;
-  } else {
-    return (
-      <LoadingContainer>
-        <TextHonma>Honma</TextHonma>
-        <TextLoading>Loading...</TextLoading>
-      </LoadingContainer>
-    );
-  }
+  return (
+    <LoadingContainer>
+      <TextHonma>Honma</TextHonma>
+      <TextLoading>Loading...</TextLoading>
+    </LoadingContainer>
+  );
 };
 
 const LoadingContainer = styled.View`
