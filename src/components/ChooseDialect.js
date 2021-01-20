@@ -53,6 +53,20 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
     }
   };
 
+  const completedNumber = (dialectGrammars) => {
+    const completedGrammarsIds = Object.keys(completedGrammars);
+    const dialectGrammarIds = dialectGrammars.map((grammar) =>
+      grammar.id.toString()
+    );
+    let count = 0;
+    completedGrammarsIds.forEach((id) => {
+      if (dialectGrammarIds.includes(id)) {
+        count += 1;
+      }
+    });
+    return count;
+  };
+
   return (
     <ScreenLayout
       pageTitle={pageTitle}
@@ -92,7 +106,10 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
                   )}
                   right={() => (
                     <ProgressIcon>
-                      <ProgressText>10/12</ProgressText>
+                      <ProgressText>
+                        {completedNumber(dialect.grammars)}/
+                        {dialect.grammars.length}
+                      </ProgressText>
                       <ProgressText>Lesson</ProgressText>
                     </ProgressIcon>
                   )}
