@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Text, View } from "react-native";
 
 import { Alert } from "react-native";
 import FindById from "./helpers/FindById";
@@ -13,7 +14,7 @@ let counter = 0;
 const defaultTitleStyle = { fontSize: 20 };
 const selectedTitleStyle = { ...defaultTitleStyle, color: "#fff" };
 
-const ChooseDialect = ({ navigation, dialects }) => {
+const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
   const [selectedDialectId, setSelectedDialectId] = useState(null);
   const [btnText, setBtnText] = useState("はじめましょう!!");
 
@@ -37,7 +38,7 @@ const ChooseDialect = ({ navigation, dialects }) => {
   };
 
   const changeBtnText = (id) => {
-    const selectedDialect = FindById(dialects,id);
+    const selectedDialect = FindById(dialects, id);
     setBtnText(selectedDialect.start_btn_text);
   };
 
@@ -68,22 +69,32 @@ const ChooseDialect = ({ navigation, dialects }) => {
                 style={
                   selectedDialectId === dialect.id
                     ? {
-                      backgroundColor: "#7fc8f8",
-                    }
+                        backgroundColor: "#7fc8f8",
+                      }
                     : { backgroundColor: "#fff" }
                 }
               >
                 <List.Item
                   title={dialect.name_jp + " " + dialect.name_en}
                   titleNumberOfLines={2}
-                  titleStyle={ selectedDialectId === dialect.id ? selectedTitleStyle : defaultTitleStyle}
-                  style={{ width: "100%", }}
+                  titleStyle={
+                    selectedDialectId === dialect.id
+                      ? selectedTitleStyle
+                      : defaultTitleStyle
+                  }
+                  style={{ width: "100%" }}
                   left={() => (
                     <Icon
                       name="flower-poppy"
-                      size={30}
+                      size={45}
                       style={{ margin: 10, color: "#aacc00" }}
                     />
+                  )}
+                  right={() => (
+                    <ProgressIcon>
+                      <ProgressText>10/12</ProgressText>
+                      <ProgressText>Lesson</ProgressText>
+                    </ProgressIcon>
                   )}
                 />
               </DialectTouchable>
@@ -107,9 +118,24 @@ const DialectTouchable = styled.TouchableHighlight.attrs({
   border-radius: 25px;
 `;
 
+const ProgressIcon = styled.View`
+  width: 70px;
+  height: 45px;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: #f6a704;
+  align-items: center;
+  justify-content: center;
+`;
+const ProgressText = styled.Text`
+  color: #fff;
+  font-weight: bold;
+`;
+
 const mapStateToProps = (state) => {
   return {
     dialects: state.dialectReducer.dialects,
+    completedGrammars: state.completedGrammarsReducer,
   };
 };
 
