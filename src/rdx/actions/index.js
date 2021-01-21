@@ -6,10 +6,9 @@ export const loadedDialects = (dialects) => {
     dialects,
   }
 }
-export const completedGrammars = (dialectId, grammarId) => {
+export const completedGrammars = (grammarId) => {
   return {
     type: c.COMPLETED_GRAMMARS,
-    dialectId,
     grammarId,
   }
 }

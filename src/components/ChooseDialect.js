@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Text, View } from "react-native";
 
 import { Alert } from "react-native";
 import FindById from "./helpers/FindById";
