@@ -11,11 +11,11 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
   const btnLabel = selectedDialect.complete_btn_text;
   const jpExample = grammar.examples.find(
     (example) => example.language === "jp"
-  );
-  const enExample = grammar.examples.find(
-    (example) => example.language === "en"
-  );
-
+    );
+    const enExample = grammar.examples.find(
+      (example) => example.language === "en"
+      );
+      
   const completeBtn = () => {
     const action = a.completedGrammars(grammar.id);
     dispatch(action);
