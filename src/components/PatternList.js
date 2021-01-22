@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { Alert } from "react-native";
-import FindById from "./helpers/FindById"
+import FindById from "./helpers/FindById";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { List } from "react-native-paper";
 import ScreenLayout from "../shared/ScreenLayout";
@@ -23,7 +23,10 @@ const PatternList = ({ route, navigation, completedGrammars }) => {
 
   const navigateBtn = () => {
     if (selectedGrammarId) {
-      const selectedGrammar = FindById(selectedDialect.grammars, selectedGrammarId);
+      const selectedGrammar = FindById(
+        selectedDialect.grammars,
+        selectedGrammarId
+      );
       navigation.navigate("Lesson", {
         selectedDialect,
         grammar: selectedGrammar,
@@ -43,6 +46,7 @@ const PatternList = ({ route, navigation, completedGrammars }) => {
           counter = 0;
         }, 1200);
       } else if (counter === 2) {
+        counter = 0;
         navigation.navigate("Lesson", {
           selectedDialect,
           grammar: selectedGrammar,
