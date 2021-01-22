@@ -11,11 +11,11 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
   const btnLabel = selectedDialect.complete_btn_text;
   const jpExample = grammar.examples.find(
     (example) => example.language === "jp"
-    );
-    const enExample = grammar.examples.find(
-      (example) => example.language === "en"
-      );
-      
+  );
+  const enExample = grammar.examples.find(
+    (example) => example.language === "en"
+  );
+
   const completeBtn = () => {
     const action = a.completedGrammars(grammar.id);
     dispatch(action);
@@ -23,6 +23,8 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
       (g) => g.position === grammar.position + 1
     );
     if (nextGrammar) {
+      const action = a.selectedGrammar(nextGrammar.id);
+      dispatch(action);
       navigation.navigate("Lesson", { selectedDialect, grammar: nextGrammar });
     } else {
       navigation.navigate("PatternList", { selectedDialect });
@@ -99,7 +101,7 @@ const ExampleContainer = styled.View`
 
 const mapStateToProps = (state) => {
   return {
-    completedGrammars: state.completedGrammarsReducer,
+    completedGrammars: state.grammarsReducer.completedIds,
   };
 };
 export default connect(mapStateToProps)(Lesson);
