@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import completedGrammarsReducer from "./completedGrammarsReducer";
 import dialectReducer from "./dialectReducer";
+import grammarsReducer from "./grammarsReducer";
 
 const rootReducer = combineReducers({
   dialectReducer: dialectReducer,
-  completedGrammarsReducer: completedGrammarsReducer,
+  grammarsReducer: grammarsReducer,
 });
 
 export default rootReducer;

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import * as a from "../rdx/actions";
 
 import { Alert } from "react-native";
 import FindById from "./helpers/FindById";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { List } from "react-native-paper";
+import React from "react";
 import ScreenLayout from "../shared/ScreenLayout";
 import { ScrollView } from "react-native";
 import { connect } from "react-redux";
@@ -15,10 +16,15 @@ const selectedDescriptionStyle = { ...defaultDescriptionStyle, color: "#fff" };
 const defaultTitleStyle = { fontSize: 16 };
 const selectedTitleStyle = { ...defaultTitleStyle, color: "#fff" };
 
-const PatternList = ({ route, navigation, completedGrammars }) => {
+const PatternList = ({
+  route,
+  navigation,
+  completedGrammars,
+  dispatch,
+  selectedGrammarId,
+}) => {
   const { selectedDialect } = route.params;
   const btnLabel = selectedDialect.next_btn_text;
-  const [selectedGrammarId, setSelectedGrammarId] = useState(null);
   const pageTitle = selectedDialect.name_jp + " " + selectedDialect.name_en;
 
   const navigateBtn = () => {
@@ -38,8 +44,9 @@ const PatternList = ({ route, navigation, completedGrammars }) => {
 
   const doubleTap = (id) => {
     const selectedGrammar = FindById(selectedDialect.grammars, id);
+    const action = a.selectedGrammar(id);
     if (selectedGrammarId == id || selectedGrammarId == null) {
-      setSelectedGrammarId(id);
+      dispatch(action);
       counter++;
       if (counter === 1) {
         setTimeout(() => {
@@ -53,7 +60,7 @@ const PatternList = ({ route, navigation, completedGrammars }) => {
         });
       }
     } else {
-      setSelectedGrammarId(id);
+      dispatch(action);
       counter = 1;
     }
   };
@@ -136,7 +143,8 @@ const ListTouchable = styled.TouchableHighlight.attrs({
 
 const mapStateToProps = (state) => {
   return {
-    completedGrammars: state.completedGrammarsReducer,
+    completedGrammars: state.grammarsReducer.completedIds,
+    selectedGrammarId: state.grammarsReducer.selectedId,
   };
 };
 

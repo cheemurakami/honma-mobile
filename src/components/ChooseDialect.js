@@ -151,7 +151,7 @@ const ProgressText = styled.Text`
 const mapStateToProps = (state) => {
   return {
     dialects: state.dialectReducer.dialects,
-    completedGrammars: state.completedGrammarsReducer,
+    completedGrammars: state.grammarsReducer.completedIds,
   };
 };
 
