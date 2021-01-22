@@ -22,16 +22,42 @@ const ScreenLayout = (props) => {
 
   return (
     <View>
-      {backComponentName && (
-        <Icon
-          name="arrow-left"
-          size={30}
-          style={{ margin: 10 }}
-          onPress={() => navigation.navigate(backComponentName)}
-        />
-      )}
-      <Title style={{ textAlign: "center" }}>{pageTitle}</Title>
-      <BodyContainer>{children}</BodyContainer>
+      <HeaderContainer>
+        {backComponentName ? (
+          <>
+            <Icon
+              name="arrow-left"
+              size={30}
+              style={{ flex: 1, marginLeft: 10, alignSelf: "center" }}
+              onPress={() => navigation.navigate(backComponentName)}
+            />
+            <Title
+              style={{
+                flex: 1,
+                textAlign: "center",
+                fontSize: 28,
+                color: "#fff",
+              }}
+            >
+              Honma
+            </Title>
+            <View style={{ flex: 1 }}></View>
+          </>
+        ) : (
+          <Title
+            style={{ justifyContent: "center", fontSize: 28, color: "#fff" }}
+          >
+            Honma
+          </Title>
+        )}
+      </HeaderContainer>
+
+      <BodyContainer>
+        <TitleContainer>
+          <Title style={{ textAlign: "center" }}>{pageTitle}</Title>
+        </TitleContainer>
+        {children}
+      </BodyContainer>
       <Footer>
         <FooterButton title={btnLabel} onPressHandler={onPressHandler} />
       </Footer>
@@ -43,6 +69,17 @@ const BodyContainer = styled.View`
   background-color: white;
   height: ${height * 0.7}px;
   margin: 10px;
+`;
+const HeaderContainer = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+`;
+const TitleContainer = styled.View`
+  margin-top: 5%;
+  margin-bottom: 5%;
 `;
 
 const Footer = styled.View`

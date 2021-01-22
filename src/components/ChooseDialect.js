@@ -10,8 +10,10 @@ import styled from "styled-components/native";
 
 const pageTitle = "Choose your dialect";
 let counter = 0;
-const defaultTitleStyle = { fontSize: 20 };
+const defaultTitleStyle = { fontSize: 20, fontWeight: "bold" };
 const selectedTitleStyle = { ...defaultTitleStyle, color: "#fff" };
+const defaultDescriptionStyle = { fontSize:14, fontWeight: "bold" };
+const selectedDescriptionStyle = { ...defaultDescriptionStyle, color: "#fff" };
 
 const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
   const [selectedDialectId, setSelectedDialectId] = useState(null);
@@ -88,12 +90,17 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
                 }
               >
                 <List.Item
-                  title={dialect.name_jp + " " + dialect.name_en}
-                  titleNumberOfLines={2}
+                  title={dialect.name_jp}
                   titleStyle={
                     selectedDialectId === dialect.id
                       ? selectedTitleStyle
                       : defaultTitleStyle
+                  }
+                  description={dialect.name_en}
+                  descriptionStyle={
+                    selectedDialectId === dialect.id
+                      ? selectedDescriptionStyle
+                      : defaultDescriptionStyle
                   }
                   style={{ width: "100%" }}
                   left={() => (
@@ -116,6 +123,9 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
               </DialectTouchable>
             );
           })}
+          <TextWrapper>
+            <MessageText>More dialects coming soon!</MessageText>
+          </TextWrapper>
       </DialectContainer>
     </ScreenLayout>
   );
@@ -146,6 +156,14 @@ const ProgressIcon = styled.View`
 const ProgressText = styled.Text`
   color: #fff;
   font-weight: bold;
+`;
+const TextWrapper = styled.View`
+  align-items: center;
+  padding: 10px;
+`;
+
+const MessageText = styled.Text`
+  font-size: 18px;
 `;
 
 const mapStateToProps = (state) => {
