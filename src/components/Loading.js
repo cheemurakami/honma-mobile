@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
 
-const Loading = ({ navigation, dialects, dispatch }) => {
+const Loading = ({ navigation, dispatch }) => {
   useEffect(() => {
     fetch("http://honma-api.herokuapp.com/api/dialects")
       .then((resp) => resp.json())
