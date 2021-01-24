@@ -2,6 +2,7 @@ import * as a from "../rdx/actions";
 
 import React, { useState } from "react";
 
+import { Button } from "react-native-paper";
 import ScreenLayout from "../shared/ScreenLayout";
 import SoundPlayButton from "../shared/SoundPlayButton";
 import { TextInput } from "react-native-paper";
@@ -75,7 +76,23 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
         onChangeText={(text) => setText(text)}
         style={{ margin: 20 }}
       ></TextInput>
-      
+      <ButtonContainer>
+        <Button
+          mode="contained"
+          onPress={() => console.log("button pressed")}
+          style={{
+            fontSize: 16,
+            color: "#fff",
+            backgroundColor: "#40BA62",
+            width: "50%",
+            height: 45,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          答え合わせ
+        </Button>
+      </ButtonContainer>
     </ScreenLayout>
   );
 };
@@ -109,6 +126,9 @@ const MediaContainer = styled.View`
 const ExampleContainer = styled.View`
   padding: 10px;
   margin-top: 10px;
+`;
+const ButtonContainer = styled.View`
+  align-items: center;
 `;
 
 const mapStateToProps = (state) => {
