@@ -35,7 +35,7 @@ const SoundPlayButton = ({ soundSource }) => {
     <ButtonContainer onPress={() => playSound()}>
       <Icon
         name="volume-up"
-        style={isPressed ? { color: "#7d8b91" } : { color: "#fff" }}
+        style={{ color: "#fff" }}
         size={25}
       />
     </ButtonContainer>
