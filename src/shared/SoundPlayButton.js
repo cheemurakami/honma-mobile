@@ -32,9 +32,9 @@ const SoundPlayButton = ({ soundSource }) => {
 
   return (
     <Icon
-      name="play-circle-o"
-      style={isPressed ? { color: "#7d8b91" } : { color: "#EBEBEB" }}
-      size={150}
+      name="volume-up"
+      style={isPressed ? { color: "#7d8b91" } : { color: "#fff" }}
+      size={25}
       onPress={() => playSound()}
     />
   );

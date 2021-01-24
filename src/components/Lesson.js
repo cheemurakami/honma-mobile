@@ -47,16 +47,20 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
       backComponentName={"PatternList"}
       onPressHandler={() => completeBtn()}
     >
-      <MediaContainer>
-        {jpExample.audio_clip_url && (
-          <SoundPlayButton soundSource={jpExample.audio_clip_url} />
-        )}
-      </MediaContainer>
       <BodyText>{grammar.description}</BodyText>
       {showCompletedAt()}
+      <MediaContainer>
+        <ExampleContainer>
+          <BodyTextExample>A: {jpExample.sentence1}</BodyTextExample>
+          <BodyTextExample>B: {jpExample.sentence2}</BodyTextExample>
+        </ExampleContainer>
+        <PlayerContainer>
+          {jpExample.audio_clip_url && (
+            <SoundPlayButton soundSource={jpExample.audio_clip_url} />
+          )}
+        </PlayerContainer>
+      </MediaContainer>
       <ExampleContainer>
-        <BodyTextExample>A: {jpExample.sentence1}</BodyTextExample>
-        <BodyTextExample>B: {jpExample.sentence2}</BodyTextExample>
         <BodyTextExample>A: {enExample.sentence1}</BodyTextExample>
         <BodyTextExample>B: {enExample.sentence2}</BodyTextExample>
       </ExampleContainer>
@@ -83,20 +87,27 @@ const BodyTextExample = styled.Text`
   text-align: left;
   font-size: 20px;
   margin: 10px;
+  
 `;
 
 const MediaContainer = styled.View`
+  flex-direction:row;
   align-items: center;
-  justify-content: center;
-  height: 40%;
-  background-color: #5aa9e6;
-  border-radius: 25px;
-  margin: 10px;
 `;
 
 const ExampleContainer = styled.View`
   padding: 10px;
   margin-top: 10px;
+`;
+
+const PlayerContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+  height: 55px;
+  width: 55px;
+  background-color: #5aa9e6;
+  border-radius: 10px;
+  margin: 10px;
 `;
 
 const mapStateToProps = (state) => {
