@@ -1,12 +1,15 @@
 import * as a from "../rdx/actions";
 
-import React from "react";
+import React, { useState } from "react";
+
 import ScreenLayout from "../shared/ScreenLayout";
 import SoundPlayButton from "../shared/SoundPlayButton";
+import { TextInput } from "react-native-paper";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
 
 const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
+  const [text, setText] = useState("");
   const { selectedDialect, grammar } = route.params;
   const btnLabel = selectedDialect.complete_btn_text;
   const jpExample = grammar.examples.find(
@@ -54,16 +57,25 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
           <BodyTextExample>A: {jpExample.sentence1}</BodyTextExample>
           <BodyTextExample>B: {jpExample.sentence2}</BodyTextExample>
         </ExampleContainer>
-        <PlayerContainer>
-          {jpExample.audio_clip_url && (
-            <SoundPlayButton soundSource={jpExample.audio_clip_url} />
-          )}
-        </PlayerContainer>
+
+        {jpExample.audio_clip_url && (
+          <SoundPlayButton soundSource={jpExample.audio_clip_url} />
+        )}
       </MediaContainer>
       <ExampleContainer>
         <BodyTextExample>A: {enExample.sentence1}</BodyTextExample>
         <BodyTextExample>B: {enExample.sentence2}</BodyTextExample>
       </ExampleContainer>
+
+      <BodyText>Please write this in {selectedDialect.name_en}:</BodyText>
+      <BodyText>お母さんは部屋にいるよ。</BodyText>
+      <TextInput
+        label="Answer here"
+        value={text}
+        onChangeText={(text) => setText(text)}
+        style={{ margin: 20 }}
+      ></TextInput>
+      
     </ScreenLayout>
   );
 };
@@ -87,27 +99,16 @@ const BodyTextExample = styled.Text`
   text-align: left;
   font-size: 20px;
   margin: 10px;
-  
 `;
 
 const MediaContainer = styled.View`
-  flex-direction:row;
+  flex-direction: row;
   align-items: center;
 `;
 
 const ExampleContainer = styled.View`
   padding: 10px;
   margin-top: 10px;
-`;
-
-const PlayerContainer = styled.View`
-  align-items: center;
-  justify-content: center;
-  height: 55px;
-  width: 55px;
-  background-color: #5aa9e6;
-  border-radius: 10px;
-  margin: 10px;
 `;
 
 const mapStateToProps = (state) => {
