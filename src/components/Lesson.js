@@ -3,6 +3,7 @@ import * as a from "../rdx/actions";
 import React, { useState } from "react";
 
 import { Button } from "react-native-paper";
+import Commonness from "./Commonness";
 import ScreenLayout from "../shared/ScreenLayout";
 import SoundPlayButton from "../shared/SoundPlayButton";
 import { TextInput } from "react-native-paper";
@@ -52,6 +53,7 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
       onPressHandler={() => completeBtn()}
     >
       <BodyText>{grammar.description}</BodyText>
+      <Commonness rating={grammar.commonness} />
       {showCompletedAt()}
       <MediaContainer>
         <ExampleContainer>
@@ -99,15 +101,14 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
 
 const BodyText = styled.Text`
   text-align: center;
-  font-size: 20px;
-  margin: 10px;
+  font-size: 18px;
+  margin: 5px;
   font-weight: bold;
 `;
 
 const BodySubText = styled.Text`
-  text-align: center;
-  font-size: 18px;
-  margin: 8px;
+  margin-left: 15px;
+  font-size: 16px;
   font-weight: bold;
   color: #a3a3a3;
 `;
@@ -124,7 +125,7 @@ const MediaContainer = styled.View`
 `;
 
 const ExampleContainer = styled.View`
-  padding: 10px;
+  padding: 5px;
   margin-top: 10px;
 `;
 const ButtonContainer = styled.View`
