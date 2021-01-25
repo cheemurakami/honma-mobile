@@ -1,15 +1,35 @@
 import * as a from "../rdx/actions";
 
 import React, { useEffect } from "react";
+import { addMultipleAudios } from "./helpers/AudioManagement";
 
 import { connect } from "react-redux";
 import styled from "styled-components/native";
+
+const examplesWithAudio = (resp) => {
+  let examples = [];
+  resp.forEach((dialect) => {
+    dialect.grammars.forEach((grammar) => {
+      grammar.examples.forEach((example) => {
+        if (example.audio_clip_url) {
+          examples.push(example);
+        }
+      });
+    });
+  });
+  return examples;
+};
 
 const Loading = ({ navigation, dispatch }) => {
   useEffect(() => {
     fetch("http://honma-api.herokuapp.com/api/dialects")
       .then((resp) => resp.json())
-      .then((resp) => dispatch(a.loadedDialects(resp)))
+      .then((resp) => {
+        (async () => {
+          await addMultipleAudios(examplesWithAudio(resp));
+        })();
+        dispatch(a.loadedDialects(resp));
+      })
       .then(() => navigation.navigate("ChooseDialect"));
     return () => {};
   }, []);

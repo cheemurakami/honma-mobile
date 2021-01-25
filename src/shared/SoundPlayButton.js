@@ -1,22 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Audio } from "expo-av";
 import Icon from "react-native-vector-icons/FontAwesome";
 import styled from "styled-components/native";
+import { audioFileUri } from "../components/helpers/AudioManagement";
+import * as FileSystem from "expo-file-system";
 
-const SoundPlayButton = ({ soundSource }) => {
+const SoundPlayButton = ({ audioId }) => {
   const [sound, setSound] = useState();
   const [isPressed, setIsPressed] = useState(false);
+  const [audioUri, setAudioUri] = useState();
 
   async function playSound() {
     btnPressed();
-    const { sound } = await Audio.Sound.createAsync({ uri: soundSource });
+    const { sound } = await Audio.Sound.createAsync({ uri: audioUri });
     setSound(sound);
 
     await sound.playAsync();
   }
 
-  React.useEffect(() => {
+  // Checks to see if audio clip has been downloaded to phone
+  // If it has, set the uri to state so we can show the button.
+  useEffect(() => {
+    const uri = audioFileUri(audioId);
+    FileSystem.getInfoAsync(uri).then((info) => {
+      if (info.exists) {
+        setAudioUri(uri);
+      }
+    });
+    return () => {};
+  }, []);
+
+  useEffect(() => {
     return sound
       ? () => {
           sound.unloadAsync();
@@ -31,15 +46,16 @@ const SoundPlayButton = ({ soundSource }) => {
     }, 200);
   };
 
-  return (
-    <ButtonContainer onPress={() => playSound()}>
-      <Icon
-        name="volume-up"
-        style={{ color: "#fff" }}
-        size={25}
-      />
-    </ButtonContainer>
-  );
+  // Don't show the button if the audio clip hasn't been downloaded
+  if (audioUri) {
+    return (
+      <ButtonContainer onPress={() => playSound()}>
+        <Icon name="volume-up" style={{ color: "#fff" }} size={25} />
+      </ButtonContainer>
+    );
+  }
+
+  return null;
 };
 
 const ButtonContainer = styled.TouchableHighlight.attrs({
