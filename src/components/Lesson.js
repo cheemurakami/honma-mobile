@@ -58,10 +58,7 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
           <BodyTextExample>A: {jpExample.sentence1}</BodyTextExample>
           <BodyTextExample>B: {jpExample.sentence2}</BodyTextExample>
         </ExampleContainer>
-
-        {jpExample.audio_clip_url && (
-          <SoundPlayButton soundSource={jpExample.audio_clip_url} />
-        )}
+        <SoundPlayButton audioId={jpExample.id} />
       </MediaContainer>
       <ExampleContainer>
         <BodyTextExample>A: {enExample.sentence1}</BodyTextExample>
