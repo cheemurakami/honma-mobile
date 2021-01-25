@@ -53,7 +53,7 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
       onPressHandler={() => completeBtn()}
     >
       <BodyText>{grammar.description}</BodyText>
-      <Commonness commonness={grammar.commonness} />
+      <Commonness rating={grammar.commonness} />
       {showCompletedAt()}
       <MediaContainer>
         <ExampleContainer>
