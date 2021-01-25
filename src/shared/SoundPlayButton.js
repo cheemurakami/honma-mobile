@@ -33,11 +33,7 @@ const SoundPlayButton = ({ soundSource }) => {
 
   return (
     <ButtonContainer onPress={() => playSound()}>
-      <Icon
-        name="volume-up"
-        style={{ color: "#fff" }}
-        size={25}
-      />
+      <Icon name="volume-up" style={{ color: "#fff" }} size={25} />
     </ButtonContainer>
   );
 };
@@ -51,7 +47,7 @@ const ButtonContainer = styled.TouchableHighlight.attrs({
   width: 55px;
   background-color: #5aa9e6;
   border-radius: 10px;
-  margin: 10px;
+  padding: 5px;
 `;
 
 export default SoundPlayButton;
