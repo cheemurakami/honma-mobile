@@ -3,7 +3,7 @@ import * as a from "../rdx/actions";
 import React, { useState } from "react";
 
 import { Button } from "react-native-paper";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Commonness from "./Commonness";
 import ScreenLayout from "../shared/ScreenLayout";
 import SoundPlayButton from "../shared/SoundPlayButton";
 import { TextInput } from "react-native-paper";
@@ -45,21 +45,6 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
     }
   };
 
-  const showCommonness = () => {
-    let stars = [];
-    const showStars = () => {
-      for (let i = 0; i < grammar.commonness; i++) {
-        stars.push(
-          <Icon name="star" size={20} style={{ color: "#FFE45E" }}></Icon>
-        );
-      }
-      return stars.map((star) => {
-        return star;
-      });
-    };
-    return <CommonnessText>Commonness: {showStars()}</CommonnessText>;
-  };
-
   return (
     <ScreenLayout
       pageTitle={grammar.label}
@@ -68,7 +53,7 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
       onPressHandler={() => completeBtn()}
     >
       <BodyText>{grammar.description}</BodyText>
-      {showCommonness()}
+      <Commonness commonness={grammar.commonness} />
       {showCompletedAt()}
       <MediaContainer>
         <ExampleContainer>
@@ -119,11 +104,6 @@ const BodyText = styled.Text`
   font-size: 18px;
   margin: 5px;
   font-weight: bold;
-`;
-const CommonnessText = styled.Text`
-  font-size: 12px;
-  font-weight: bold;
-  margin: 15px;
 `;
 
 const BodySubText = styled.Text`
