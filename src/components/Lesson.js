@@ -3,6 +3,7 @@ import * as a from "../rdx/actions";
 import React, { useState } from "react";
 
 import { Button } from "react-native-paper";
+import Icon from "react-native-vector-icons/FontAwesome";
 import ScreenLayout from "../shared/ScreenLayout";
 import SoundPlayButton from "../shared/SoundPlayButton";
 import { TextInput } from "react-native-paper";
@@ -44,6 +45,21 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
     }
   };
 
+  const showCommonness = () => {
+    let stars = [];
+    const showStars = () => {
+      for (let i = 0; i < grammar.commonness; i++) {
+        stars.push(
+          <Icon name="star" size={20} style={{ color: "#FFE45E" }}></Icon>
+        );
+      }
+      return stars.map((star) => {
+        return star;
+      });
+    };
+    return <CommonnessText>Commonness: {showStars()}</CommonnessText>;
+  };
+
   return (
     <ScreenLayout
       pageTitle={grammar.label}
@@ -52,6 +68,7 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
       onPressHandler={() => completeBtn()}
     >
       <BodyText>{grammar.description}</BodyText>
+      {showCommonness()}
       {showCompletedAt()}
       <MediaContainer>
         <ExampleContainer>
@@ -99,15 +116,19 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
 
 const BodyText = styled.Text`
   text-align: center;
-  font-size: 20px;
-  margin: 10px;
+  font-size: 18px;
+  margin: 5px;
   font-weight: bold;
+`;
+const CommonnessText = styled.Text`
+  font-size: 12px;
+  font-weight: bold;
+  margin: 15px;
 `;
 
 const BodySubText = styled.Text`
-  text-align: center;
-  font-size: 18px;
-  margin: 8px;
+  margin-left: 15px;
+  font-size: 16px;
   font-weight: bold;
   color: #a3a3a3;
 `;
@@ -124,7 +145,7 @@ const MediaContainer = styled.View`
 `;
 
 const ExampleContainer = styled.View`
-  padding: 10px;
+  padding: 5px;
   margin-top: 10px;
 `;
 const ButtonContainer = styled.View`
