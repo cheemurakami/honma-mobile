@@ -22,14 +22,13 @@ const SoundPlayButton = ({ audioId }) => {
   // Checks to see if audio clip has been downloaded to phone
   // If it has, set the uri to state so we can show the button.
   useEffect(() => {
-    async function checkAudioExists() {
-      const uri = audioFileUri(audioId);
-      const info = await FileSystem.getInfoAsync(uri);
+    const uri = audioFileUri(audioId);
+    FileSystem.getInfoAsync(uri).then((info) => {
       if (info.exists) {
         setAudioUri(uri);
       }
-    }
-    checkAudioExists();
+    });
+    return () => {};
   }, []);
 
   useEffect(() => {
