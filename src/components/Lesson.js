@@ -1,12 +1,16 @@
 import * as a from "../rdx/actions";
 
-import React from "react";
+import React, { useState } from "react";
+
+import { Button } from "react-native-paper";
 import ScreenLayout from "../shared/ScreenLayout";
 import SoundPlayButton from "../shared/SoundPlayButton";
+import { TextInput } from "react-native-paper";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
 
 const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
+  const [text, setText] = useState("");
   const { selectedDialect, grammar } = route.params;
   const btnLabel = selectedDialect.complete_btn_text;
   const jpExample = grammar.examples.find(
@@ -47,19 +51,48 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
       backComponentName={"PatternList"}
       onPressHandler={() => completeBtn()}
     >
+      <BodyText>{grammar.description}</BodyText>
+      {showCompletedAt()}
       <MediaContainer>
+        <ExampleContainer>
+          <BodyTextExample>A: {jpExample.sentence1}</BodyTextExample>
+          <BodyTextExample>B: {jpExample.sentence2}</BodyTextExample>
+        </ExampleContainer>
+
         {jpExample.audio_clip_url && (
           <SoundPlayButton soundSource={jpExample.audio_clip_url} />
         )}
       </MediaContainer>
-      <BodyText>{grammar.description}</BodyText>
-      {showCompletedAt()}
       <ExampleContainer>
-        <BodyTextExample>A: {jpExample.sentence1}</BodyTextExample>
-        <BodyTextExample>B: {jpExample.sentence2}</BodyTextExample>
         <BodyTextExample>A: {enExample.sentence1}</BodyTextExample>
         <BodyTextExample>B: {enExample.sentence2}</BodyTextExample>
       </ExampleContainer>
+
+      <BodyText>Please write this in {selectedDialect.name_en}:</BodyText>
+      <BodyText>お母さんは部屋にいるよ。</BodyText>
+      <TextInput
+        label="Answer here"
+        value={text}
+        onChangeText={(text) => setText(text)}
+        style={{ margin: 20 }}
+      ></TextInput>
+      <ButtonContainer>
+        <Button
+          mode="contained"
+          onPress={() => console.log("button pressed")}
+          style={{
+            fontSize: 16,
+            color: "#fff",
+            backgroundColor: "#40BA62",
+            width: "50%",
+            height: 45,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          答え合わせ
+        </Button>
+      </ButtonContainer>
     </ScreenLayout>
   );
 };
@@ -86,17 +119,16 @@ const BodyTextExample = styled.Text`
 `;
 
 const MediaContainer = styled.View`
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  height: 40%;
-  background-color: #5aa9e6;
-  border-radius: 25px;
-  margin: 10px;
 `;
 
 const ExampleContainer = styled.View`
   padding: 10px;
   margin-top: 10px;
+`;
+const ButtonContainer = styled.View`
+  align-items: center;
 `;
 
 const mapStateToProps = (state) => {

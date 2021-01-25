@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { Audio } from "expo-av";
 import Icon from "react-native-vector-icons/FontAwesome";
+import styled from "styled-components/native";
 
 const SoundPlayButton = ({ soundSource }) => {
   const [sound, setSound] = useState();
@@ -31,13 +32,26 @@ const SoundPlayButton = ({ soundSource }) => {
   };
 
   return (
-    <Icon
-      name="play-circle-o"
-      style={isPressed ? { color: "#7d8b91" } : { color: "#EBEBEB" }}
-      size={150}
-      onPress={() => playSound()}
-    />
+    <ButtonContainer onPress={() => playSound()}>
+      <Icon
+        name="volume-up"
+        style={{ color: "#fff" }}
+        size={25}
+      />
+    </ButtonContainer>
   );
 };
+
+const ButtonContainer = styled.TouchableHighlight.attrs({
+  underlayColor: "#5aa9e6",
+})`
+  align-items: center;
+  justify-content: center;
+  height: 55px;
+  width: 55px;
+  background-color: #5aa9e6;
+  border-radius: 10px;
+  margin: 10px;
+`;
 
 export default SoundPlayButton;
