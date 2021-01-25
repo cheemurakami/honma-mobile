@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import * as FileSystem from "expo-file-system";
+
+import React, { useEffect, useState } from "react";
 
 import { Audio } from "expo-av";
 import Icon from "react-native-vector-icons/FontAwesome";
-import styled from "styled-components/native";
 import { audioFileUri } from "../components/helpers/AudioManagement";
-import * as FileSystem from "expo-file-system";
+import styled from "styled-components/native";
 
 const SoundPlayButton = ({ audioId }) => {
   const [sound, setSound] = useState();
@@ -67,7 +68,8 @@ const ButtonContainer = styled.TouchableHighlight.attrs({
   width: 55px;
   background-color: #5aa9e6;
   border-radius: 10px;
-  margin: 10px;
+  padding: 5px;
 `;
 
 export default SoundPlayButton;
+ 
