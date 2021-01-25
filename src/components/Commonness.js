@@ -10,9 +10,7 @@ const Commonness = ({ rating }) => {
         <Icon name="star" size={20} style={{ color: "#FFE45E" }}></Icon>
       );
     }
-    return stars.map((star) => {
-      return star;
-    });
+    return stars;
   };
   return <CommonnessText>Commonness: {showStars()}</CommonnessText>;
 };
