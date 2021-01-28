@@ -4,17 +4,17 @@ import React, { useState } from "react";
 
 import { Button } from "react-native-paper";
 import Commonness from "./Commonness";
+import Quiz from "./Quiz";
 import ScreenLayout from "../shared/ScreenLayout";
 import { ScrollView } from "react-native";
 import SoundPlayButton from "../shared/SoundPlayButton";
-import { TextInput } from "react-native-paper";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
 
 const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
-  const [text, setText] = useState("");
   const { selectedDialect, grammar } = route.params;
   const btnLabel = selectedDialect.complete_btn_text;
+  const [showQuiz, setShowQuiz] = useState(false);
   const jpExample = grammar.examples.find(
     (example) => example.language === "jp"
   );
@@ -28,6 +28,7 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
     const nextGrammar = selectedDialect.grammars.find(
       (g) => g.position === grammar.position + 1
     );
+    setShowQuiz(false)
     if (nextGrammar) {
       const action = a.selectedGrammar(nextGrammar.id);
       dispatch(action);
@@ -69,31 +70,27 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
           <BodyTextExample>B: {enExample.sentence2}</BodyTextExample>
         </ExampleContainer>
 
-        <BodyText>Please write this in {selectedDialect.name_en}:</BodyText>
-        <BodyText>お母さんは部屋にいるよ。</BodyText>
-        <TextInput
-          label="Answer here"
-          value={text}
-          onChangeText={(text) => setText(text)}
-          style={{ margin: 20 }}
-        ></TextInput>
-        <ButtonContainer>
-          <Button
-            mode="contained"
-            onPress={() => console.log("button pressed")}
-            style={{
-              fontSize: 16,
-              color: "#fff",
-              backgroundColor: "#40BA62",
-              width: "50%",
-              height: 45,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            答え合わせ
-          </Button>
-        </ButtonContainer>
+        {showQuiz ? (
+          <Quiz selectedDialect={selectedDialect} />
+        ) : (
+          <>
+            <ButtonContainer>
+              <Button
+                mode="contained"
+                onPress={() => setShowQuiz(true)}
+                color="#1B70B1"
+                labelStyle={{ color: "#fff", fontSize: 18 }}
+                style={{
+                  width: "50%",
+                  height: 45,
+                  justifyContent: "center",
+                }}
+              >
+                クイズに挑戦🌟
+              </Button>
+            </ButtonContainer>
+          </>
+        )}
       </ScrollView>
     </ScreenLayout>
   );

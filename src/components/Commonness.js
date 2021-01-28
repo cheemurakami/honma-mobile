@@ -7,7 +7,7 @@ const Commonness = ({ rating }) => {
   const showStars = () => {
     for (let i = 0; i < rating; i++) {
       stars.push(
-        <Icon name="star" size={20} style={{ color: "#FFE45E" }}></Icon>
+        <Icon key={i} name="star" size={20} style={{ color: "#FFE45E" }}></Icon>
       );
     }
     return stars;
