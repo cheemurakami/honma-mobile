@@ -28,7 +28,7 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
     const nextGrammar = selectedDialect.grammars.find(
       (g) => g.position === grammar.position + 1
     );
-    setShowQuiz(false)
+    setShowQuiz(false);
     if (nextGrammar) {
       const action = a.selectedGrammar(nextGrammar.id);
       dispatch(action);
@@ -71,7 +71,7 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
         </ExampleContainer>
 
         {showQuiz ? (
-          <Quiz selectedDialect={selectedDialect} />
+          <Quiz selectedDialect={selectedDialect} grammar={grammar} />
         ) : (
           <>
             <ButtonContainer>
