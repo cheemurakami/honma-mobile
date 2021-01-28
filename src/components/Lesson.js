@@ -1,8 +1,10 @@
 import * as a from "../rdx/actions";
 
+import React, { useState } from "react";
+
+import { Button } from "react-native-paper";
 import Commonness from "./Commonness";
 import Quiz from "./Quiz";
-import React from "react";
 import ScreenLayout from "../shared/ScreenLayout";
 import { ScrollView } from "react-native";
 import SoundPlayButton from "../shared/SoundPlayButton";
@@ -12,6 +14,7 @@ import styled from "styled-components/native";
 const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
   const { selectedDialect, grammar } = route.params;
   const btnLabel = selectedDialect.complete_btn_text;
+  const [showQuiz, setShowQuiz] = useState(false);
   const jpExample = grammar.examples.find(
     (example) => example.language === "jp"
   );
@@ -66,8 +69,27 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
           <BodyTextExample>B: {enExample.sentence2}</BodyTextExample>
         </ExampleContainer>
 
-        <Quiz selectedDialect={selectedDialect} />
-        
+        {showQuiz ? (
+          <Quiz selectedDialect={selectedDialect} />
+        ) : (
+          <>
+            <ButtonContainer>
+              <Button
+                mode="contained"
+                onPress={() => setShowQuiz(true)}
+                color="#1B70B1"
+                labelStyle={{ color: "#fff", fontSize: 18 }}
+                style={{
+                  width: "50%",
+                  height: 45,
+                  justifyContent: "center",
+                }}
+              >
+                クイズに挑戦🌟
+              </Button>
+            </ButtonContainer>
+          </>
+        )}
       </ScrollView>
     </ScreenLayout>
   );

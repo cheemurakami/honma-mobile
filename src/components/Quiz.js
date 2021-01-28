@@ -21,14 +21,12 @@ export const Quiz = ({ selectedDialect }) => {
         <Button
           mode="contained"
           onPress={() => console.log("button pressed")}
+          color="#40BA62"
+          labelStyle={{ color: "#fff", fontSize: 18 }}
           style={{
-            fontSize: 16,
-            color: "#fff",
-            backgroundColor: "#40BA62",
             width: "50%",
             height: 45,
             justifyContent: "center",
-            alignItems: "center",
           }}
         >
           答え合わせ
