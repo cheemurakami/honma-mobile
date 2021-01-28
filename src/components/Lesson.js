@@ -28,6 +28,7 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
     const nextGrammar = selectedDialect.grammars.find(
       (g) => g.position === grammar.position + 1
     );
+    setShowQuiz(false)
     if (nextGrammar) {
       const action = a.selectedGrammar(nextGrammar.id);
       dispatch(action);
