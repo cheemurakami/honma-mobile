@@ -7,9 +7,7 @@ import styled from "styled-components/native";
 
 export const Quiz = ({ selectedDialect, grammar }) => {
   const [text, setText] = useState("");
-  const [correctAnswer, setCorrectAnswer] = useState("");
-  const [buttonText, setButtonText] = useState("答え合わせ");
-  const [buttonColor, setButtonColor] = useState("#40BA62");
+  const [showCorrectButton, setShowCorrectButton] = useState(false);
 
   if (grammar.quizzes.length > 0) {
     const quizTokyo = grammar.quizzes[0].tokyo;
@@ -17,12 +15,9 @@ export const Quiz = ({ selectedDialect, grammar }) => {
 
     const checkAnswer = (text) => {
       if (text === answer) {
-        setCorrectAnswer("correct");
-        setButtonText("正解！！");
-        setButtonColor("#BDB2FF");
+        setShowCorrectButton(true);
       } else {
-        setCorrectAnswer("wrong");
-        setCorrectAnswer("");
+        setShowCorrectButton(false);
         return Alert.alert("不正解！もう1度！");
       }
     };
@@ -43,7 +38,7 @@ export const Quiz = ({ selectedDialect, grammar }) => {
             onPress={() => {
               checkAnswer(text);
             }}
-            color={buttonColor}
+            color={showCorrectButton ? "#BDB2FF" : "#40BA62"}
             labelStyle={{ color: "#fff", fontSize: 18 }}
             style={{
               width: "50%",
@@ -51,7 +46,7 @@ export const Quiz = ({ selectedDialect, grammar }) => {
               justifyContent: "center",
             }}
           >
-            {buttonText}
+            {showCorrectButton ? "正解！！" : "答え合わせ"}
           </Button>
         </ButtonContainer>
       </>
