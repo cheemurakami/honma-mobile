@@ -4,12 +4,14 @@ import React, { useState } from "react";
 
 import { Button } from "react-native-paper";
 import Commonness from "./Commonness";
+import { Image } from "react-native";
 import Quiz from "./Quiz";
 import ScreenLayout from "../shared/ScreenLayout";
 import { ScrollView } from "react-native";
 import SoundPlayButton from "../shared/SoundPlayButton";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
+import yokudekimashita from "../../assets/yokudekimashita.png";
 
 const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
   const { selectedDialect, grammar } = route.params;
@@ -47,6 +49,14 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
     }
   };
 
+  const buttonText = () => {
+    if (completedGrammars[grammar.id]) {
+      return "正解したクイズを見る";
+    } else {
+      return "クイズに挑戦🌟";
+    }
+  };
+
   return (
     <ScreenLayout
       pageTitle={grammar.label}
@@ -81,16 +91,24 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
                 color="#1B70B1"
                 labelStyle={{ color: "#fff", fontSize: 18 }}
                 style={{
-                  width: "50%",
+                  width: "60%",
                   height: 45,
                   justifyContent: "center",
                 }}
               >
-                クイズに挑戦🌟
+                {buttonText()}
               </Button>
             </ButtonContainer>
           </>
         )}
+        {completedGrammars[grammar.id] ? (
+          <>
+            <Image
+              source={yokudekimashita}
+              style={{ width: 100, height: 100 }}
+            ></Image>
+          </>
+        ) : null}
       </ScrollView>
     </ScreenLayout>
   );

@@ -67,4 +67,5 @@ const ButtonContainer = styled.View`
   align-items: center;
   margin: 10px;
 `;
+
 export default Quiz;
