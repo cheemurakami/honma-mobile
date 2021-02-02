@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Button } from "react-native-paper";
 import Commonness from "./Commonness";
 import { Image } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Quiz from "./Quiz";
 import ScreenLayout from "../shared/ScreenLayout";
 import { ScrollView } from "react-native";
@@ -63,50 +64,56 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
       onPressHandler={() => nextLessonBtn()}
     >
       <ScrollView>
-        <BodyText>{grammar.description}</BodyText>
-        <Commonness rating={grammar.commonness} />
-        {showCompletedAt()}
-        <MediaContainer>
+        <KeyboardAwareScrollView
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          contentContainerStyle={{ flex: 1 }}
+          scrollEnabled={true}
+        >
+          <BodyText>{grammar.description}</BodyText>
+          <Commonness rating={grammar.commonness} />
+          {showCompletedAt()}
+          <MediaContainer>
+            <ExampleContainer>
+              <BodyTextExample>A: {jpExample.sentence1}</BodyTextExample>
+              <BodyTextExample>B: {jpExample.sentence2}</BodyTextExample>
+            </ExampleContainer>
+            <SoundPlayButton audioId={jpExample.id} />
+          </MediaContainer>
           <ExampleContainer>
-            <BodyTextExample>A: {jpExample.sentence1}</BodyTextExample>
-            <BodyTextExample>B: {jpExample.sentence2}</BodyTextExample>
+            <BodyTextExample>A: {enExample.sentence1}</BodyTextExample>
+            <BodyTextExample>B: {enExample.sentence2}</BodyTextExample>
           </ExampleContainer>
-          <SoundPlayButton audioId={jpExample.id} />
-        </MediaContainer>
-        <ExampleContainer>
-          <BodyTextExample>A: {enExample.sentence1}</BodyTextExample>
-          <BodyTextExample>B: {enExample.sentence2}</BodyTextExample>
-        </ExampleContainer>
 
-        {showQuiz ? (
-          <Quiz selectedDialect={selectedDialect} grammar={grammar} />
-        ) : (
-          <>
-            <ButtonContainer>
-              <Button
-                mode="contained"
-                onPress={() => setShowQuiz(true)}
-                color="#1B70B1"
-                labelStyle={{ color: "#fff", fontSize: 18 }}
-                style={{
-                  width: "60%",
-                  height: 45,
-                  justifyContent: "center",
-                }}
-              >
-                {buttonText()}
-              </Button>
-            </ButtonContainer>
-          </>
-        )}
-        {completedGrammar ? (
-          <>
-            <Image
-              source={yokudekimashita}
-              style={{ width: 100, height: 100 }}
-            ></Image>
-          </>
-        ) : null}
+          {showQuiz ? (
+            <Quiz selectedDialect={selectedDialect} grammar={grammar} />
+          ) : (
+            <>
+              <ButtonContainer>
+                <Button
+                  mode="contained"
+                  onPress={() => setShowQuiz(true)}
+                  color="#1B70B1"
+                  labelStyle={{ color: "#fff", fontSize: 18 }}
+                  style={{
+                    width: "60%",
+                    height: 45,
+                    justifyContent: "center",
+                  }}
+                >
+                  {buttonText()}
+                </Button>
+              </ButtonContainer>
+            </>
+          )}
+          {completedGrammar ? (
+            <>
+              <Image
+                source={yokudekimashita}
+                style={{ width: 100, height: 100 }}
+              ></Image>
+            </>
+          ) : null}
+        </KeyboardAwareScrollView>
       </ScrollView>
     </ScreenLayout>
   );
