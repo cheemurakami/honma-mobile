@@ -12,7 +12,7 @@ const pageTitle = "Choose your dialect";
 let counter = 0;
 const defaultTitleStyle = { fontSize: 20, fontWeight: "bold" };
 const selectedTitleStyle = { ...defaultTitleStyle, color: "#fff" };
-const defaultDescriptionStyle = { fontSize:14, fontWeight: "bold" };
+const defaultDescriptionStyle = { fontSize: 14, fontWeight: "bold" };
 const selectedDescriptionStyle = { ...defaultDescriptionStyle, color: "#fff" };
 
 const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
@@ -72,6 +72,7 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
     <ScreenLayout
       pageTitle={pageTitle}
       btnLabel={btnText}
+      btnSubLabel="Start"
       onPressHandler={() => navigateBtn(selectedDialectId)}
     >
       <DialectContainer>
@@ -123,9 +124,9 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
               </DialectTouchable>
             );
           })}
-          <TextWrapper>
-            <MessageText>More dialects coming soon!</MessageText>
-          </TextWrapper>
+        <TextWrapper>
+          <MessageText>More dialects coming soon!</MessageText>
+        </TextWrapper>
       </DialectContainer>
     </ScreenLayout>
   );

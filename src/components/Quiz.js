@@ -1,11 +1,14 @@
+import * as a from "../rdx/actions";
+
 import React, { useState } from "react";
 
 import { Alert } from "react-native";
 import { Button } from "react-native-paper";
 import { TextInput } from "react-native-paper";
+import { connect } from "react-redux";
 import styled from "styled-components/native";
 
-export const Quiz = ({ selectedDialect, grammar }) => {
+export const Quiz = ({ selectedDialect, grammar, dispatch }) => {
   const [text, setText] = useState("");
   const [showCorrectButton, setShowCorrectButton] = useState(false);
 
@@ -15,6 +18,8 @@ export const Quiz = ({ selectedDialect, grammar }) => {
 
     const checkAnswer = (text) => {
       if (text === answer) {
+        const action = a.completedGrammars(grammar.id);
+        dispatch(action);
         setShowCorrectButton(true);
       } else {
         setShowCorrectButton(false);
@@ -68,4 +73,4 @@ const ButtonContainer = styled.View`
   margin: 10px;
 `;
 
-export default Quiz;
+export default connect()(Quiz);

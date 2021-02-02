@@ -23,10 +23,9 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
   const enExample = grammar.examples.find(
     (example) => example.language === "en"
   );
+  const completedGrammar = completedGrammars[grammar.id];
 
-  const completeBtn = () => {
-    const action = a.completedGrammars(grammar.id);
-    dispatch(action);
+  const nextLessonBtn = () => {
     const nextGrammar = selectedDialect.grammars.find(
       (g) => g.position === grammar.position + 1
     );
@@ -41,16 +40,14 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
   };
 
   const showCompletedAt = () => {
-    if (completedGrammars[grammar.id]) {
-      const completedDate = new Date(
-        completedGrammars[grammar.id]
-      ).toLocaleDateString();
+    if (completedGrammar) {
+      const completedDate = new Date(completedGrammar).toLocaleDateString();
       return <BodySubText>Completed at {completedDate}</BodySubText>;
     }
   };
 
   const buttonText = () => {
-    if (completedGrammars[grammar.id]) {
+    if (completedGrammar) {
       return "正解したクイズを見る";
     } else {
       return "クイズに挑戦🌟";
@@ -60,9 +57,10 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
   return (
     <ScreenLayout
       pageTitle={grammar.label}
-      btnLabel={btnLabel}
+      btnLabel={completedGrammar ? btnLabel : null}
+      btnSubLabel="Next lesson"
       backComponentName={"PatternList"}
-      onPressHandler={() => completeBtn()}
+      onPressHandler={() => nextLessonBtn()}
     >
       <ScrollView>
         <BodyText>{grammar.description}</BodyText>
@@ -101,7 +99,7 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
             </ButtonContainer>
           </>
         )}
-        {completedGrammars[grammar.id] ? (
+        {completedGrammar ? (
           <>
             <Image
               source={yokudekimashita}

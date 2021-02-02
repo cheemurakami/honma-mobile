@@ -77,6 +77,7 @@ const PatternList = ({
     <ScreenLayout
       pageTitle={pageTitle}
       btnLabel={btnLabel}
+      btnSubLabel="Go to lesson"
       backComponentName={"ChooseDialect"}
       onPressHandler={() => navigateBtn()}
     >
