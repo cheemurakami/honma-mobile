@@ -74,7 +74,6 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
       btnLabel={btnText}
       btnSubLabel="Start"
       onPressHandler={() => navigateBtn(selectedDialectId)}
-      showFooter={true}
     >
       <DialectContainer>
         {dialects &&

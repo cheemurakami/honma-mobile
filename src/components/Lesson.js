@@ -23,8 +23,8 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
   const enExample = grammar.examples.find(
     (example) => example.language === "en"
   );
-  const completedGrammar = completedGrammars[grammar.id]
-  
+  const completedGrammar = completedGrammars[grammar.id];
+
   const nextLessonBtn = () => {
     const nextGrammar = selectedDialect.grammars.find(
       (g) => g.position === grammar.position + 1
@@ -41,9 +41,7 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
 
   const showCompletedAt = () => {
     if (completedGrammar) {
-      const completedDate = new Date(
-        completedGrammar
-      ).toLocaleDateString();
+      const completedDate = new Date(completedGrammar).toLocaleDateString();
       return <BodySubText>Completed at {completedDate}</BodySubText>;
     }
   };
@@ -56,22 +54,13 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
     }
   };
 
-  const showFooter = () => {
-    if (completedGrammar) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-  
   return (
     <ScreenLayout
       pageTitle={grammar.label}
-      btnLabel={btnLabel}
+      btnLabel={completedGrammar ? btnLabel : null}
       btnSubLabel="Next lesson"
       backComponentName={"PatternList"}
       onPressHandler={() => nextLessonBtn()}
-      showFooter={showFooter()}
     >
       <ScrollView>
         <BodyText>{grammar.description}</BodyText>

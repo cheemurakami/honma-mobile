@@ -19,7 +19,7 @@ const ScreenLayout = (props) => {
     backComponentName,
     children,
     onPressHandler,
-    showFooter,
+    // showFooter,
   } = props;
 
   return (
@@ -62,7 +62,7 @@ const ScreenLayout = (props) => {
       </BodyContainer>
 
       <Footer>
-        {showFooter ? (
+        {btnLabel ? (
           <FooterButton
             title={btnLabel}
             subTitle={btnSubLabel}
