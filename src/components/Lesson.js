@@ -55,6 +55,14 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
     }
   };
 
+  const showFooter = () => {
+    if (completedGrammars[grammar.id]) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  
   return (
     <ScreenLayout
       pageTitle={grammar.label}
@@ -62,6 +70,7 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
       btnSubLabel="Next lesson"
       backComponentName={"PatternList"}
       onPressHandler={() => nextLessonBtn()}
+      showFooter={showFooter()}
     >
       <ScrollView>
         <BodyText>{grammar.description}</BodyText>

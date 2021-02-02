@@ -19,6 +19,7 @@ const ScreenLayout = (props) => {
     backComponentName,
     children,
     onPressHandler,
+    showFooter,
   } = props;
 
   return (
@@ -59,13 +60,15 @@ const ScreenLayout = (props) => {
         </TitleContainer>
         {children}
       </BodyContainer>
-      
+
       <Footer>
-        <FooterButton
-          title={btnLabel}
-          subTitle={btnSubLabel}
-          onPressHandler={onPressHandler}
-        />
+        {showFooter ? (
+          <FooterButton
+            title={btnLabel}
+            subTitle={btnSubLabel}
+            onPressHandler={onPressHandler}
+          />
+        ) : null}
       </Footer>
     </View>
   );
