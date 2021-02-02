@@ -59,6 +59,7 @@ const ScreenLayout = (props) => {
         </TitleContainer>
         {children}
       </BodyContainer>
+      
       <Footer>
         <FooterButton
           title={btnLabel}

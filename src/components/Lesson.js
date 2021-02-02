@@ -25,8 +25,6 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
   );
 
   const nextLessonBtn = () => {
-    const action = a.completedGrammars(grammar.id);
-    dispatch(action);
     const nextGrammar = selectedDialect.grammars.find(
       (g) => g.position === grammar.position + 1
     );
