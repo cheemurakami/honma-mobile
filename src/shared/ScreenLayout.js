@@ -15,6 +15,7 @@ const ScreenLayout = (props) => {
   const {
     pageTitle,
     btnLabel,
+    btnSubLabel,
     backComponentName,
     children,
     onPressHandler,
@@ -59,7 +60,11 @@ const ScreenLayout = (props) => {
         {children}
       </BodyContainer>
       <Footer>
-        <FooterButton title={btnLabel} onPressHandler={onPressHandler} />
+        <FooterButton
+          title={btnLabel}
+          subTitle={btnSubLabel}
+          onPressHandler={onPressHandler}
+        />
       </Footer>
     </View>
   );

@@ -24,7 +24,7 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
     (example) => example.language === "en"
   );
 
-  const completeBtn = () => {
+  const nextLessonBtn = () => {
     const action = a.completedGrammars(grammar.id);
     dispatch(action);
     const nextGrammar = selectedDialect.grammars.find(
@@ -61,8 +61,9 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
     <ScreenLayout
       pageTitle={grammar.label}
       btnLabel={btnLabel}
+      btnSubLabel="Next lesson"
       backComponentName={"PatternList"}
-      onPressHandler={() => completeBtn()}
+      onPressHandler={() => nextLessonBtn()}
     >
       <ScrollView>
         <BodyText>{grammar.description}</BodyText>

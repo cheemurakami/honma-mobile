@@ -72,6 +72,7 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
     <ScreenLayout
       pageTitle={pageTitle}
       btnLabel={btnText}
+      btnSubLabel="Start"
       onPressHandler={() => navigateBtn(selectedDialectId)}
     >
       <DialectContainer>
