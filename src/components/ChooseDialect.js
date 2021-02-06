@@ -4,7 +4,6 @@ import { Alert } from "react-native";
 import FindById from "./helpers/FindById";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { List } from "react-native-paper";
-import Modal from "./Modal";
 import ScreenLayout from "../shared/ScreenLayout";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
@@ -72,8 +71,8 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
 
   const displayModal = (id) => {
     setModal(true);
-    console.log(id);
-  };
+    setSelectedDialectId(id)
+    };
 
   return (
     <ScreenLayout
@@ -83,8 +82,8 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
       onPressHandler={() => navigateBtn(selectedDialectId)}
       modal={modal}
       setModal={setModal}
+      selectedDialectId={selectedDialectId}
     >
-      {console.log(modal)}
       <DialectContainer>
         {dialects &&
           dialects.map((dialect, index) => {

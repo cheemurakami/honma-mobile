@@ -22,6 +22,7 @@ const ScreenLayout = (props) => {
     onPressHandler,
     modal,
     setModal,
+    selectedDialectId,
   } = props;
 
   return (
@@ -72,7 +73,11 @@ const ScreenLayout = (props) => {
           />
         ) : null}
       </Footer>
-      <Modal modal={modal} setModal={setModal} />
+      <Modal
+        modal={modal}
+        setModal={setModal}
+        selectedDialectId={selectedDialectId}
+      />
     </View>
   );
 };

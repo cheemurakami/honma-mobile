@@ -1,52 +1,44 @@
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { TouchableOpacity, useWindowDimensions } from "react-native";
 
+import FindById from "./helpers/FindById";
+import ModalContents from "./ModalContents";
 import React from "react";
+import { connect } from "react-redux";
 
-export const Modal = ({ modal, setModal }) => {
+export const Modal = ({ modal, setModal, selectedDialectId, dialects }) => {
   const { height, width } = useWindowDimensions();
+  const selectedDialect = FindById(dialects, selectedDialectId);
 
   if (modal) {
     return (
-      <TouchableOpacity
-        style={
-          Modal
-            ? {
-                flex: 1,
-                display: "flex",
-                flexDirection: "column",
-                position: "absolute",
-                opacity: 0.7,
-                backgroundColor: "#7FC8F8",
-                height,
-                width,
-                justifyContent: "center",
-                alignItems: "center",
-              }
-            : {
-                flex: 1,
-                display: "none",
-                flexDirection: "column",
-                position: "absolute",
-                backgroundColor: "#7FC8F8",
-                height: 0,
-                width: 0,
-              }
-        }
-        onPress={() => setModal(false)}
-      >
-        <View>
-          <Text>Hello</Text>
-        </View>
-      </TouchableOpacity>
+      <>
+        <TouchableOpacity 
+          style={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            position: "absolute",
+            backgroundColor: "rgba(127, 200, 248, 0.8)",
+            height,
+            width,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          onPress={() => setModal(false)}
+        >
+          <ModalContents selectedDialect={selectedDialect} />
+        </TouchableOpacity>
+      </>
     );
   } else {
     return null;
   }
 };
 
-export default Modal;
+const mapStateToProps = (state) => {
+  return {
+    dialects: state.dialectReducer.dialects,
+  };
+};
+
+export default connect(mapStateToProps)(Modal);
