@@ -18,6 +18,7 @@ const selectedDescriptionStyle = { ...defaultDescriptionStyle, color: "#fff" };
 const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
   const [selectedDialectId, setSelectedDialectId] = useState(null);
   const [btnText, setBtnText] = useState("はじめましょう!!");
+  const [modal, setModal] = useState(false);
 
   const doubleTap = (id) => {
     changeBtnText(id);
@@ -68,12 +69,20 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
     return count;
   };
 
+  const displayModal = (id) => {
+    setModal(true);
+    setSelectedDialectId(id)
+    };
+
   return (
     <ScreenLayout
       pageTitle={pageTitle}
       btnLabel={btnText}
       btnSubLabel="Start"
       onPressHandler={() => navigateBtn(selectedDialectId)}
+      modal={modal}
+      setModal={setModal}
+      selectedDialectId={selectedDialectId}
     >
       <DialectContainer>
         {dialects &&
@@ -109,6 +118,7 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
                       name="flower-poppy"
                       size={45}
                       style={{ margin: 10, color: "#aacc00" }}
+                      onPress={() => displayModal(dialect.id)}
                     />
                   )}
                   right={() => (

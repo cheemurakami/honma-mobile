@@ -2,6 +2,7 @@ import { Dimensions, View } from "react-native";
 
 import FooterButton from "../shared/FooterButton";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Modal from "../components/Modal";
 import React from "react";
 import { Title } from "react-native-paper";
 import styled from "styled-components/native";
@@ -19,7 +20,9 @@ const ScreenLayout = (props) => {
     backComponentName,
     children,
     onPressHandler,
-    // showFooter,
+    modal,
+    setModal,
+    selectedDialectId,
   } = props;
 
   return (
@@ -70,6 +73,11 @@ const ScreenLayout = (props) => {
           />
         ) : null}
       </Footer>
+      <Modal
+        modal={modal}
+        setModal={setModal}
+        selectedDialectId={selectedDialectId}
+      />
     </View>
   );
 };
