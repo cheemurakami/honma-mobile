@@ -23,7 +23,6 @@ const ScreenLayout = (props) => {
     modal,
     setModal,
     selectedDialectId,
-    selectedGrammarId,
   } = props;
 
   return (
@@ -66,13 +65,13 @@ const ScreenLayout = (props) => {
       </BodyContainer>
 
       <Footer>
-        {btnLabel && selectedDialectId || selectedGrammarId ? (
+        {btnLabel && (
           <FooterButton
             title={btnLabel}
             subTitle={btnSubLabel}
             onPressHandler={onPressHandler}
           />
-        ) : null}
+        ) }
       </Footer>
       <Modal
         modal={modal}
