@@ -77,7 +77,7 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
   return (
     <ScreenLayout
       pageTitle={pageTitle}
-      btnLabel={btnText}
+      btnLabel={selectedDialectId ? btnText : null}
       btnSubLabel="Start"
       onPressHandler={() => navigateBtn(selectedDialectId)}
       modal={modal}
