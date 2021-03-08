@@ -2,7 +2,12 @@ import React from "react";
 import styled from "styled-components/native";
 import { Button } from "react-native-paper";
 
-export const Registration = () => {
+export const Registration = ({navigation}) => {
+
+  const goToSignup = () => {
+    navigation.navigate("Signup")
+  }
+
   return (
     <RegistrationContainer>
       <TextHonma>Honma</TextHonma>
@@ -12,6 +17,9 @@ export const Registration = () => {
       <ButtonContainer>
         <Button
           mode="contained"
+          onPress={() => {
+            goToSignup();
+          }}
           color={"#E9A9BA"}
           labelStyle={{
             color: "#fff",
