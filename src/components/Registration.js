@@ -7,6 +7,9 @@ export const Registration = ({navigation}) => {
   const goToSignup = () => {
     navigation.navigate("Signup")
   }
+  const goToSignin = () => {
+    navigation.navigate("Signin")
+  }
 
   return (
     <RegistrationContainer>
@@ -37,6 +40,9 @@ export const Registration = ({navigation}) => {
 
         <Button
           mode="contained"
+          onPress={() => {
+            goToSignin();
+          }}
           color={"#E9A9BA"}
           labelStyle={{
             color: "#fff",
