@@ -1,6 +1,9 @@
 import ChooseDialect from "./src/components/ChooseDialect";
 import Lesson from "./src/components/Lesson";
 import Loading from "./src/components/Loading";
+import Registration from "./src/components/Registration";
+import Signup from "./src/components/Signup";
+import Signin from "./src/components/Signin";
 import { NavigationContainer } from "@react-navigation/native";
 import PatternList from "./src/components/PatternList";
 import { Provider } from "react-redux";
@@ -24,6 +27,9 @@ export default function App() {
               },
             }}
           >
+            <Stack.Screen name="Registration" component={Registration} />
+            <Stack.Screen name="Signup" component={Signup} />
+            <Stack.Screen name="Signin" component={Signin} />
             <Stack.Screen name="Loading" component={Loading} />
             <Stack.Screen name="ChooseDialect" component={ChooseDialect} />
             <Stack.Screen name="PatternList" component={PatternList} />
