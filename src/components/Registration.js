@@ -4,11 +4,8 @@ import { Button } from "react-native-paper";
 
 export const Registration = ({navigation}) => {
 
-  const goToSignup = () => {
-    navigation.navigate("Signup")
-  }
-  const goToSignin = () => {
-    navigation.navigate("Signin")
+  const goToNextpage = (page) => {
+    navigation.navigate(page)
   }
 
   return (
@@ -21,7 +18,7 @@ export const Registration = ({navigation}) => {
         <Button
           mode="contained"
           onPress={() => {
-            goToSignup();
+            goToNextpage("Signup");
           }}
           color={"#E9A9BA"}
           labelStyle={{
@@ -41,7 +38,7 @@ export const Registration = ({navigation}) => {
         <Button
           mode="contained"
           onPress={() => {
-            goToSignin();
+            goToNextpage("Signin");
           }}
           color={"#E9A9BA"}
           labelStyle={{
