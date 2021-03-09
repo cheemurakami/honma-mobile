@@ -7,6 +7,7 @@ import * as a from "../rdx/actions";
 export const Signin = ({ dispatch }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errMessage, setErrMessage] = useState("");
 
   const signin = (email, password) => {
     const data = {
@@ -22,8 +23,20 @@ export const Signin = ({ dispatch }) => {
       body: JSON.stringify({ user: data }),
     })
       .then((resp) => resp.json())
-      .then((resp) => console.log("RESP", resp))
-      .then((resp) => dispatch(a.signin(resp)));
+      .then((resp) => {
+        if (resp.error) {
+          setErrMessage(resp.error);
+        } else {
+          setErrMessage("");
+          dispatch(a.signin(resp));
+        }
+      });
+  };
+
+  const errorMessage = (message) => {
+    if (message) {
+      return <ErrorText>{message}</ErrorText>;
+    }
   };
 
   return (
@@ -44,6 +57,7 @@ export const Signin = ({ dispatch }) => {
           value={password}
           onChangeText={(text) => setPassword(text)}
         ></TextInput>
+        {errorMessage(errMessage)}
         <ButtonContainer>
           <Button
             mode="contained"
@@ -85,6 +99,12 @@ const ButtonContainer = styled.View`
   align-items: center;
 `;
 
+const ErrorText = styled.Text`
+  text-align: center;
+  flex-wrap: wrap;
+  font-size: 20px;
+  color: tomato;
+`;
 const mapStateToProps = (state) => {
   console.log("AUTH REDUCER", state.authReducer);
   return {
