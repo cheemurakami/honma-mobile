@@ -1,13 +1,43 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import { TextInput, Button } from "react-native-paper";
+import { connect } from "react-redux";
+import * as a from "../rdx/actions";
 
-export const Signin = () => {
+export const Signin = ({ navigation, dispatch }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errMessage, setErrMessage] = useState("");
 
   const signin = (email, password) => {
-    console.log(email, password);
+    const data = {
+      email: email,
+      password: password,
+    };
+    fetch("http://localhost:3000/users/sign_in", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user: data }),
+    })
+      .then((resp) => resp.json())
+      .then((resp) => {
+        if (resp.error) {
+          setErrMessage(resp.error);
+        } else {
+          setErrMessage("");
+          dispatch(a.signin(resp));
+          navigation.navigate("Loading");
+        }
+      });
+  };
+
+  const errorMessage = (message) => {
+    if (message) {
+      return <ErrorText>{message}</ErrorText>;
+    }
   };
 
   return (
@@ -28,6 +58,7 @@ export const Signin = () => {
           value={password}
           onChangeText={(text) => setPassword(text)}
         ></TextInput>
+        {errorMessage(errMessage)}
         <ButtonContainer>
           <Button
             mode="contained"
@@ -68,4 +99,18 @@ const ButtonContainer = styled.View`
   margin: 10px;
   align-items: center;
 `;
-export default Signin;
+
+const ErrorText = styled.Text`
+  text-align: center;
+  flex-wrap: wrap;
+  font-size: 20px;
+  color: tomato;
+`;
+const mapStateToProps = (state) => {
+  return {
+    dialects: state.dialectReducer.dialects,
+    completedGrammars: state.grammarsReducer.completedIds,
+    auth: state.authReducer,
+  };
+};
+export default connect(mapStateToProps)(Signin);
