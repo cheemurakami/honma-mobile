@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import { TextInput, Button } from "react-native-paper";
+import { connect } from "react-redux";
+import * as a from "../rdx/actions";
 
-export const Signin = () => {
+export const Signin = ({ dispatch }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,7 +22,8 @@ export const Signin = () => {
       body: JSON.stringify({ user: data }),
     })
       .then((resp) => resp.json())
-      .then((resp) => console.log(resp));
+      .then((resp) => console.log("RESP", resp))
+      .then((resp) => dispatch(a.signin(resp)));
   };
 
   return (
@@ -81,4 +84,13 @@ const ButtonContainer = styled.View`
   margin: 10px;
   align-items: center;
 `;
-export default Signin;
+
+const mapStateToProps = (state) => {
+  console.log("AUTH REDUCER", state.authReducer);
+  return {
+    dialects: state.dialectReducer.dialects,
+    completedGrammars: state.grammarsReducer.completedIds,
+    auth: state.authReducer,
+  };
+};
+export default connect(mapStateToProps)(Signin);

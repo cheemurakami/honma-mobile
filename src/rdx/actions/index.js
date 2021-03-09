@@ -18,3 +18,9 @@ export const selectedGrammar = (grammarId) => {
     grammarId,
   };
 };
+export const signin = (resp) => {
+  return {
+    type: c.SIGNIN,
+    resp,
+  };
+};
