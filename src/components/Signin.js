@@ -7,7 +7,20 @@ export const Signin = () => {
   const [password, setPassword] = useState("");
 
   const signin = (email, password) => {
-    console.log(email, password);
+    const data = {
+      email: email,
+      password: password,
+    };
+    fetch("http://localhost:3000/users/sign_in", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user: data }),
+    })
+      .then((resp) => resp.json())
+      .then((resp) => console.log(resp));
   };
 
   return (
