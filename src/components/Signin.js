@@ -4,7 +4,7 @@ import { TextInput, Button } from "react-native-paper";
 import { connect } from "react-redux";
 import * as a from "../rdx/actions";
 
-export const Signin = ({ dispatch }) => {
+export const Signin = ({ navigation, dispatch }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMessage, setErrMessage] = useState("");
@@ -29,6 +29,7 @@ export const Signin = ({ dispatch }) => {
         } else {
           setErrMessage("");
           dispatch(a.signin(resp));
+          navigation.navigate("Loading");
         }
       });
   };
@@ -106,7 +107,6 @@ const ErrorText = styled.Text`
   color: tomato;
 `;
 const mapStateToProps = (state) => {
-  console.log("AUTH REDUCER", state.authReducer);
   return {
     dialects: state.dialectReducer.dialects,
     completedGrammars: state.grammarsReducer.completedIds,
