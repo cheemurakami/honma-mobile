@@ -1,14 +1,56 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import { TextInput, Button } from "react-native-paper";
+import { connect } from "react-redux";
 
-export const Signup = () => {
+import * as a from "../rdx/actions";
+
+export const Signup = ({ navigation, dispatch }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
+  const [errMessage, setErrMessage] = useState({});
 
   const signup = (email, password, passwordConf) => {
-    console.log(email, password, passwordConf);
+    const data = {
+      email: email,
+      password: password,
+      password_confirmation: passwordConf,
+    };
+    fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user: data }),
+    })
+      .then((resp) => resp.json())
+      .then((resp) => {
+        if (resp.authentication_token) {
+          dispatch(a.signup(resp));
+          navigation.navigate("Loading");
+          setErrMessage({});
+        } else {
+          setErrMessage(resp.errors);
+        }
+      });
+  };
+
+  const errorMessageEmail = (message) => {
+    if (message && message.email) {
+      return <ErrorText>Email {message.email}</ErrorText>;
+    }
+  };
+  const errorMessagePassword = (message) => {
+    if (message && message.password) {
+      return <ErrorText>Password {message.password}</ErrorText>;
+    }
+  };
+  const errorMessagePasswordConfirmation = (message) => {
+    if (message && message.password_confirmation) {
+      return <ErrorText>Password {message.password_confirmation}</ErrorText>;
+    }
   };
 
   return (
@@ -22,20 +64,25 @@ export const Signup = () => {
           value={email}
           onChangeText={(text) => setEmail(text)}
         ></TextInput>
+        {errorMessageEmail(errMessage)}
         <TextInput
           label="Password"
+          secureTextEntry={true}
           style={{ margin: 20 }}
           autoCapitalize="none"
           value={password}
           onChangeText={(text) => setPassword(text)}
         ></TextInput>
+        {errorMessagePassword(errMessage)}
         <TextInput
           label="Password Confirmation"
+          secureTextEntry={true}
           style={{ margin: 20 }}
           autoCapitalize="none"
           value={passwordConf}
           onChangeText={(text) => setPasswordConf(text)}
         ></TextInput>
+        {errorMessagePasswordConfirmation(errMessage)}
         <ButtonContainer>
           <Button
             mode="contained"
@@ -76,4 +123,16 @@ const ButtonContainer = styled.View`
   margin: 10px;
   align-items: center;
 `;
-export default Signup;
+const ErrorText = styled.Text`
+  text-align: center;
+  flex-wrap: wrap;
+  font-size: 20px;
+  color: tomato;
+`;
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.authReducer,
+  };
+};
+export default connect(mapStateToProps)(Signup);
