@@ -108,8 +108,6 @@ const ErrorText = styled.Text`
 `;
 const mapStateToProps = (state) => {
   return {
-    dialects: state.dialectReducer.dialects,
-    completedGrammars: state.grammarsReducer.completedIds,
     auth: state.authReducer,
   };
 };

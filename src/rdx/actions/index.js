@@ -24,3 +24,9 @@ export const signin = (resp) => {
     resp,
   };
 };
+export const signup = (resp) => {
+  return {
+    type: c.SIGNUP,
+    resp,
+  };
+};
