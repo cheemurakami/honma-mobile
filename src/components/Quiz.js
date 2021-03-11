@@ -13,7 +13,7 @@ export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
   const [showCorrectButton, setShowCorrectButton] = useState(false);
 
   if (grammar.quizzes.length > 0) {
-    const quiz = grammar.quizzes[0]
+    const quiz = grammar.quizzes[0];
     const quizTokyo = quiz.tokyo;
     const answer = quiz.answer;
 
@@ -42,9 +42,10 @@ export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
         },
         body: JSON.stringify(data),
       })
-      .then((resp) => resp.json())
-      .then((resp) => console.log(resp))
+        .then((resp) => resp.json())
+        .then((resp) => console.log(resp));
     };
+
     return (
       <>
         <BodyText>Please write this in {selectedDialect.name_en}:</BodyText>

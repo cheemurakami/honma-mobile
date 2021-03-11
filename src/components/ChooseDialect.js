@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Button } from "react-native-paper";
+import * as a from "../rdx/actions";
 
 import { Alert } from "react-native";
 import FindById from "./helpers/FindById";
@@ -15,7 +17,12 @@ const selectedTitleStyle = { ...defaultTitleStyle, color: "#fff" };
 const defaultDescriptionStyle = { fontSize: 14, fontWeight: "bold" };
 const selectedDescriptionStyle = { ...defaultDescriptionStyle, color: "#fff" };
 
-const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
+const ChooseDialect = ({
+  navigation,
+  dispatch,
+  dialects,
+  completedGrammars,
+}) => {
   const [selectedDialectId, setSelectedDialectId] = useState(null);
   const [btnText, setBtnText] = useState("はじめましょう!!");
   const [modal, setModal] = useState(false);
@@ -71,8 +78,17 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
 
   const displayModal = (id) => {
     setModal(true);
-    setSelectedDialectId(id)
-    };
+    setSelectedDialectId(id);
+  };
+
+  const signout = () => {
+    fetch("http://localhost:3000/users/sign_out", {
+      method: "DELETE",
+    }).then(() => {
+      dispatch(a.signout());
+      navigation.navigate("Registration");
+    });
+  };
 
   return (
     <ScreenLayout
@@ -136,6 +152,25 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
           })}
         <TextWrapper>
           <MessageText>More dialects coming soon!</MessageText>
+        </TextWrapper>
+        <TextWrapper>
+          <Button
+            mode="contained"
+            onPress={() => signout()}
+            color={"#E9A9BA"}
+            labelStyle={{
+              color: "#fff",
+              fontSize: 18,
+            }}
+            style={{
+              width: 280,
+              height: 45,
+              margin: 10,
+              justifyContent: "center",
+            }}
+          >
+            LOGOUT
+          </Button>
         </TextWrapper>
       </DialectContainer>
     </ScreenLayout>

@@ -30,3 +30,8 @@ export const signup = (resp) => {
     resp,
   };
 };
+export const signout = () => {
+  return {
+    type: c.SIGNOUT,
+  };
+};
