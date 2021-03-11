@@ -22,7 +22,7 @@ const examplesWithAudio = (resp) => {
 
 const Loading = ({ navigation, dispatch }) => {
   useEffect(() => {
-    fetch("http://honma-api.herokuapp.com/api/dialects")
+    fetch("http://localhost:3000/api/dialects")
       .then((resp) => resp.json())
       .then((resp) => {
         (async () => {

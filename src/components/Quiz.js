@@ -8,18 +8,24 @@ import { TextInput } from "react-native-paper";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
 
-export const Quiz = ({ selectedDialect, grammar, dispatch }) => {
+export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
   const [text, setText] = useState("");
   const [showCorrectButton, setShowCorrectButton] = useState(false);
 
   if (grammar.quizzes.length > 0) {
-    const quizTokyo = grammar.quizzes[0].tokyo;
-    const answer = grammar.quizzes[0].answer;
+    const quiz = grammar.quizzes[0]
+    const quizTokyo = quiz.tokyo;
+    const answer = quiz.answer;
 
     const checkAnswer = (text) => {
       if (text === answer) {
-        const action = a.completedGrammars(grammar.id);
-        dispatch(action);
+        // const action = a.completedGrammars(grammar.id);
+        // dispatch(action);
+        const data = {
+          quiz_id: quiz.id,
+          authentication_token: auth.auth_token,
+        };
+        completedQuiz(data);
         setShowCorrectButton(true);
       } else {
         setShowCorrectButton(false);
@@ -27,6 +33,18 @@ export const Quiz = ({ selectedDialect, grammar, dispatch }) => {
       }
     };
 
+    const completedQuiz = (data) => {
+      fetch("http://localhost:3000/api/quiz_completions", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+      .then((resp) => resp.json())
+      .then((resp) => console.log(resp))
+    };
     return (
       <>
         <BodyText>Please write this in {selectedDialect.name_en}:</BodyText>
@@ -73,4 +91,10 @@ const ButtonContainer = styled.View`
   margin: 10px;
 `;
 
-export default connect()(Quiz);
+const mapStateToProps = (state) => {
+  return {
+    auth: state.authReducer,
+  };
+};
+
+export default connect(mapStateToProps)(Quiz);
