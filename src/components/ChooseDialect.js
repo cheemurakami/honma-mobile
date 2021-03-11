@@ -63,17 +63,11 @@ const ChooseDialect = ({
   };
 
   const completedNumber = (dialectGrammars) => {
-    const completedGrammarsIds = Object.keys(completedGrammars);
-    const dialectGrammarIds = dialectGrammars.map((grammar) =>
-      grammar.id.toString()
-    );
-    let count = 0;
-    completedGrammarsIds.forEach((id) => {
-      if (dialectGrammarIds.includes(id)) {
-        count += 1;
-      }
-    });
-    return count;
+    const quizzes = dialectGrammars.map((grammar) => grammar.quizzes);
+    const completedQuizzes = quizzes
+      .flat()
+      .filter((quiz) => quiz.quiz_completed);
+    return completedQuizzes.length;
   };
 
   const displayModal = (id) => {
@@ -143,7 +137,7 @@ const ChooseDialect = ({
                         {completedNumber(dialect.grammars)}/
                         {dialect.grammars.length}
                       </ProgressText>
-                      <ProgressText>Lesson</ProgressText>
+                      <ProgressText>Quiz</ProgressText>
                     </ProgressIcon>
                   )}
                 />
