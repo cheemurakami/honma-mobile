@@ -19,8 +19,8 @@ export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
 
     const checkAnswer = (text) => {
       if (text === answer) {
-        // const action = a.completedGrammars(grammar.id);
-        // dispatch(action);
+        const action = a.completedGrammars(grammar.id);
+        dispatch(action);
         const data = {
           quiz_id: quiz.id,
           authentication_token: auth.auth_token,

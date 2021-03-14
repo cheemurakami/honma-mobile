@@ -65,13 +65,19 @@ const PatternList = ({
     }
   };
 
-  const iconName = (id) => {
-    if (completedGrammars[id]) {
+  const iconName = (grammar) => {
+    if (completedGrammars[grammar.id] || completedAllQuizzes(grammar.quizzes)) {
       return "check";
     } else {
       return "leaf";
     }
   };
+
+  const completedAllQuizzes = (quizzes) => {
+    const uncompletedQuizzes = quizzes.filter((quiz) => quiz.quiz_completed == null)
+
+    return quizzes.length > 0 && uncompletedQuizzes.length == 0
+  }
 
   return (
     <ScreenLayout
@@ -114,7 +120,7 @@ const PatternList = ({
                     style={{ width: "100%" }}
                     left={() => (
                       <Icon
-                        name={iconName(grammar.id)}
+                        name={iconName(grammar)}
                         size={30}
                         style={{ margin: 10, color: "#aacc00" }}
                       />
