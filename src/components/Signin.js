@@ -14,7 +14,7 @@ export const Signin = ({ navigation, dispatch }) => {
       email: email,
       password: password,
     };
-    fetch("http://localhost:3000/users/sign_in", {
+    fetch("https://honma-api.herokuapp.com/users/sign_in", {
       method: "POST",
       headers: {
         Accept: "application/json",
