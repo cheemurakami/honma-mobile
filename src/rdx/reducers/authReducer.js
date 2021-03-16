@@ -21,6 +21,9 @@ export default (state = INITIAL_STATE, action) => {
         email: action.resp.email,
       };
     }
+    case c.SIGNOUT: {
+      return INITIAL_STATE;
+    }
     default:
       return state;
   }

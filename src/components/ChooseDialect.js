@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Button } from "react-native-paper";
+import * as a from "../rdx/actions";
 
 import { Alert } from "react-native";
 import FindById from "./helpers/FindById";
@@ -15,7 +17,12 @@ const selectedTitleStyle = { ...defaultTitleStyle, color: "#fff" };
 const defaultDescriptionStyle = { fontSize: 14, fontWeight: "bold" };
 const selectedDescriptionStyle = { ...defaultDescriptionStyle, color: "#fff" };
 
-const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
+const ChooseDialect = ({
+  navigation,
+  dispatch,
+  dialects,
+  completedGrammars,
+}) => {
   const [selectedDialectId, setSelectedDialectId] = useState(null);
   const [btnText, setBtnText] = useState("はじめましょう!!");
   const [modal, setModal] = useState(false);
@@ -55,24 +62,44 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
     }
   };
 
+  const completedQuizzesNumber = (dialectGrammars) => {
+    if (completedGrammars !== {}) {
+      const sumCompletedQuizzes = Object.entries(completedGrammars).length + completedNumber(dialectGrammars)
+      return (
+        <ProgressText>
+          {sumCompletedQuizzes}/{dialectGrammars.length}
+        </ProgressText>
+      );
+    } else {
+      return (
+        <ProgressText>
+          {completedNumber(dialectGrammars)}/{dialectGrammars.length}
+        </ProgressText>
+      );
+    }
+  };
+  
   const completedNumber = (dialectGrammars) => {
-    const completedGrammarsIds = Object.keys(completedGrammars);
-    const dialectGrammarIds = dialectGrammars.map((grammar) =>
-      grammar.id.toString()
-    );
-    let count = 0;
-    completedGrammarsIds.forEach((id) => {
-      if (dialectGrammarIds.includes(id)) {
-        count += 1;
-      }
-    });
-    return count;
+    const quizzes = dialectGrammars.map((grammar) => grammar.quizzes);
+    const completedQuizzes = quizzes
+      .flat()
+      .filter((quiz) => quiz.quiz_completed);
+    return completedQuizzes.length;
   };
 
   const displayModal = (id) => {
     setModal(true);
-    setSelectedDialectId(id)
-    };
+    setSelectedDialectId(id);
+  };
+
+  const signout = () => {
+    fetch("http://honma-api.herokuapp.com/users/sign_out", {
+      method: "DELETE",
+    }).then(() => {
+      dispatch(a.signout());
+      navigation.navigate("Registration");
+    });
+  };
 
   return (
     <ScreenLayout
@@ -123,11 +150,12 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
                   )}
                   right={() => (
                     <ProgressIcon>
-                      <ProgressText>
+                      {completedQuizzesNumber(dialect.grammars)}
+                      {/* <ProgressText>
                         {completedNumber(dialect.grammars)}/
                         {dialect.grammars.length}
-                      </ProgressText>
-                      <ProgressText>Lesson</ProgressText>
+                      </ProgressText> */}
+                      <ProgressText>Quiz</ProgressText>
                     </ProgressIcon>
                   )}
                 />
@@ -136,6 +164,25 @@ const ChooseDialect = ({ navigation, dialects, completedGrammars }) => {
           })}
         <TextWrapper>
           <MessageText>More dialects coming soon!</MessageText>
+        </TextWrapper>
+        <TextWrapper>
+          <Button
+            mode="contained"
+            onPress={() => signout()}
+            color={"#E9A9BA"}
+            labelStyle={{
+              color: "#fff",
+              fontSize: 18,
+            }}
+            style={{
+              width: 280,
+              height: 45,
+              margin: 10,
+              justifyContent: "center",
+            }}
+          >
+            LOGOUT
+          </Button>
         </TextWrapper>
       </DialectContainer>
     </ScreenLayout>

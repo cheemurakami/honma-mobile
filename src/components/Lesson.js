@@ -41,9 +41,28 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
   };
 
   const showCompletedAt = () => {
-    if (completedGrammar) {
+    if (mostRecentlyCompletedQuiz(grammar.quizzes)) {
+      const completedDate = mostRecentlyCompletedQuiz(grammar.quizzes)
+        .quiz_completed;
+      return (
+        <BodySubText>
+          Completed at {new Date(completedDate).toLocaleDateString()}
+        </BodySubText>
+      );
+    } else if (completedGrammar) {
       const completedDate = new Date(completedGrammar).toLocaleDateString();
       return <BodySubText>Completed at {completedDate}</BodySubText>;
+    }
+  };
+
+  const mostRecentlyCompletedQuiz = (quizzes) => {
+    const completedQuizzes = quizzes.filter(
+      (quiz) => quiz.quiz_completed !== null
+    );
+    if (completedQuizzes.length > 0) {
+      return completedQuizzes.reduce((a, b) =>
+        a.quiz_completed > b.quiz_completed ? a : b
+      );
     }
   };
 
