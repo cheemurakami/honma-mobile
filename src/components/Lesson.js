@@ -41,8 +41,9 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
   };
 
   const showCompletedAt = () => {
-    if (completedAllQuizzes(grammar.quizzes)) {
-      const completedDate = completedAllQuizzes(grammar.quizzes).quiz_completed;
+    if (mostRecentlyCompletedQuiz(grammar.quizzes)) {
+      const completedDate = mostRecentlyCompletedQuiz(grammar.quizzes)
+        .quiz_completed;
       return (
         <BodySubText>
           Completed at {new Date(completedDate).toLocaleDateString()}
@@ -54,17 +55,14 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
     }
   };
 
-  const completedAllQuizzes = (quizzes) => {
+  const mostRecentlyCompletedQuiz = (quizzes) => {
     const completedQuizzes = quizzes.filter(
       (quiz) => quiz.quiz_completed !== null
     );
-    if (quizzes.length > 0 && completedQuizzes.length > 0) {
-      const mostRecentCompletedQuiz = completedQuizzes.reduce((a, b) =>
+    if (completedQuizzes.length > 0) {
+      return completedQuizzes.reduce((a, b) =>
         a.quiz_completed > b.quiz_completed ? a : b
       );
-      return mostRecentCompletedQuiz;
-    } else {
-      return;
     }
   };
 

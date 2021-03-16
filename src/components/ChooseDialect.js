@@ -62,6 +62,23 @@ const ChooseDialect = ({
     }
   };
 
+  const completedQuizzesNumber = (dialectGrammars) => {
+    if (completedGrammars !== {}) {
+      const sumCompletedQuizzes = Object.entries(completedGrammars).length + completedNumber(dialectGrammars)
+      return (
+        <ProgressText>
+          {sumCompletedQuizzes}/{dialectGrammars.length}
+        </ProgressText>
+      );
+    } else {
+      return (
+        <ProgressText>
+          {completedNumber(dialectGrammars)}/{dialectGrammars.length}
+        </ProgressText>
+      );
+    }
+  };
+  
   const completedNumber = (dialectGrammars) => {
     const quizzes = dialectGrammars.map((grammar) => grammar.quizzes);
     const completedQuizzes = quizzes
@@ -133,10 +150,11 @@ const ChooseDialect = ({
                   )}
                   right={() => (
                     <ProgressIcon>
-                      <ProgressText>
+                      {completedQuizzesNumber(dialect.grammars)}
+                      {/* <ProgressText>
                         {completedNumber(dialect.grammars)}/
                         {dialect.grammars.length}
-                      </ProgressText>
+                      </ProgressText> */}
                       <ProgressText>Quiz</ProgressText>
                     </ProgressIcon>
                   )}
