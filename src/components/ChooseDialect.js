@@ -4,7 +4,7 @@ import * as a from "../rdx/actions";
 
 import { Alert } from "react-native";
 import FindById from "./helpers/FindById";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon from "react-native-vector-icons/AntDesign";
 import { List } from "react-native-paper";
 import ScreenLayout from "../shared/ScreenLayout";
 import { connect } from "react-redux";
@@ -144,7 +144,7 @@ const ChooseDialect = ({
                   style={{ width: "100%" }}
                   left={() => (
                     <Icon
-                      name="flower-poppy"
+                      name="infocirlce"
                       size={45}
                       style={{ margin: 10, color: "#aacc00" }}
                       onPress={() => displayModal(dialect.id)}
