@@ -64,7 +64,9 @@ const ChooseDialect = ({
 
   const completedQuizzesNumber = (dialectGrammars) => {
     if (completedGrammars !== {}) {
-      const sumCompletedQuizzes = Object.entries(completedGrammars).length + completedNumber(dialectGrammars)
+      const sumCompletedQuizzes =
+        Object.entries(completedGrammars).length +
+        completedNumber(dialectGrammars);
       return (
         <ProgressText>
           {sumCompletedQuizzes}/{dialectGrammars.length}
@@ -78,7 +80,7 @@ const ChooseDialect = ({
       );
     }
   };
-  
+
   const completedNumber = (dialectGrammars) => {
     const quizzes = dialectGrammars.map((grammar) => grammar.quizzes);
     const completedQuizzes = quizzes
@@ -93,7 +95,7 @@ const ChooseDialect = ({
   };
 
   const signout = () => {
-    fetch("http://honma-api.herokuapp.com/users/sign_out", {
+    fetch("https://honma-api.herokuapp.com/users/sign_out", {
       method: "DELETE",
     }).then(() => {
       dispatch(a.signout());
@@ -112,7 +114,7 @@ const ChooseDialect = ({
       selectedDialectId={selectedDialectId}
     >
       <DialectContainer>
-        {dialects &&
+        {!!dialects &&
           dialects.map((dialect, index) => {
             return (
               <DialectTouchable

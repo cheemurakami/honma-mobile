@@ -74,9 +74,11 @@ const PatternList = ({
   };
 
   const completedAllQuizzes = (quizzes) => {
-    const uncompletedQuizzes = quizzes.filter((quiz) => quiz.quiz_completed == null)
-    return quizzes.length > 0 && uncompletedQuizzes.length == 0
-  }
+    const uncompletedQuizzes = quizzes.filter(
+      (quiz) => quiz.quiz_completed == null
+    );
+    return quizzes.length > 0 && uncompletedQuizzes.length == 0;
+  };
 
   return (
     <ScreenLayout
@@ -88,7 +90,7 @@ const PatternList = ({
     >
       <ScrollView>
         <PatternContainer>
-          {selectedDialect.grammars &&
+          {!!selectedDialect.grammars &&
             selectedDialect.grammars.map((grammar, index) => {
               return (
                 <ListTouchable

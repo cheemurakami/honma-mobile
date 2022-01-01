@@ -65,13 +65,13 @@ const ScreenLayout = (props) => {
       </BodyContainer>
 
       <Footer>
-        {btnLabel && (
+        {!!btnLabel && (
           <FooterButton
             title={btnLabel}
             subTitle={btnSubLabel}
             onPressHandler={onPressHandler}
           />
-        ) }
+        )}
       </Footer>
       <Modal
         modal={modal}

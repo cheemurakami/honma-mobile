@@ -23,14 +23,26 @@ const examplesWithAudio = (resp) => {
 const Loading = ({ navigation, dispatch }) => {
   useEffect(() => {
     fetch("https://honma-api.herokuapp.com/api/dialects")
-      .then((resp) => resp.json())
       .then((resp) => {
+        if (resp.ok) {
+          return resp.json();
+        } else {
+          throw new Error("Something went wrong. status: " + resp.status);
+        }
+      })
+      .then((resp) => {
+        if (resp.error) {
+          console.log(resp.error);
+        }
         (async () => {
           await addMultipleAudios(examplesWithAudio(resp));
         })();
         dispatch(a.loadedDialects(resp));
       })
-      .then(() => navigation.navigate("ChooseDialect"));
+      .then(() => navigation.navigate("ChooseDialect"))
+      .catch((error) => {
+        console.log(error);
+      });
     return () => {};
   }, []);
   return (
