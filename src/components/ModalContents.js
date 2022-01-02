@@ -12,13 +12,12 @@ export const ModalContents = ({ selectedDialect }) => {
         <ModalHeader>
           {selectedDialect.name_jp} {selectedDialect.name_en} 
         </ModalHeader>
+        <ModalBodyImage
+          source={{uri: imageUrl}}
+        />
         <ModalBody>
           {selectedDialect.description}
         </ModalBody>
-        <Image
-          style={{width: 200, height: 200}}
-          source={{uri: imageUrl}}
-        />
       </ModalContainer>
       </>
   );
@@ -30,7 +29,7 @@ const ModalContainer = styled.View`
   justify-content: center;
   align-items: center;
   width: 300px;
-  height: 300px;
+  height: 80%;
   border-radius: 25px;
 `;
 const ModalHeader = styled.Text`
@@ -42,10 +41,14 @@ const ModalHeader = styled.Text`
 const ModalBody = styled.Text`
   color: black;
   font-size: 16px;
+  margin: 16px; 
 `;
 
 const ModalBodyImage = styled.Image`
   background-color: white;
+  width: 200px;
+  height: 200px;
+  margin: 16px; 
 `;
 
 export default ModalContents;
