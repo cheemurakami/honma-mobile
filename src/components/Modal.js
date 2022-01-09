@@ -1,4 +1,4 @@
-import { TouchableOpacity, useWindowDimensions } from "react-native";
+import { View, useWindowDimensions } from "react-native";
 
 import FindById from "./helpers/FindById";
 import ModalContents from "./ModalContents";
@@ -12,7 +12,7 @@ export const Modal = ({ modal, setModal, selectedDialectId, dialects }) => {
   if (modal) {
     return (
       <>
-        <TouchableOpacity 
+        <View
           style={{
             flex: 1,
             display: "flex",
@@ -24,10 +24,12 @@ export const Modal = ({ modal, setModal, selectedDialectId, dialects }) => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          onPress={() => setModal(false)}
         >
-          <ModalContents selectedDialect={selectedDialect} />
-        </TouchableOpacity>
+          <ModalContents
+            selectedDialect={selectedDialect}
+            setModal={setModal}
+          />
+        </View>
       </>
     );
   } else {
