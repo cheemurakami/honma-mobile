@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/AntDesign";
 import { ScrollView } from "react-native";
 
 export const ModalContents = ({ selectedDialect, setModal }) => {
   const imageUrl = selectedDialect.default_image;
+  const [expandDescription, setExpandDescription] = useState(false);
 
   return (
     <>
@@ -24,7 +25,16 @@ export const ModalContents = ({ selectedDialect, setModal }) => {
 
           <ModalImageBodyContainer>
             <ModalBodyImage source={{ uri: imageUrl }} />
-            <ModalBody>{selectedDialect.description}</ModalBody>
+            <ModalWrapper
+              onPress={() => setExpandDescription(!expandDescription)}
+            >
+              <ModalBody
+                numberOfLines={expandDescription ? 30 : 10}
+                ellipsizeMode="tail"
+              >
+                {selectedDialect.description}{" "}
+              </ModalBody>
+            </ModalWrapper>
           </ModalImageBodyContainer>
 
           <ButtonContainer>
@@ -83,6 +93,9 @@ const ModalBodyImage = styled.Image`
   width: 200px;
   height: 200px;
   margin: 16px;
+`;
+
+const ModalWrapper = styled.TouchableOpacity`
 `;
 
 const ModalBody = styled.Text`
