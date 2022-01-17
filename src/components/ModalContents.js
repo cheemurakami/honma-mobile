@@ -6,6 +6,7 @@ import { ScrollView } from "react-native";
 export const ModalContents = ({ selectedDialect, setModal }) => {
   const imageUrl = selectedDialect.default_image;
   const [expandDescription, setExpandDescription] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const categories = ["Restaurants", "Museums", "Scenery", "Districts"];
 
   return (
@@ -41,7 +42,15 @@ export const ModalContents = ({ selectedDialect, setModal }) => {
           <ButtonContainer>
             {categories.map((category, i) => {
               return (
-                <CategoryButton key={i}>
+                <CategoryButton
+                  key={i}
+                  onPress={() => setSelectedCategory(i)}
+                  style={
+                    i == selectedCategory
+                      ? { backgroundColor: "#F6A704" }
+                      : { backgroundColor: "#ffe45e" }
+                  }
+                >
                   <CategoryButtonText>{category}</CategoryButtonText>
                 </CategoryButton>
               );
@@ -112,15 +121,13 @@ const CategoryButton = styled.TouchableOpacity`
   width: 120px;
   height: 48px;
   justify-content: center;
-  background-color: #ffe45e;
-  background-color: ${() => "#f5cc00"};
 `;
 
 const CategoryButtonText = styled.Text`
   text-align: center;
   font-weight: bold;
-  font-size: 20px;
-  color: #fff;
+  font-size: 16px;
+  color: #255f85;
 `;
 
 export default ModalContents;
