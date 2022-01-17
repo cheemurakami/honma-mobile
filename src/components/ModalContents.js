@@ -6,6 +6,8 @@ import { ScrollView } from "react-native";
 export const ModalContents = ({ selectedDialect, setModal }) => {
   const imageUrl = selectedDialect.default_image;
   const [expandDescription, setExpandDescription] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const categories = ["Restaurants", "Museums", "Scenery", "Districts"];
 
   return (
     <>
@@ -38,18 +40,21 @@ export const ModalContents = ({ selectedDialect, setModal }) => {
           </ModalImageBodyContainer>
 
           <ButtonContainer>
-            <CategoryButton>
-              <CategoryButtonText>Restaurant</CategoryButtonText>
-            </CategoryButton>
-            <CategoryButton>
-              <CategoryButtonText>Museum</CategoryButtonText>
-            </CategoryButton>
-            <CategoryButton>
-              <CategoryButtonText>Scenery</CategoryButtonText>
-            </CategoryButton>
-            <CategoryButton>
-              <CategoryButtonText>Districts</CategoryButtonText>
-            </CategoryButton>
+            {categories.map((category, i) => {
+              return (
+                <CategoryButton
+                  key={i}
+                  onPress={() => setSelectedCategory(i)}
+                  style={
+                    i == selectedCategory
+                      ? { backgroundColor: "#F6A704" }
+                      : { backgroundColor: "#ffe45e" }
+                  }
+                >
+                  <CategoryButtonText>{category}</CategoryButtonText>
+                </CategoryButton>
+              );
+            })}
           </ButtonContainer>
         </ScrollView>
       </ModalContainer>
@@ -95,8 +100,7 @@ const ModalBodyImage = styled.Image`
   margin: 16px;
 `;
 
-const ModalWrapper = styled.TouchableOpacity`
-`;
+const ModalWrapper = styled.TouchableOpacity``;
 
 const ModalBody = styled.Text`
   color: black;
@@ -105,25 +109,25 @@ const ModalBody = styled.Text`
 `;
 
 const ButtonContainer = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  margin-bottom: 20px;
 `;
 
 const CategoryButton = styled.TouchableOpacity`
-  margin-bottom: 10px;
+  margin: 10px;
   border-radius: 5px;
-  width: 180px;
-  height: 30px;
+  width: 120px;
+  height: 48px;
   justify-content: center;
-  background-color: #ffe45e;
-  background-color: ${() => "#f5cc00"};
 `;
 
 const CategoryButtonText = styled.Text`
   text-align: center;
   font-weight: bold;
-  font-size: 20px;
-  color: #fff;
+  font-size: 16px;
+  color: #255f85;
 `;
 
 export default ModalContents;
