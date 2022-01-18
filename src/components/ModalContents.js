@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/AntDesign";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 
 export const ModalContents = ({ selectedDialect, setModal }) => {
   const imageUrl = selectedDialect.default_image;
@@ -14,13 +14,12 @@ export const ModalContents = ({ selectedDialect, setModal }) => {
       <ModalContainer opacity={1}>
         <ScrollView>
           <ModalHeaderContainer>
-            <ModalHeader>
-              {selectedDialect.name_jp} {selectedDialect.name_en}
-            </ModalHeader>
+            <View></View>
+            <ModalHeader>{selectedDialect.name_en}</ModalHeader>
             <Icon
-              name="closesquareo"
+              name="closesquare"
               size={30}
-              style={{ color: "#aacc00" }}
+              style={{ color: "#255f85", lineHeight: "40px" }}
               onPress={() => setModal(false)}
             />
           </ModalHeaderContainer>
@@ -72,6 +71,7 @@ const ModalContainer = styled.View`
   border-radius: 25px;
   margin-top: 0;
   margin-bottom: 30%;
+  background-color: #fffceb;
 `;
 
 const ModalHeaderContainer = styled.View`
@@ -82,10 +82,10 @@ const ModalHeaderContainer = styled.View`
 `;
 
 const ModalHeader = styled.Text`
-  color: black;
   font-weight: bold;
-  font-size: 20px;
-  line-height: 30px;
+  font-size: 16px;
+  color: #255f85;
+  font-size: 30px;
 `;
 
 const ModalImageBodyContainer = styled.View`
@@ -98,13 +98,15 @@ const ModalBodyImage = styled.Image`
   width: 200px;
   height: 200px;
   margin: 16px;
+  border-radius: 15px;
 `;
 
 const ModalWrapper = styled.TouchableOpacity``;
 
 const ModalBody = styled.Text`
-  color: black;
+  font-weight: bold;
   font-size: 16px;
+  color: #255f85;
   margin: 16px;
 `;
 

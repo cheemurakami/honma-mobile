@@ -83,7 +83,7 @@ const ScreenLayout = (props) => {
 };
 
 const BodyContainer = styled.View`
-  background-color: white;
+  background-color: #fffceb;
   height: ${height * 0.7}px;
   margin: 10px;
 `;

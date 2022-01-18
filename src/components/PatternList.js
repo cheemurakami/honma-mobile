@@ -101,7 +101,7 @@ const PatternList = ({
                       ? {
                           backgroundColor: "#7fc8f8",
                         }
-                      : { backgroundColor: "#fff" }
+                      : { backgroundColor: "#fffceb" }
                   }
                 >
                   <List.Item
