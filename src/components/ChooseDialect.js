@@ -125,7 +125,7 @@ const ChooseDialect = ({
                     ? {
                         backgroundColor: "#7fc8f8",
                       }
-                    : { backgroundColor: "#fff" }
+                    : { backgroundColor: "#fffceb" }
                 }
               >
                 <List.Item
@@ -195,11 +195,13 @@ const DialectContainer = styled.View`
   flex: 1;
   justify-content: center;
   padding: 10px;
+  background-color: #fffceb;
 `;
 
 const DialectTouchable = styled.TouchableHighlight.attrs({
   underlayColor: "#7fc8f8",
 })`
+  background-color: #fffceb;
   margin-top: 10px;
   border-radius: 25px;
 `;
