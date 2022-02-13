@@ -17,7 +17,7 @@ export const Signup = ({ navigation, dispatch }) => {
       password: password,
       password_confirmation: passwordConf,
     };
-    fetch("https://honma-api.herokuapp.com/users", {
+    fetch("http://localhost:3000//users", {
       method: "POST",
       headers: {
         Accept: "application/json",

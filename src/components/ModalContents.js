@@ -19,7 +19,7 @@ export const ModalContents = ({ selectedDialect, setModal }) => {
             <Icon
               name="closesquare"
               size={30}
-              style={{ color: "#255f85", lineHeight: "40px" }}
+              style={{ color: "#255f85", lineHeight: 40 }}
               onPress={() => setModal(false)}
             />
           </ModalHeaderContainer>
