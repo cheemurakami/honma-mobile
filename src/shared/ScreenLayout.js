@@ -8,6 +8,10 @@ import { Title } from "react-native-paper";
 import styled from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
 
+import { ApolloProvider } from "react-apollo";
+import { ApolloClient } from "apollo-client";
+import { createHttpLink } from "apollo-link-http";
+import { InMemoryCache } from "apollo-cache-inmemory";
 const { height } = Dimensions.get("window");
 
 const ScreenLayout = (props) => {
@@ -24,6 +28,9 @@ const ScreenLayout = (props) => {
     setModal,
     selectedDialectId,
   } = props;
+
+  const link = createHttpLink({ uri: "http://localhost:3000/graphql" });
+  const client = new ApolloClient({ link: link, cache: new InMemoryCache() });
 
   return (
     <View>
@@ -73,11 +80,14 @@ const ScreenLayout = (props) => {
           />
         )}
       </Footer>
-      <Modal
-        modal={modal}
-        setModal={setModal}
-        selectedDialectId={selectedDialectId}
-      />
+
+      <ApolloProvider client={client}>
+        <Modal
+          modal={modal}
+          setModal={setModal}
+          selectedDialectId={selectedDialectId}
+        />
+      </ApolloProvider>
     </View>
   );
 };
