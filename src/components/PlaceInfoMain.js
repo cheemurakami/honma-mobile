@@ -3,14 +3,21 @@ import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/AntDesign";
 import { ScrollView, View } from "react-native";
 
-export const ModalContents = ({ selectedDialect, setModal }) => {
+export const PlaceInfoMain = ({ selectedDialect, setModal, placeInfos }) => {
   const imageUrl = selectedDialect.default_image;
   const [expandDescription, setExpandDescription] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const categories = ["Restaurants", "Museums", "Scenery", "Districts"];
 
   return (
-    <>
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {placeInfos && console.log("WHATUP:", placeInfos.length)}
       <ModalContainer opacity={1}>
         <ScrollView>
           <ModalHeaderContainer>
@@ -57,7 +64,7 @@ export const ModalContents = ({ selectedDialect, setModal }) => {
           </ButtonContainer>
         </ScrollView>
       </ModalContainer>
-    </>
+    </View>
   );
 };
 
@@ -132,4 +139,4 @@ const CategoryButtonText = styled.Text`
   color: #255f85;
 `;
 
-export default ModalContents;
+export default PlaceInfoMain;
