@@ -3,12 +3,7 @@ import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/AntDesign";
 import { ScrollView, View } from "react-native";
 
-export const PlaceInfoMain = ({
-  selectedDialect,
-  setModal,
-  placeInfos,
-  navigation,
-}) => {
+export const PlaceInfoMain = ({ selectedDialect, setModal, navigation }) => {
   const imageUrl = selectedDialect.default_image;
   const [expandDescription, setExpandDescription] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -19,13 +14,17 @@ export const PlaceInfoMain = ({
   };
 
   useEffect(() => {
-    if(selectedCategory !== null){
+    if (selectedCategory !== null) {
       navigation.navigate("PlaceInfoList", {
         selectedDialect,
         selectedCategory,
       });
     }
-    return () => {};
+    return () => {
+      setTimeout(() => {
+        setSelectedCategory(null);
+      }, 1000);
+    };
   }, [selectedCategory]);
 
   return (
@@ -69,7 +68,7 @@ export const PlaceInfoMain = ({
                   key={i}
                   onPress={() => showPlaceInfoList(i)}
                   style={
-                    i == selectedCategory
+                    i == categories.indexOf(selectedCategory)
                       ? { backgroundColor: "#F6A704" }
                       : { backgroundColor: "#ffe45e" }
                   }
