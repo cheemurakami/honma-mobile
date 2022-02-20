@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/AntDesign";
 import { ScrollView, View } from "react-native";
@@ -15,9 +15,18 @@ export const PlaceInfoMain = ({
   const categories = ["Restaurants", "Museums", "Scenery", "Districts"];
 
   const showPlaceInfoList = (i) => {
-    setSelectedCategory(i);
-    navigation.navigate("PlaceInfoList", { selectedDialect });
+    setSelectedCategory(categories[i]);
   };
+
+  useEffect(() => {
+    if(selectedCategory !== null){
+      navigation.navigate("PlaceInfoList", {
+        selectedDialect,
+        selectedCategory,
+      });
+    }
+    return () => {};
+  }, [selectedCategory]);
 
   return (
     <View
