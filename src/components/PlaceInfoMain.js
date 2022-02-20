@@ -36,7 +36,6 @@ export const PlaceInfoMain = ({
         justifyContent: "center",
       }}
     >
-      {placeInfos && console.log("WHATUP:", placeInfos.length)}
       <ModalContainer opacity={1}>
         <ScrollView>
           <ModalHeaderContainer>
