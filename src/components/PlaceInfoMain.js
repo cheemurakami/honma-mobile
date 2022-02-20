@@ -1,23 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/AntDesign";
 import { ScrollView, View } from "react-native";
 
-export const PlaceInfoMain = ({
-  selectedDialect,
-  setModal,
-  placeInfos,
-  navigation,
-}) => {
+export const PlaceInfoMain = ({ selectedDialect, setModal, navigation }) => {
   const imageUrl = selectedDialect.default_image;
   const [expandDescription, setExpandDescription] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const categories = ["Restaurants", "Museums", "Scenery", "Districts"];
 
   const showPlaceInfoList = (i) => {
-    setSelectedCategory(i);
-    navigation.navigate("PlaceInfoList", { selectedDialect });
+    setSelectedCategory(categories[i]);
   };
+
+  useEffect(() => {
+    if (selectedCategory !== null) {
+      navigation.navigate("PlaceInfoList", {
+        selectedDialect,
+        selectedCategory,
+      });
+    }
+    return () => {
+      setTimeout(() => {
+        setSelectedCategory(null);
+      }, 1000);
+    };
+  }, [selectedCategory]);
 
   return (
     <View
@@ -27,7 +35,6 @@ export const PlaceInfoMain = ({
         justifyContent: "center",
       }}
     >
-      {placeInfos && console.log("WHATUP:", placeInfos.length)}
       <ModalContainer opacity={1}>
         <ScrollView>
           <ModalHeaderContainer>
@@ -61,7 +68,7 @@ export const PlaceInfoMain = ({
                   key={i}
                   onPress={() => showPlaceInfoList(i)}
                   style={
-                    i == selectedCategory
+                    i == categories.indexOf(selectedCategory)
                       ? { backgroundColor: "#F6A704" }
                       : { backgroundColor: "#ffe45e" }
                   }
