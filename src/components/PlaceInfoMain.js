@@ -3,18 +3,34 @@ import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/AntDesign";
 import { ScrollView, View } from "react-native";
 
-export const ModalContents = ({ selectedDialect, setModal }) => {
+export const PlaceInfoMain = ({
+  selectedDialect,
+  setModal,
+  placeInfos,
+  navigation,
+}) => {
   const imageUrl = selectedDialect.default_image;
   const [expandDescription, setExpandDescription] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const categories = ["Restaurants", "Museums", "Scenery", "Districts"];
 
+  const showPlaceInfoList = (i) => {
+    setSelectedCategory(i);
+    navigation.navigate("PlaceInfoList", { selectedDialect });
+  };
+
   return (
-    <>
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {placeInfos && console.log("WHATUP:", placeInfos.length)}
       <ModalContainer opacity={1}>
         <ScrollView>
           <ModalHeaderContainer>
-            <View></View>
             <ModalHeader>{selectedDialect.name_en}</ModalHeader>
             <Icon
               name="closesquare"
@@ -43,7 +59,7 @@ export const ModalContents = ({ selectedDialect, setModal }) => {
               return (
                 <CategoryButton
                   key={i}
-                  onPress={() => setSelectedCategory(i)}
+                  onPress={() => showPlaceInfoList(i)}
                   style={
                     i == selectedCategory
                       ? { backgroundColor: "#F6A704" }
@@ -57,7 +73,7 @@ export const ModalContents = ({ selectedDialect, setModal }) => {
           </ButtonContainer>
         </ScrollView>
       </ModalContainer>
-    </>
+    </View>
   );
 };
 
@@ -132,4 +148,4 @@ const CategoryButtonText = styled.Text`
   color: #255f85;
 `;
 
-export default ModalContents;
+export default PlaceInfoMain;
