@@ -3,8 +3,13 @@ import { View, Text } from "react-native";
 
 import { connect } from "react-redux";
 
-export const PlaceInfoList = (props) => {
-  return <View><Text>PlaceInfoDetailPage</Text></View>;
+export const PlaceInfoList = ({ route }) => {
+  const { selectedDialect } = route.params;
+  return (
+    <View>
+      <Text>PlaceInfoDetailPage {selectedDialect.name_en}</Text>
+    </View>
+  );
 };
 
 const mapStateToProps = (state) => ({});

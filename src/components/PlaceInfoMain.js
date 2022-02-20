@@ -3,11 +3,21 @@ import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/AntDesign";
 import { ScrollView, View } from "react-native";
 
-export const PlaceInfoMain = ({ selectedDialect, setModal, placeInfos }) => {
+export const PlaceInfoMain = ({
+  selectedDialect,
+  setModal,
+  placeInfos,
+  navigation,
+}) => {
   const imageUrl = selectedDialect.default_image;
   const [expandDescription, setExpandDescription] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const categories = ["Restaurants", "Museums", "Scenery", "Districts"];
+
+  const showPlaceInfoList = (i) => {
+    setSelectedCategory(i);
+    navigation.navigate("PlaceInfoList", { selectedDialect });
+  };
 
   return (
     <View
@@ -21,7 +31,6 @@ export const PlaceInfoMain = ({ selectedDialect, setModal, placeInfos }) => {
       <ModalContainer opacity={1}>
         <ScrollView>
           <ModalHeaderContainer>
-            <View></View>
             <ModalHeader>{selectedDialect.name_en}</ModalHeader>
             <Icon
               name="closesquare"
@@ -50,7 +59,7 @@ export const PlaceInfoMain = ({ selectedDialect, setModal, placeInfos }) => {
               return (
                 <CategoryButton
                   key={i}
-                  onPress={() => setSelectedCategory(i)}
+                  onPress={() => showPlaceInfoList(i)}
                   style={
                     i == selectedCategory
                       ? { backgroundColor: "#F6A704" }
