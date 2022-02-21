@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 
 import { useQuery } from "react-apollo";
@@ -19,7 +19,7 @@ export const GET_PLACE_INFOS = gql`
   }
 `;
 
-export const PlaceInfoList = ({ route }) => {
+export const PlaceInfoList = ({ route, navigation }) => {
   const { selectedDialect, selectedCategory } = route.params;
 
   const { data } = useQuery(GET_PLACE_INFOS, {
@@ -27,6 +27,20 @@ export const PlaceInfoList = ({ route }) => {
   });
 
   const [selectedPlace, setSelectedPlace] = useState(null);
+
+  useEffect(() => {
+    if (selectedPlace !== null) {
+      navigation.navigate("PlaceInfoDetail", {
+        selectedDialect,
+        selectedCategory,
+        selectedPlace,
+      });
+    }
+
+    return () => {
+      setSelectedPlace(null);
+    };
+  }, [selectedPlace]);
 
   if (data) {
     const imageUrls = data.placeInfos.map((placeInfo) => {
@@ -54,6 +68,7 @@ export const PlaceInfoList = ({ route }) => {
                 alignSelf: "center",
                 color: "#F6A704",
               }}
+              onPress={() => navigation.navigate("PlaceInfoMain")}
             />
             <ModalHeader>{selectedCategory}</ModalHeader>
             <View></View>
@@ -84,15 +99,6 @@ export const PlaceInfoList = ({ route }) => {
                 </CategoryButton>
               );
             })}
-            <CategoryButton style={{ backgroundColor: "#ffe45e" }}>
-              <CategoryButtonText>something</CategoryButtonText>
-            </CategoryButton>
-            <CategoryButton style={{ backgroundColor: "#ffe45e" }}>
-              <CategoryButtonText>something else</CategoryButtonText>
-            </CategoryButton>
-            <CategoryButton style={{ backgroundColor: "#ffe45e" }}>
-              <CategoryButtonText>something else again</CategoryButtonText>
-            </CategoryButton>
           </ButtonContainer>
         </ModalContainer>
       </View>

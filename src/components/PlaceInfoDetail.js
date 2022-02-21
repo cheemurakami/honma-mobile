@@ -1,12 +1,13 @@
 import React from "react";
-import { connect } from "react-redux";
+import { View, Text } from "react-native";
 
-export const PlaceInfoDetail = (props) => {
-  return <div>PlaceInfoDetailPage</div>;
+export const PlaceInfoDetail = ({ route }) => {
+  const { selectedDialect, selectedCategory, selectedPlace } = route.params;
+  return (
+    <View>
+      <Text>PlaceInfoDetailPage, {selectedPlace}</Text>
+    </View>
+  );
 };
 
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlaceInfoDetail);
+export default PlaceInfoDetail;
