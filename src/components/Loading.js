@@ -22,7 +22,7 @@ const examplesWithAudio = (resp) => {
 
 const Loading = ({ navigation, dispatch }) => {
   useEffect(() => {
-    fetch("http://localhost:3000//api/dialects")
+    fetch("http://localhost:3000/api/dialects")
       .then((resp) => {
         if (resp.ok) {
           return resp.json();
