@@ -5,8 +5,9 @@ import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 export const PlaceInfoDetail = ({ route, navigation }) => {
-  const { selectedDialect, selectedCategory, selectedPlace } = route.params;
+  const { selectedDialect, selectedPlace } = route.params;
   const [expandDescription, setExpandDescription] = useState(false);
+  const imageUrls = selectedPlace.imageUrls;
 
   return (
     <View
@@ -28,13 +29,13 @@ export const PlaceInfoDetail = ({ route, navigation }) => {
               }}
               onPress={() => navigation.navigate("PlaceInfoList")}
             />
-            <ModalHeader>{selectedCategory}</ModalHeader>
+            <ModalHeader>{selectedPlace.nameEn}</ModalHeader>
             <View></View>
           </ModalHeaderContainer>
           <ModalImageBodyContainer>
             <ModalBodyImage
               source={{
-                uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS65JA8pwgmMfiBozDP7ARjeT3RTDr-kPX1Fw&usqp=CAU",
+                uri: imageUrls[0],
               }}
             />
             <ModalWrapper
@@ -49,26 +50,39 @@ export const PlaceInfoDetail = ({ route, navigation }) => {
             </ModalWrapper>
           </ModalImageBodyContainer>
           <InfoContainer>
-            <Icon
-              name="home"
-              size={30}
-              style={{
-                alignSelf: "center",
-                color: "#F6A704",
-              }}
-            />
-            <InfoText>sup</InfoText>
+            <View style={{ width: 30 }}>
+              <Icon
+                name="home"
+                size={30}
+                style={{
+                  alignSelf: "center",
+                  color: "#F6A704",
+                }}
+              />
+            </View>
+            <InfoText>
+              {selectedPlace.website
+                ? selectedPlace.website
+                : "official website"}
+            </InfoText>
           </InfoContainer>
+
           <InfoContainer>
-            <Icon
-              name="map-marker"
-              size={30}
-              style={{
-                alignSelf: "center",
-                color: "#F6A704",
-              }}
-            />
-            <InfoText>whatup</InfoText>
+            <View style={{ width: 30 }}>
+              <Icon
+                name="map-marker"
+                size={30}
+                style={{
+                  alignSelf: "center",
+                  color: "#F6A704",
+                }}
+              />
+            </View>
+            <InfoText>
+              {selectedPlace.address
+                ? selectedPlace.address
+                : "Address unavailable"}
+            </InfoText>
           </InfoContainer>
         </ScrollView>
       </ModalContainer>
@@ -101,6 +115,8 @@ const ModalHeader = styled.Text`
   font-size: 16px;
   color: #255f85;
   font-size: 30px;
+  margin-right: 16px;
+  margin-left: 16px;
 `;
 
 const ModalImageBodyContainer = styled.View`
@@ -128,18 +144,18 @@ const ModalBody = styled.Text`
 const InfoContainer = styled.View`
   width: 300px;
   flex-direction: row;
+  flex: 1;
   justify-content: flex-start;
-  margin-top: 20px;
-  padding: 0 20px 20px 20px;
-  border: red;
+  align-items: center;
+  margin-top: 10px;
+  padding: 0 40px 20px 20px;
 `;
 
 const InfoText = styled.Text`
-  font-size: 16px;
   color: #255f85;
-  font-size: 24px;
-  margin-left: 20px;
-  border: blue;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 10px;
 `;
 
 export default PlaceInfoDetail;

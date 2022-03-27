@@ -14,7 +14,9 @@ export const GET_PLACE_INFOS = gql`
       nameEn
       nameJp
       category
-      imgUrl
+      imageUrls
+      website
+      address
     }
   }
 `;
@@ -32,7 +34,6 @@ export const PlaceInfoList = ({ route, navigation }) => {
     if (selectedPlace !== null) {
       navigation.navigate("PlaceInfoDetail", {
         selectedDialect,
-        selectedCategory,
         selectedPlace,
       });
     }
@@ -46,10 +47,7 @@ export const PlaceInfoList = ({ route, navigation }) => {
     const imageUrls = data.placeInfos.map((placeInfo) => {
       return placeInfo.imgUrl;
     });
-
-    const placeInfosNameEns = data.placeInfos.map((placeInfo) => {
-      return placeInfo.nameEn;
-    });
+    const placeInfos = data.placeInfos;
 
     return (
       <View
@@ -84,18 +82,18 @@ export const PlaceInfoList = ({ route, navigation }) => {
           </SubHeaderContainer>
 
           <ButtonContainer>
-            {placeInfosNameEns.map((nameEn, i) => {
+            {placeInfos.map((place, i) => {
               return (
                 <CategoryButton
                   key={i}
-                  onPress={() => setSelectedPlace(nameEn)}
+                  onPress={() => setSelectedPlace(place)}
                   style={
-                    i == placeInfosNameEns.indexOf(selectedPlace)
+                    i == placeInfos.indexOf(selectedPlace)
                       ? { backgroundColor: "#F6A704" }
                       : { backgroundColor: "#ffe45e" }
                   }
                 >
-                  <CategoryButtonText>{nameEn}</CategoryButtonText>
+                  <CategoryButtonText>{place.nameEn}</CategoryButtonText>
                 </CategoryButton>
               );
             })}
