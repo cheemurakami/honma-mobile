@@ -13,7 +13,7 @@ Fixes # (issue) -->
 - [ ] Test A
 - [ ] Test B
 -->
-<!-- Add images if availaable -->
+<!-- Add images if available -->
 ## Notes 📔
 
 ## Ticket 🎫 
