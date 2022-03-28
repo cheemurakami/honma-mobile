@@ -44,9 +44,16 @@ export const PlaceInfoList = ({ route, navigation }) => {
   }, [selectedPlace]);
 
   if (data) {
-    const imageUrls = data.placeInfos.map((placeInfo) => {
-      return placeInfo.imgUrl;
-    });
+    const imageUrls = data.placeInfos
+      .map((placeInfo) => {
+        return placeInfo.imageUrls;
+      })
+      .flat();
+
+    const randomImageUrl = (max) => {
+      return imageUrls[Math.floor(Math.random() * max)];
+    };
+
     const placeInfos = data.placeInfos;
 
     return (
@@ -73,7 +80,9 @@ export const PlaceInfoList = ({ route, navigation }) => {
           </ModalHeaderContainer>
           {imageUrls ? (
             <ModalImageBodyContainer>
-              <ModalBodyImage source={{ uri: imageUrls[0] }} />
+              <ModalBodyImage
+                source={{ uri: randomImageUrl(imageUrls.length) }}
+              />
             </ModalImageBodyContainer>
           ) : null}
 
