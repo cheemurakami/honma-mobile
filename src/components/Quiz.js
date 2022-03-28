@@ -34,7 +34,7 @@ export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
     };
 
     const completedQuiz = (data) => {
-      fetch("http://localhost:3000//api/quiz_completions", {
+      fetch("http://localhost:3000/api/quiz_completions", {
         method: "POST",
         headers: {
           Accept: "application/json",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 
 import { useQuery } from "react-apollo";
@@ -14,12 +14,14 @@ export const GET_PLACE_INFOS = gql`
       nameEn
       nameJp
       category
-      imgUrl
+      imageUrls
+      website
+      address
     }
   }
 `;
 
-export const PlaceInfoList = ({ route }) => {
+export const PlaceInfoList = ({ route, navigation }) => {
   const { selectedDialect, selectedCategory } = route.params;
 
   const { data } = useQuery(GET_PLACE_INFOS, {
@@ -28,14 +30,31 @@ export const PlaceInfoList = ({ route }) => {
 
   const [selectedPlace, setSelectedPlace] = useState(null);
 
-  if (data) {
-    const imageUrls = data.placeInfos.map((placeInfo) => {
-      return placeInfo.imgUrl;
-    });
+  useEffect(() => {
+    if (selectedPlace !== null) {
+      navigation.navigate("PlaceInfoDetail", {
+        selectedDialect,
+        selectedPlace,
+      });
+    }
 
-    const placeInfosNameEns = data.placeInfos.map((placeInfo) => {
-      return placeInfo.nameEn;
-    });
+    return () => {
+      setSelectedPlace(null);
+    };
+  }, [selectedPlace]);
+
+  if (data) {
+    const imageUrls = data.placeInfos
+      .map((placeInfo) => {
+        return placeInfo.imageUrls;
+      })
+      .flat();
+
+    const randomImageUrl = (max) => {
+      return imageUrls[Math.floor(Math.random() * max)];
+    };
+
+    const placeInfos = data.placeInfos;
 
     return (
       <View
@@ -54,13 +73,16 @@ export const PlaceInfoList = ({ route }) => {
                 alignSelf: "center",
                 color: "#F6A704",
               }}
+              onPress={() => navigation.navigate("PlaceInfoMain")}
             />
             <ModalHeader>{selectedCategory}</ModalHeader>
             <View></View>
           </ModalHeaderContainer>
           {imageUrls ? (
             <ModalImageBodyContainer>
-              <ModalBodyImage source={{ uri: imageUrls[0] }} />
+              <ModalBodyImage
+                source={{ uri: randomImageUrl(imageUrls.length) }}
+              />
             </ModalImageBodyContainer>
           ) : null}
 
@@ -69,30 +91,21 @@ export const PlaceInfoList = ({ route }) => {
           </SubHeaderContainer>
 
           <ButtonContainer>
-            {placeInfosNameEns.map((nameEn, i) => {
+            {placeInfos.map((place, i) => {
               return (
                 <CategoryButton
                   key={i}
-                  onPress={() => setSelectedPlace(nameEn)}
+                  onPress={() => setSelectedPlace(place)}
                   style={
-                    i == placeInfosNameEns.indexOf(selectedPlace)
+                    i == placeInfos.indexOf(selectedPlace)
                       ? { backgroundColor: "#F6A704" }
                       : { backgroundColor: "#ffe45e" }
                   }
                 >
-                  <CategoryButtonText>{nameEn}</CategoryButtonText>
+                  <CategoryButtonText>{place.nameEn}</CategoryButtonText>
                 </CategoryButton>
               );
             })}
-            <CategoryButton style={{ backgroundColor: "#ffe45e" }}>
-              <CategoryButtonText>something</CategoryButtonText>
-            </CategoryButton>
-            <CategoryButton style={{ backgroundColor: "#ffe45e" }}>
-              <CategoryButtonText>something else</CategoryButtonText>
-            </CategoryButton>
-            <CategoryButton style={{ backgroundColor: "#ffe45e" }}>
-              <CategoryButtonText>something else again</CategoryButtonText>
-            </CategoryButton>
           </ButtonContainer>
         </ModalContainer>
       </View>

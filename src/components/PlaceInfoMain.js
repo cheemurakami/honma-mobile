@@ -21,9 +21,7 @@ export const PlaceInfoMain = ({ selectedDialect, setModal, navigation }) => {
       });
     }
     return () => {
-      setTimeout(() => {
-        setSelectedCategory(null);
-      }, 1000);
+      setSelectedCategory(null);
     };
   }, [selectedCategory]);
 

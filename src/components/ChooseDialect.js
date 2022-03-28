@@ -95,7 +95,7 @@ const ChooseDialect = ({
   };
 
   const signout = () => {
-    fetch("http://localhost:3000//users/sign_out", {
+    fetch("http://localhost:3000/users/sign_out", {
       method: "DELETE",
     }).then(() => {
       dispatch(a.signout());
