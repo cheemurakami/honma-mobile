@@ -45,7 +45,7 @@ export const PlaceInfoDetail = ({ route, navigation }) => {
                 numberOfLines={expandDescription ? 30 : 10}
                 ellipsizeMode="tail"
               >
-                {selectedDialect.description}{" "}
+                {selectedPlace.description}{" "}
               </ModalBody>
             </ModalWrapper>
           </ModalImageBodyContainer>
