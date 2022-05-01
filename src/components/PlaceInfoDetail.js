@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ScrollView, View } from "react-native";
 
 import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import PlaceInfoDetailCarousel from "./PlaceInfoDetaiCarousel";
 
 export const PlaceInfoDetail = ({ route, navigation }) => {
-  const { selectedDialect, selectedPlace } = route.params;
+  const { selectedPlace } = route.params;
   const [expandDescription, setExpandDescription] = useState(false);
   const imageUrls = selectedPlace.imageUrls;
+  const imageUrlsEntries = [];
+
+  const makeImageUrlsEntries = (urls) => {
+    for (let i = 0; i < urls.length; i++) {
+      imageUrlsEntries.push({ illustration: urls[i] });
+    }
+  };
+  useEffect(() => {
+    makeImageUrlsEntries(imageUrls);
+  }, []);
 
   return (
     <View
@@ -33,11 +44,7 @@ export const PlaceInfoDetail = ({ route, navigation }) => {
             <View></View>
           </ModalHeaderContainer>
           <ModalImageBodyContainer>
-            <ModalBodyImage
-              source={{
-                uri: imageUrls[0],
-              }}
-            />
+            <PlaceInfoDetailCarousel imageUrlsEntries={imageUrlsEntries} />
             <ModalWrapper
               onPress={() => setExpandDescription(!expandDescription)}
             >
@@ -122,14 +129,6 @@ const ModalHeader = styled.Text`
 const ModalImageBodyContainer = styled.View`
   justify-content: center;
   align-items: center;
-`;
-
-const ModalBodyImage = styled.Image`
-  background-color: white;
-  width: 200px;
-  height: 200px;
-  margin: 16px;
-  border-radius: 15px;
 `;
 
 const ModalWrapper = styled.TouchableOpacity``;
