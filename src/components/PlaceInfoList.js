@@ -17,6 +17,7 @@ export const GET_PLACE_INFOS = gql`
       imageUrls
       website
       address
+      description
     }
   }
 `;
