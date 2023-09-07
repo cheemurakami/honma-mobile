@@ -1,20 +1,26 @@
 Arguments: 
-  /usr/local/Cellar/node@14/14.18.2/bin/node /usr/local/Cellar/yarn/1.22.17_2/libexec/bin/yarn.js install
+  /usr/local/Cellar/node/20.5.1/bin/node /usr/local/Cellar/yarn/1.22.17_2/libexec/bin/yarn.js add expo@^49.0.0
 
 PATH: 
-  /Users/kiwi/.rvm/gems/ruby-2.7.5/bin:/Users/kiwi/.rvm/gems/ruby-2.7.5@global/bin:/Users/kiwi/.rvm/rubies/ruby-2.7.5/bin:/Users/kiwi/.yarn/bin:/Users/kiwi/Library/Android/sdk/platform-tools:/usr/local/mysql/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Users/kiwi/.rvm/bin
+  /usr/local/opt/postgresql@12/bin:/Library/Frameworks/Python.framework/Versions/3.11/bin:/Library/Frameworks/Python.framework/Versions/3.11/bin:/Users/kiwi/.rvm/gems/ruby-2.6.5/bin:/Users/kiwi/.rvm/gems/ruby-2.6.5@global/bin:/Users/kiwi/.rvm/rubies/ruby-2.6.5/bin:/Users/kiwi/.rvm/bin:/Users/kiwi/.yarn/bin:/Users/kiwi/Library/Android/sdk/platform-tools:/usr/local/mysql/bin:/usr/local/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:/usr/local/mysql/bin:~/.dotnet/tools:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
 
 Yarn version: 
   1.22.17
 
 Node version: 
-  14.18.2
+  20.5.1
 
 Platform: 
   darwin x64
 
 Trace: 
-  Error: ENOSPC: no space left on device, copyfile '/Users/kiwi/Library/Caches/Yarn/v6/npm-react-native-0.64.3-40db6385963b4b17325f9cc86dd19132394b03fc-integrity/node_modules/react-native/ReactAndroid/src/main/third-party/java/fest/BUCK' -> '/Users/kiwi/Desktop/my_project/honma-mobile/node_modules/react-native/ReactAndroid/src/main/third-party/java/fest/BUCK'
+  Invariant Violation: could not find a copy of semver to link in /Users/kiwi/Desktop/my_project/honma-mobile/node_modules/babel-preset-expo/node_modules/metro-react-native-babel-preset/node_modules/@babel/core/node_modules/@babel/helper-compilation-targets/node_modules
+      at invariant (/usr/local/Cellar/yarn/1.22.17_2/libexec/lib/cli.js:2314:15)
+      at PackageLinker.<anonymous> (/usr/local/Cellar/yarn/1.22.17_2/libexec/lib/cli.js:48895:7)
+      at Generator.next (<anonymous>)
+      at step (/usr/local/Cellar/yarn/1.22.17_2/libexec/lib/cli.js:310:30)
+      at /usr/local/Cellar/yarn/1.22.17_2/libexec/lib/cli.js:321:13
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
 
 npm manifest: 
   {
@@ -30,6 +36,7 @@ npm manifest:
       "@react-native-community/masked-view": "0.1.10",
       "@react-navigation/native": "^5.8.10",
       "@react-navigation/stack": "^5.12.8",
+      "@types/react-native-snap-carousel": "^3.8.5",
       "apollo-boost": "^0.4.9",
       "expo": "^44.0.0",
       "expo-av": "~10.2.0",
@@ -46,6 +53,7 @@ npm manifest:
       "react-native-reanimated": "~2.3.1",
       "react-native-safe-area-context": "3.3.2",
       "react-native-screens": "~3.10.1",
+      "react-native-snap-carousel": "^3.9.1",
       "react-native-vector-icons": "^7.1.0",
       "react-native-web": "0.17.1",
       "react-redux": "7.2.2",
@@ -2071,6 +2079,14 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@react-native/polyfills/-/polyfills-1.0.0.tgz#05bb0031533598f9458cf65a502b8df0eecae780"
     integrity sha512-0jbp4RxjYopTsIdLl+/Fy2TiwVYHy4mgeu07DG4b/LyM0OS/+lPP5c9sbnt/AMlnF6qz2JRZpPpGw1eMNS6A4w==
   
+  "@react-native/virtualized-lists@^0.72.4":
+    version "0.72.8"
+    resolved "https://registry.yarnpkg.com/@react-native/virtualized-lists/-/virtualized-lists-0.72.8.tgz#a2c6a91ea0f1d40eb5a122fb063daedb92ed1dc3"
+    integrity sha512-J3Q4Bkuo99k7mu+jPS9gSUSgq+lLRSI/+ahXNwV92XgJ/8UgOTxu2LPwhJnBk/sQKxq7E8WkZBnBiozukQMqrw==
+    dependencies:
+      invariant "^2.2.4"
+      nullthrows "^1.1.1"
+  
   "@react-navigation/core@^5.14.4":
     version "5.14.4"
     resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-5.14.4.tgz#f63a2cd214bddbd25e1181f9335c32dfc3b6460f"
@@ -2168,6 +2184,41 @@ Lockfile:
     version "17.0.17"
     resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.17.tgz#a8ddf6e0c2341718d74ee3dc413a13a042c45a0c"
     integrity sha512-e8PUNQy1HgJGV3iU/Bp2+D/DXh3PYeyli8LgIwsQcs1Ar1LoaWHSIT6Rw+H2rNJmiq6SNWiDytfx8+gYj7wDHw==
+  
+  "@types/prop-types@*":
+    version "15.7.5"
+    resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
+    integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
+  
+  "@types/react-native-snap-carousel@^3.8.5":
+    version "3.8.5"
+    resolved "https://registry.yarnpkg.com/@types/react-native-snap-carousel/-/react-native-snap-carousel-3.8.5.tgz#5b3cb208119e3599d5537b5fc83653a155c6275d"
+    integrity sha512-EMBwQo/om2HZM/J6u8Bvz7i0BEO/v6frrpmlvUQ579CMsgYQPlYzQ1ne4KDdRq08+yDSG8/8AwIi1R+185ROsg==
+    dependencies:
+      "@types/react" "*"
+      "@types/react-native" "*"
+  
+  "@types/react-native@*":
+    version "0.72.2"
+    resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.72.2.tgz#27c931a899c555b28e20cdd12e570b017808de96"
+    integrity sha512-/eEjr04Zqo7mTMszuSdrLx90+j5nWhDMMOgtnKZfAYyV3RwmlpSb7F17ilmMMxZWJY81n/JZ4e6wdhMJFpjrCg==
+    dependencies:
+      "@react-native/virtualized-lists" "^0.72.4"
+      "@types/react" "*"
+  
+  "@types/react@*":
+    version "18.2.21"
+    resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.21.tgz#774c37fd01b522d0b91aed04811b58e4e0514ed9"
+    integrity sha512-neFKG/sBAwGxHgXiIxnbm3/AAVQ/cMRS93hvBpg8xYRbeQSPVABp9U2bRnPf0iI4+Ucdv3plSxKK+3CW2ENJxA==
+    dependencies:
+      "@types/prop-types" "*"
+      "@types/scheduler" "*"
+      csstype "^3.0.2"
+  
+  "@types/scheduler@*":
+    version "0.16.3"
+    resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.3.tgz#cef09e3ec9af1d63d2a6cc5b383a737e24e6dcf5"
+    integrity sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==
   
   "@types/yargs-parser@*":
     version "20.2.0"
@@ -3099,6 +3150,11 @@ Lockfile:
       camelize "^1.0.0"
       css-color-keywords "^1.0.0"
       postcss-value-parser "^4.0.2"
+  
+  csstype@^3.0.2:
+    version "3.1.2"
+    resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.2.tgz#1d4bf9d572f11c14031f0436e1c10bc1f571f50b"
+    integrity sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==
   
   dayjs@^1.8.15:
     version "1.9.7"
@@ -5336,6 +5392,15 @@ Lockfile:
       object-assign "^4.1.1"
       react-is "^16.8.1"
   
+  prop-types@^15.6.1:
+    version "15.8.1"
+    resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
+    integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
+    dependencies:
+      loose-envify "^1.4.0"
+      object-assign "^4.1.1"
+      react-is "^16.13.1"
+  
   pump@^3.0.0:
     version "3.0.0"
     resolved "https://registry.yarnpkg.com/pump/-/pump-3.0.0.tgz#b4a2116815bde2f4e1ea602354e8c75565107a64"
@@ -5367,6 +5432,14 @@ Lockfile:
     version "1.2.1"
     resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
     integrity sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==
+  
+  react-addons-shallow-compare@15.6.2:
+    version "15.6.2"
+    resolved "https://registry.yarnpkg.com/react-addons-shallow-compare/-/react-addons-shallow-compare-15.6.2.tgz#198a00b91fc37623db64a28fd17b596ba362702f"
+    integrity sha512-yAV9tOObmKPiohqne1jiMcx6kDjfz7GeL8K9KHgI+HvDsbrRv148uyUzrPc6GwepZnQcJ59Q3lp1ghrkyPwtjg==
+    dependencies:
+      fbjs "^0.8.4"
+      object-assign "^4.1.0"
   
   react-apollo@^3.1.5:
     version "3.1.5"
@@ -5478,6 +5551,14 @@ Lockfile:
     dependencies:
       react-freeze "^1.0.0"
       warn-once "^0.1.0"
+  
+  react-native-snap-carousel@^3.9.1:
+    version "3.9.1"
+    resolved "https://registry.yarnpkg.com/react-native-snap-carousel/-/react-native-snap-carousel-3.9.1.tgz#6fd9bd8839546c2c6043a41d2035afbc6fe0443e"
+    integrity sha512-xWEGusacIgK1YaDXLi7Gao2+ISLoGPVEBR8fcMf4tOOJQufutlNwkoLu0l6B8Qgsrre0nTxoVZikRgGRDWlLaQ==
+    dependencies:
+      prop-types "^15.6.1"
+      react-addons-shallow-compare "15.6.2"
   
   react-native-vector-icons@^7.1.0:
     version "7.1.0"
