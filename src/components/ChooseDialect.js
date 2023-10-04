@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "react-native-paper";
 import * as a from "../rdx/actions";
 
@@ -26,10 +26,33 @@ const ChooseDialect = ({
   const [selectedDialectId, setSelectedDialectId] = useState(null);
   const [btnText, setBtnText] = useState("はじめましょう!!");
   const [modal, setModal] = useState(false);
+  const [grammars, setGrammars] = useState([]);
+  const [dialectGrammars, setDialectGrammars] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/grammars")
+      .then((resp) => {
+        if (resp.ok) {
+          return resp.json();
+        } else {
+          throw new Error("Something went wrong. status: " + resp.status);
+        }
+      })
+      .then((data) => {
+        setGrammars(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      return () => {};
+    }, []);
 
   const doubleTap = (id) => {
     changeBtnText(id);
     const selectedDialect = FindById(dialects, id);
+
+    setDialectGrammars(getDialectGrammars(selectedDialect));
+
     if (selectedDialectId == id || selectedDialectId == null) {
       setSelectedDialectId(id);
       counter++;
@@ -38,7 +61,10 @@ const ChooseDialect = ({
           counter = 0;
         }, 1200);
       } else if (counter === 2) {
-        navigation.navigate("PatternList", { selectedDialect });
+        navigation.navigate("PatternList", {
+          selectedDialect,
+          dialectGrammars,
+        });
       }
     } else {
       setSelectedDialectId(id);
@@ -103,6 +129,12 @@ const ChooseDialect = ({
     });
   };
 
+  const getDialectGrammars = (dialect) => {
+    if (grammars) {
+      return grammars.filter((grammar) => grammar.dialect_id == dialect.id);
+    }
+  };
+
   return (
     <ScreenLayout
       pageTitle={pageTitle}
@@ -152,7 +184,7 @@ const ChooseDialect = ({
                   )}
                   right={() => (
                     <ProgressIcon>
-                      {completedQuizzesNumber(dialect.grammars)}
+                      {completedQuizzesNumber(getDialectGrammars(dialect))}
                       {/* <ProgressText>
                         {completedNumber(dialect.grammars)}/
                         {dialect.grammars.length}
