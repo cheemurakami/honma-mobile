@@ -23,14 +23,14 @@ const PatternList = ({
   dispatch,
   selectedGrammarId,
 }) => {
-  const { selectedDialect } = route.params;
+  const { selectedDialect, dialectGrammars } = route.params;
   const btnLabel = selectedDialect.next_btn_text;
   const pageTitle = selectedDialect.name_jp + " " + selectedDialect.name_en;
 
   const navigateBtn = () => {
     if (selectedGrammarId) {
       const selectedGrammar = FindById(
-        selectedDialect.grammars,
+        dialectGrammars,
         selectedGrammarId
       );
       navigation.navigate("Lesson", {
@@ -43,7 +43,7 @@ const PatternList = ({
   };
 
   const doubleTap = (id) => {
-    const selectedGrammar = FindById(selectedDialect.grammars, id);
+    const selectedGrammar = FindById(dialectGrammars, id);
     const action = a.selectedGrammar(id);
     if (selectedGrammarId == id || selectedGrammarId == null) {
       dispatch(action);
@@ -90,8 +90,8 @@ const PatternList = ({
     >
       <ScrollView>
         <PatternContainer>
-          {!!selectedDialect.grammars &&
-            selectedDialect.grammars.map((grammar, index) => {
+          {!!dialectGrammars &&
+            dialectGrammars.map((grammar, index) => {
               return (
                 <ListTouchable
                   key={index}
