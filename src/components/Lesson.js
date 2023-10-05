@@ -15,7 +15,7 @@ import styled from "styled-components/native";
 import yokudekimashita from "../../assets/yokudekimashita.png";
 
 const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
-  const { selectedDialect, grammar } = route.params;
+  const { selectedDialect, grammar, allQuizzesCompleted } = route.params;
   const btnLabel = selectedDialect.complete_btn_text;
   const [showQuiz, setShowQuiz] = useState(false);
   const jpExample = grammar.examples.find(
@@ -42,8 +42,9 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
 
   const showCompletedAt = () => {
     if (mostRecentlyCompletedQuiz(grammar.quizzes)) {
-      const completedDate = mostRecentlyCompletedQuiz(grammar.quizzes)
-        .quiz_completed;
+      const completedDate = mostRecentlyCompletedQuiz(
+        grammar.quizzes
+      ).quiz_completed;
       return (
         <BodySubText>
           Completed at {new Date(completedDate).toLocaleDateString()}
@@ -67,7 +68,7 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
   };
 
   const buttonText = () => {
-    if (completedGrammar) {
+    if (allQuizzesCompleted) {
       return "正解したクイズを見る";
     } else {
       return "クイズに挑戦🌟";
@@ -77,7 +78,7 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
   return (
     <ScreenLayout
       pageTitle={grammar.label}
-      btnLabel={completedGrammar ? btnLabel : null}
+      btnLabel={allQuizzesCompleted ? btnLabel : null}
       btnSubLabel="Next lesson"
       backComponentName={"PatternList"}
       onPressHandler={() => nextLessonBtn()}
@@ -124,7 +125,7 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
               </ButtonContainer>
             </>
           )}
-          {completedGrammar ? (
+          {allQuizzesCompleted ? (
             <>
               <Image
                 source={yokudekimashita}

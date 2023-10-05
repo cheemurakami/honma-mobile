@@ -56,6 +56,7 @@ const PatternList = ({
         navigation.navigate("Lesson", {
           selectedDialect,
           grammar: selectedGrammar,
+          allQuizzesCompleted: completedAllQuizzes(selectedGrammar.quizzes),
         });
       } else if (counter === 2 && !withExamples) {
         Alert.alert("More examples and quizzes coming soon!");
