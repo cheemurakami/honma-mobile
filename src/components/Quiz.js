@@ -24,7 +24,7 @@ export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
       } else {
         setButtonText("答え合わせ");
       }
-    }, [showCorrectButton]);
+    }, [showCorrectButton, buttonText]);
 
     const quiz = grammar.quizzes[quizIndex];
     const quizTokyo = quiz.tokyo;
@@ -44,6 +44,11 @@ export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
         setShowCorrectButton(false);
         return Alert.alert("不正解！もう1度！");
       }
+
+      if (buttonText == "正解！次の問題へ") {
+        setQuizIndex(quizIndex + 1);
+        setShowCorrectButton(false);
+      }
     };
 
     const completedQuiz = (data) => {
@@ -62,7 +67,9 @@ export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
     return (
       <>
         <BodyText>Please write this in {selectedDialect.name_en}:</BodyText>
-        <BodyText>{quizTokyo}</BodyText>
+        <BodyText>
+          {`Q${quizIndex + 1}`}: {quizTokyo}
+        </BodyText>
         <TextInput
           label="Answer here"
           value={text}
