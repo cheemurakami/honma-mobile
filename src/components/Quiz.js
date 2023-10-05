@@ -19,6 +19,8 @@ export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
     useEffect(() => {
       if (showCorrectButton && quizIndex + 1 === grammar.quizzes.length) {
         setButtonText("全問正解！");
+        const action = a.completedGrammars(grammar.id);
+        dispatch(action);
       } else if (showCorrectButton && quizIndex + 1 < grammar.quizzes.length) {
         setButtonText("正解！次の問題へ");
       } else {
@@ -32,8 +34,6 @@ export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
 
     const checkAnswer = (text) => {
       if (text === answer) {
-        const action = a.completedGrammars(grammar.id);
-        dispatch(action);
         const data = {
           quiz_id: quiz.id,
           authentication_token: auth.auth_token,
