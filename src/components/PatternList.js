@@ -29,10 +29,7 @@ const PatternList = ({
 
   const navigateBtn = () => {
     if (selectedGrammarId) {
-      const selectedGrammar = FindById(
-        dialectGrammars,
-        selectedGrammarId
-      );
+      const selectedGrammar = FindById(dialectGrammars, selectedGrammarId);
       navigation.navigate("Lesson", {
         selectedDialect,
         grammar: selectedGrammar,
@@ -44,6 +41,8 @@ const PatternList = ({
 
   const doubleTap = (id) => {
     const selectedGrammar = FindById(dialectGrammars, id);
+    const withExamples = hasExamples(selectedGrammar);
+
     const action = a.selectedGrammar(id);
     if (selectedGrammarId == id || selectedGrammarId == null) {
       dispatch(action);
@@ -52,17 +51,23 @@ const PatternList = ({
         setTimeout(() => {
           counter = 0;
         }, 1200);
-      } else if (counter === 2) {
+      } else if (counter === 2 && withExamples) {
         counter = 0;
         navigation.navigate("Lesson", {
           selectedDialect,
           grammar: selectedGrammar,
         });
+      } else if (counter === 2 && !withExamples) {
+        Alert.alert("More examples and quizzes coming soon!");
       }
     } else {
       dispatch(action);
       counter = 1;
     }
+  };
+
+  const hasExamples = (grammar) => {
+    return grammar.examples.length > 0;
   };
 
   const iconName = (grammar) => {
