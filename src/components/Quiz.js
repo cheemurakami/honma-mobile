@@ -1,6 +1,7 @@
 import * as a from "../rdx/actions";
 
 import React, { useState } from "react";
+import { useEffect } from "react";
 
 import { Alert } from "react-native";
 import { Button } from "react-native-paper";
@@ -11,9 +12,21 @@ import styled from "styled-components/native";
 export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
   const [text, setText] = useState("");
   const [showCorrectButton, setShowCorrectButton] = useState(false);
+  const [quizIndex, setQuizIndex] = useState(0);
+  const [buttonText, setButtonText] = useState("答え合わせ");
 
   if (grammar.quizzes.length > 0) {
-    const quiz = grammar.quizzes[0];
+    useEffect(() => {
+      if (showCorrectButton && quizIndex + 1 === grammar.quizzes.length) {
+        setButtonText("全問正解！");
+      } else if (showCorrectButton && quizIndex + 1 < grammar.quizzes.length) {
+        setButtonText("正解！次の問題へ");
+      } else {
+        setButtonText("答え合わせ");
+      }
+    }, [showCorrectButton]);
+
+    const quiz = grammar.quizzes[quizIndex];
     const quizTokyo = quiz.tokyo;
     const answer = quiz.answer;
 
@@ -70,7 +83,7 @@ export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
               justifyContent: "center",
             }}
           >
-            {showCorrectButton ? "正解！！" : "答え合わせ"}
+            {buttonText}
           </Button>
         </ButtonContainer>
       </>
