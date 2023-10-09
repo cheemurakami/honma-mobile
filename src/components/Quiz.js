@@ -71,7 +71,6 @@ export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
           {`Q${quizIndex + 1}`}: {quizTokyo}
         </BodyText>
         <TextInput
-          testId="text-input"
           label="Answer here"
           value={text}
           onChangeText={(text) => setText(text)}

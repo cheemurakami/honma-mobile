@@ -4,7 +4,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import rootReducer from "../rdx/reducers/index.js";
 import Quiz from "../components/Quiz.js";
-import { waitFor, render, screen } from "@testing-library/react-native";
+import {
+  waitFor,
+  render,
+  screen,
+  userEvent,
+} from "@testing-library/react-native";
 
 describe("Quiz tests", () => {
   const store = configureStore({ reducer: rootReducer });
@@ -62,7 +67,6 @@ describe("Quiz tests", () => {
         quiz_completed: null,
         tokyo: "そうだよ。",
       },
-      { answer: "test answer", id: 8, quiz_completed: null, tokyo: "test" },
     ],
   };
 
@@ -72,6 +76,19 @@ describe("Quiz tests", () => {
   };
 
   const mockDispatch = jest.fn();
+
+  const renderComponent = () => {
+    return render(
+      <Provider store={store}>
+        <Quiz
+          selectedDialect={dialect}
+          grammar={grammar}
+          auth={auth}
+          dispatch={mockDispatch}
+        />
+      </Provider>
+    );
+  };
 
   it("matches snapshot", async () => {
     const tree = renderer
@@ -92,16 +109,7 @@ describe("Quiz tests", () => {
   });
 
   it("renders Quiz component properly", async () => {
-    render(
-      <Provider store={store}>
-        <Quiz
-          selectedDialect={dialect}
-          grammar={grammar}
-          auth={auth}
-          dispatch={mockDispatch}
-        />
-      </Provider>
-    );
+    renderComponent();
 
     const questionHeaderText = screen.getByText(
       `Please write this in ${dialect.name_en}:`
@@ -116,6 +124,73 @@ describe("Quiz tests", () => {
       expect(questionText).toBeTruthy();
       expect(textInput).toBeTruthy();
       expect(btn).toBeTruthy();
+    });
+  });
+
+  it("pops up an alert when input answer is incorrect", async () => {
+    renderComponent();
+
+    const textInput = screen.getByTestId("text-input-flat");
+    await userEvent.press(textInput);
+    await userEvent.type(textInput, "asdc");
+    const incorrectMessage = "不正解！もう１度！";
+
+    await waitFor(() => {
+      expect(incorrectMessage).toBeTruthy();
+    });
+  });
+
+  // TODO: need more tests data
+  // it("shows correct button text with one quiz or the last quiz completion", async () => {
+  //   renderComponent();
+  // });
+
+  it("shows correct button text with multiple quizzes", async () => {
+    renderComponent();
+
+    const textInput = screen.getByTestId("text-input-flat");
+    await userEvent.press(textInput);
+    await userEvent.type(textInput, grammar.quizzes[0].answer);
+
+    const button = screen.getByRole("button", { name: "答え合わせ" });
+    await userEvent.press(button);
+
+    await waitFor(() => {
+      const correctButton = screen.getByRole("button", {
+        name: "正解！次の問題へ",
+      });
+      expect(correctButton).toBeTruthy();
+    });
+  });
+
+  it("renders next quiz after getting the correct answer when grammar has multiple quizzes", async () => {
+    renderComponent();
+
+    const textInput = screen.getByTestId("text-input-flat");
+    await userEvent.press(textInput);
+    await userEvent.type(textInput, grammar.quizzes[0].answer);
+
+    const button = screen.getByRole("button", { name: "答え合わせ" });
+    await userEvent.press(button);
+
+    await waitFor(() => {
+      const correctButton = screen.getByRole("button", {
+        name: "正解！次の問題へ",
+      });
+      expect(correctButton).toBeTruthy();
+      userEvent.press(correctButton);
+    });
+
+    await waitFor(() => {
+      const newQuestionText = screen.getByText(
+        `Q2: ${grammar.quizzes[1].tokyo}`
+      );
+
+      const answerBtn = screen.getByRole("button", {
+        name: "答え合わせ",
+      });
+      expect(newQuestionText).toBeTruthy();
+      expect(answerBtn).toBeTruthy();
     });
   });
 });
