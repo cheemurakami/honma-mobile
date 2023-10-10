@@ -1,6 +1,7 @@
 import * as a from "../rdx/actions";
 
 import React, { useState } from "react";
+import { useEffect } from "react";
 
 import { Alert } from "react-native";
 import { Button } from "react-native-paper";
@@ -11,16 +12,28 @@ import styled from "styled-components/native";
 export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
   const [text, setText] = useState("");
   const [showCorrectButton, setShowCorrectButton] = useState(false);
+  const [quizIndex, setQuizIndex] = useState(0);
+  const [buttonText, setButtonText] = useState("答え合わせ");
 
   if (grammar.quizzes.length > 0) {
-    const quiz = grammar.quizzes[0];
+    useEffect(() => {
+      if (showCorrectButton && quizIndex + 1 === grammar.quizzes.length) {
+        setButtonText("全問正解！");
+        const action = a.completedGrammars(grammar.id);
+        dispatch(action);
+      } else if (showCorrectButton && quizIndex + 1 < grammar.quizzes.length) {
+        setButtonText("正解！次の問題へ");
+      } else {
+        setButtonText("答え合わせ");
+      }
+    }, [showCorrectButton, buttonText]);
+
+    const quiz = grammar.quizzes[quizIndex];
     const quizTokyo = quiz.tokyo;
     const answer = quiz.answer;
 
     const checkAnswer = (text) => {
       if (text === answer) {
-        const action = a.completedGrammars(grammar.id);
-        dispatch(action);
         const data = {
           quiz_id: quiz.id,
           authentication_token: auth.auth_token,
@@ -30,6 +43,11 @@ export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
       } else {
         setShowCorrectButton(false);
         return Alert.alert("不正解！もう1度！");
+      }
+
+      if (buttonText == "正解！次の問題へ") {
+        setQuizIndex(quizIndex + 1);
+        setShowCorrectButton(false);
       }
     };
 
@@ -49,7 +67,9 @@ export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
     return (
       <>
         <BodyText>Please write this in {selectedDialect.name_en}:</BodyText>
-        <BodyText>{quizTokyo}</BodyText>
+        <BodyText>
+          {`Q${quizIndex + 1}`}: {quizTokyo}
+        </BodyText>
         <TextInput
           label="Answer here"
           value={text}
@@ -70,7 +90,7 @@ export const Quiz = ({ selectedDialect, grammar, auth, dispatch }) => {
               justifyContent: "center",
             }}
           >
-            {showCorrectButton ? "正解！！" : "答え合わせ"}
+            {buttonText}
           </Button>
         </ButtonContainer>
       </>
