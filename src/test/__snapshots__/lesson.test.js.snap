@@ -1,0 +1,320 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Lesson tests matches snapshot 1`] = `
+<div
+  data-testid="mocked-screen-layout"
+>
+  <div
+    data-testid="mocked-screen-layout"
+  >
+    <RCTScrollView>
+      <View>
+        <RCTScrollView
+          contentContainerStyle={
+            {
+              "flex": 1,
+            }
+          }
+          resetScrollToCoords={
+            {
+              "x": 0,
+              "y": 0,
+            }
+          }
+          scrollEnabled={true}
+        >
+          <View>
+            <Text
+              style={
+                [
+                  {
+                    "fontSize": 18,
+                    "fontWeight": "bold",
+                    "marginBottom": 5,
+                    "marginLeft": 5,
+                    "marginRight": 5,
+                    "marginTop": 5,
+                    "textAlign": "center",
+                  },
+                ]
+              }
+            >
+              よ changes to なんよ
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "fontSize": 12,
+                    "fontWeight": "bold",
+                    "marginBottom": 15,
+                    "marginLeft": 15,
+                    "marginRight": 15,
+                    "marginTop": 15,
+                  },
+                ]
+              }
+            >
+              Commonness: 
+            </Text>
+            <Text
+              style={
+                [
+                  {
+                    "color": "#a3a3a3",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "marginLeft": 15,
+                  },
+                ]
+              }
+            >
+              Completed at 
+              9/7/2023
+            </Text>
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                  },
+                ]
+              }
+            >
+              <View
+                style={
+                  [
+                    {
+                      "marginTop": 10,
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    [
+                      {
+                        "fontSize": 20,
+                        "marginBottom": 10,
+                        "marginLeft": 10,
+                        "marginRight": 10,
+                        "marginTop": 10,
+                        "textAlign": "left",
+                      },
+                    ]
+                  }
+                >
+                  A: 
+                  車、買ったん?
+                </Text>
+                <Text
+                  style={
+                    [
+                      {
+                        "fontSize": 20,
+                        "marginBottom": 10,
+                        "marginLeft": 10,
+                        "marginRight": 10,
+                        "marginTop": 10,
+                        "textAlign": "left",
+                      },
+                    ]
+                  }
+                >
+                  B: 
+                  そうなんよ。
+                </Text>
+              </View>
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "marginTop": 10,
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  [
+                    {
+                      "fontSize": 20,
+                      "marginBottom": 10,
+                      "marginLeft": 10,
+                      "marginRight": 10,
+                      "marginTop": 10,
+                      "textAlign": "left",
+                    },
+                  ]
+                }
+              >
+                A: 
+                Did you buy a car?
+              </Text>
+              <Text
+                style={
+                  [
+                    {
+                      "fontSize": 20,
+                      "marginBottom": 10,
+                      "marginLeft": 10,
+                      "marginRight": 10,
+                      "marginTop": 10,
+                      "textAlign": "left",
+                    },
+                  ]
+                }
+              >
+                B: 
+                Yes, I did.
+              </Text>
+            </View>
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "marginBottom": 10,
+                    "marginLeft": 10,
+                    "marginRight": 10,
+                    "marginTop": 10,
+                  },
+                ]
+              }
+            >
+              <View
+                collapsable={false}
+                style={
+                  {
+                    "backgroundColor": "#1B70B1",
+                    "borderColor": "transparent",
+                    "borderRadius": 4,
+                    "borderStyle": "solid",
+                    "borderWidth": 0,
+                    "elevation": 2,
+                    "height": 45,
+                    "justifyContent": "center",
+                    "minWidth": 64,
+                    "shadowColor": "#000000",
+                    "shadowOffset": {
+                      "height": 0.75,
+                      "width": 0,
+                    },
+                    "shadowOpacity": 0.24,
+                    "shadowRadius": 1.5,
+                    "width": "60%",
+                  }
+                }
+              >
+                <View
+                  accessibilityRole="button"
+                  accessibilityState={
+                    {
+                      "disabled": false,
+                    }
+                  }
+                  accessibilityValue={
+                    {
+                      "max": undefined,
+                      "min": undefined,
+                      "now": undefined,
+                      "text": undefined,
+                    }
+                  }
+                  accessible={true}
+                  focusable={true}
+                  onClick={[Function]}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    [
+                      {
+                        "overflow": "hidden",
+                      },
+                      {
+                        "borderRadius": 4,
+                      },
+                    ]
+                  }
+                >
+                  <View
+                    style={
+                      [
+                        {
+                          "alignItems": "center",
+                          "flexDirection": "row",
+                          "justifyContent": "center",
+                        },
+                        undefined,
+                      ]
+                    }
+                  >
+                    <Text
+                      numberOfLines={1}
+                      selectable={false}
+                      style={
+                        [
+                          {
+                            "color": "#000000",
+                            "fontFamily": "System",
+                            "fontWeight": "400",
+                          },
+                          {
+                            "textAlign": "left",
+                          },
+                          [
+                            {
+                              "letterSpacing": 1,
+                              "marginHorizontal": 16,
+                              "marginVertical": 9,
+                              "textAlign": "center",
+                            },
+                            undefined,
+                            {
+                              "textTransform": "uppercase",
+                            },
+                            {
+                              "color": "#ffffff",
+                              "fontFamily": "System",
+                              "fontWeight": "500",
+                            },
+                            {
+                              "fontFamily": "System",
+                              "fontWeight": "500",
+                            },
+                            {
+                              "color": "#fff",
+                              "fontSize": 18,
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      正解したクイズを見る
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <Image
+              source={1}
+              style={
+                {
+                  "height": 100,
+                  "width": 100,
+                }
+              }
+            />
+          </View>
+        </RCTScrollView>
+      </View>
+    </RCTScrollView>
+  </div>
+</div>
+`;

@@ -10,11 +10,10 @@ import Quiz from "./Quiz";
 import ScreenLayout from "../shared/ScreenLayout";
 import { ScrollView } from "react-native";
 import SoundPlayButton from "../shared/SoundPlayButton";
-import { connect } from "react-redux";
 import styled from "styled-components/native";
 import yokudekimashita from "../../assets/yokudekimashita.png";
 
-const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
+const Lesson = ({ route, navigation, dispatch }) => {
   const { selectedDialect, grammar, allQuizzesCompleted } = route.params;
   const btnLabel = selectedDialect.complete_btn_text;
   const [showQuiz, setShowQuiz] = useState(false);
@@ -24,7 +23,6 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
   const enExample = grammar.examples.find(
     (example) => example.language === "en"
   );
-  const completedGrammar = completedGrammars[grammar.id];
 
   const nextLessonBtn = () => {
     const nextGrammar = selectedDialect.grammars.find(
@@ -50,17 +48,16 @@ const Lesson = ({ route, navigation, dispatch, completedGrammars }) => {
           Completed at {new Date(completedDate).toLocaleDateString()}
         </BodySubText>
       );
-    } else if (completedGrammar) {
-      const completedDate = new Date(completedGrammar).toLocaleDateString();
-      return <BodySubText>Completed at {completedDate}</BodySubText>;
     }
   };
 
   const mostRecentlyCompletedQuiz = (quizzes) => {
+    const quizLength = quizzes.length;
     const completedQuizzes = quizzes.filter(
       (quiz) => quiz.quiz_completed !== null
     );
-    if (completedQuizzes.length > 0) {
+
+    if (completedQuizzes.length === quizLength) {
       return completedQuizzes.reduce((a, b) =>
         a.quiz_completed > b.quiz_completed ? a : b
       );
@@ -172,9 +169,4 @@ const ButtonContainer = styled.View`
   margin: 10px;
 `;
 
-const mapStateToProps = (state) => {
-  return {
-    completedGrammars: state.grammarsReducer.completedIds,
-  };
-};
-export default connect(mapStateToProps)(Lesson);
+export default Lesson;
