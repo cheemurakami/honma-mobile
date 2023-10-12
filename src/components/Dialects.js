@@ -17,12 +17,7 @@ const selectedTitleStyle = { ...defaultTitleStyle, color: "#fff" };
 const defaultDescriptionStyle = { fontSize: 14, fontWeight: "bold" };
 const selectedDescriptionStyle = { ...defaultDescriptionStyle, color: "#fff" };
 
-const ChooseDialect = ({
-  navigation,
-  dispatch,
-  dialects,
-  completedGrammars,
-}) => {
+const Dialects = ({ navigation, dispatch, dialects, completedGrammars }) => {
   const [selectedDialectId, setSelectedDialectId] = useState(null);
   const [btnText, setBtnText] = useState("はじめましょう!!");
   const [modal, setModal] = useState(false);
@@ -44,8 +39,8 @@ const ChooseDialect = ({
       .catch((error) => {
         console.log(error);
       });
-      return () => {};
-    }, []);
+    return () => {};
+  }, []);
 
   const doubleTap = (id) => {
     changeBtnText(id);
@@ -267,4 +262,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ChooseDialect);
+export default connect(mapStateToProps)(Dialects);

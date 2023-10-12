@@ -91,7 +91,7 @@ const PatternList = ({
       pageTitle={pageTitle}
       btnLabel={selectedGrammarId ? btnLabel : null}
       btnSubLabel="Go to lesson"
-      backComponentName={"ChooseDialect"}
+      backComponentName={"Dialects"}
       onPressHandler={() => navigateBtn()}
     >
       <ScrollView>
