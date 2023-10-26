@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LessonProgressCard tests matches snapshot 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "backgroundColor": "#f6a704",
+        "borderRadius": 10,
+        "height": 45,
+        "justifyContent": "center",
+        "marginBottom": 10,
+        "marginLeft": 10,
+        "marginRight": 10,
+        "marginTop": 10,
+        "width": 70,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      [
+        {
+          "color": "#fff",
+          "fontWeight": "bold",
+        },
+      ]
+    }
+  >
+    1
+     / 
+    2
+  </Text>
+  <Text
+    style={
+      [
+        {
+          "color": "#fff",
+          "fontWeight": "bold",
+        },
+      ]
+    }
+  >
+    Lessons
+  </Text>
+</View>
+`;

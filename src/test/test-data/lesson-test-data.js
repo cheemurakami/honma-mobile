@@ -10,6 +10,66 @@ export const dialectData = {
   start_btn_text: "はじめるで",
 };
 
+export const grammarsData = [
+  {
+    id: 5,
+    dialect_id: 4,
+    label: "いる / おる ・ おるん?",
+    description: "いる changes to おる  おるん? for questions",
+    position: 0,
+    commonness: null,
+    examples: [],
+    quizzes: [
+      {
+        id: 6,
+        grammar_id: 5,
+        tokyo: "公園にいるよ。",
+        answer: "公園におるよ。",
+        quiz_completed: "2023-09-07T21:10:00.856Z",
+      },
+      {
+        id: 16,
+        grammar_id: 5,
+        tokyo: "どこにいる？",
+        answer: "どこにおるん？",
+        quiz_completed: "2023-10-05T20:33:43.324Z",
+      },
+    ],
+  },
+  {
+    id: 6,
+    dialect_id: 4,
+    label: "よ / なんよ",
+    description: "よ changes to なんよ",
+    position: 1,
+    commonness: null,
+    examples: [],
+    quizzes: [
+      {
+        id: 1,
+        grammar_id: 6,
+        tokyo: "あの子は私の知り合いなんだよ。",
+        answer: "あの子は私の知り合いなんよ。",
+        quiz_completed: "2023-09-07T23:48:59.425Z",
+      },
+      {
+        id: 2,
+        grammar_id: 6,
+        tokyo: "そうだよ。",
+        answer: "そうなんよ。",
+        quiz_completed: "2023-10-09T22:21:46.370Z",
+      },
+      {
+        id: 8,
+        grammar_id: 6,
+        tokyo: "test",
+        answer: "test answer",
+        quiz_completed: null,
+      },
+    ],
+  },
+];
+
 export const grammarWithOneQuiz = {
   commonness: null,
   description: "よ changes to なんよ",

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "react-native-paper";
+import { Button, List } from "react-native-paper";
 import * as a from "../rdx/actions";
 
 import { Alert } from "react-native";
 import FindById from "./helpers/FindById";
 import Icon from "react-native-vector-icons/AntDesign";
-import { List } from "react-native-paper";
 import ScreenLayout from "../shared/ScreenLayout";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
+import LessonProgressCard from "./LessonProgressCard";
 
 const pageTitle = "Choose your dialect";
 let counter = 0;
@@ -17,12 +17,7 @@ const selectedTitleStyle = { ...defaultTitleStyle, color: "#fff" };
 const defaultDescriptionStyle = { fontSize: 14, fontWeight: "bold" };
 const selectedDescriptionStyle = { ...defaultDescriptionStyle, color: "#fff" };
 
-const ChooseDialect = ({
-  navigation,
-  dispatch,
-  dialects,
-  completedGrammars,
-}) => {
+const Dialects = ({ navigation, dispatch, dialects }) => {
   const [selectedDialectId, setSelectedDialectId] = useState(null);
   const [btnText, setBtnText] = useState("はじめましょう!!");
   const [modal, setModal] = useState(false);
@@ -44,8 +39,8 @@ const ChooseDialect = ({
       .catch((error) => {
         console.log(error);
       });
-      return () => {};
-    }, []);
+    return () => {};
+  }, []);
 
   const doubleTap = (id) => {
     changeBtnText(id);
@@ -86,33 +81,6 @@ const ChooseDialect = ({
     } else {
       Alert.alert("Please select dialect");
     }
-  };
-
-  const completedQuizzesNumber = (dialectGrammars) => {
-    if (completedGrammars !== {}) {
-      const sumCompletedQuizzes =
-        Object.entries(completedGrammars).length +
-        completedNumber(dialectGrammars);
-      return (
-        <ProgressText>
-          {sumCompletedQuizzes}/{dialectGrammars.length}
-        </ProgressText>
-      );
-    } else {
-      return (
-        <ProgressText>
-          {completedNumber(dialectGrammars)}/{dialectGrammars.length}
-        </ProgressText>
-      );
-    }
-  };
-
-  const completedNumber = (dialectGrammars) => {
-    const quizzes = dialectGrammars.map((grammar) => grammar.quizzes);
-    const completedQuizzes = quizzes
-      .flat()
-      .filter((quiz) => quiz.quiz_completed);
-    return completedQuizzes.length;
   };
 
   const displayModal = (id) => {
@@ -183,14 +151,7 @@ const ChooseDialect = ({
                     />
                   )}
                   right={() => (
-                    <ProgressIcon>
-                      {completedQuizzesNumber(getDialectGrammars(dialect))}
-                      {/* <ProgressText>
-                        {completedNumber(dialect.grammars)}/
-                        {dialect.grammars.length}
-                      </ProgressText> */}
-                      <ProgressText>Quiz</ProgressText>
-                    </ProgressIcon>
+                    <LessonProgressCard dialect={dialect} grammars={grammars} />
                   )}
                 />
               </DialectTouchable>
@@ -238,19 +199,6 @@ const DialectTouchable = styled.TouchableHighlight.attrs({
   border-radius: 25px;
 `;
 
-const ProgressIcon = styled.View`
-  width: 70px;
-  height: 45px;
-  margin: 10px;
-  border-radius: 10px;
-  background-color: #f6a704;
-  align-items: center;
-  justify-content: center;
-`;
-const ProgressText = styled.Text`
-  color: #fff;
-  font-weight: bold;
-`;
 const TextWrapper = styled.View`
   align-items: center;
   padding: 10px;
@@ -263,8 +211,7 @@ const MessageText = styled.Text`
 const mapStateToProps = (state) => {
   return {
     dialects: state.dialectReducer.dialects,
-    completedGrammars: state.grammarsReducer.completedIds,
   };
 };
 
-export default connect(mapStateToProps)(ChooseDialect);
+export default connect(mapStateToProps)(Dialects);

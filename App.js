@@ -1,4 +1,4 @@
-import ChooseDialect from "./src/components/ChooseDialect";
+import Dialects from "./src/components/Dialects";
 import Lesson from "./src/components/Lesson";
 import Loading from "./src/components/Loading";
 import Registration from "./src/components/Registration";
@@ -31,7 +31,7 @@ export default function App() {
             <Stack.Screen name="Signup" component={Signup} />
             <Stack.Screen name="Signin" component={Signin} />
             <Stack.Screen name="Loading" component={Loading} />
-            <Stack.Screen name="ChooseDialect" component={ChooseDialect} />
+            <Stack.Screen name="Dialects" component={Dialects} />
             <Stack.Screen name="PatternList" component={PatternList} />
             <Stack.Screen name="Lesson" component={Lesson} />
           </Stack.Navigator>

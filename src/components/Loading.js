@@ -39,7 +39,7 @@ const Loading = ({ navigation, dispatch }) => {
         })();
         dispatch(a.loadedDialects(resp));
       })
-      .then(() => navigation.navigate("ChooseDialect"))
+      .then(() => navigation.navigate("Dialects"))
       .catch((error) => {
         console.log(error);
       });
