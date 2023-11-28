@@ -9,6 +9,7 @@ import ScreenLayout from "../shared/ScreenLayout";
 import { ScrollView } from "react-native";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
+import GetCompletedAllQuizzes from "./helpers/GetCompletedAllQuizzes";
 
 let counter = 0;
 const defaultDescriptionStyle = { fontSize: 20 };
@@ -56,7 +57,8 @@ const PatternList = ({
         navigation.navigate("Lesson", {
           selectedDialect,
           grammar: selectedGrammar,
-          allQuizzesCompleted: completedAllQuizzes(selectedGrammar.quizzes),
+          grammars: dialectGrammars,
+          allQuizzesCompleted: GetCompletedAllQuizzes(selectedGrammar.quizzes),
         });
       } else if (counter === 2 && !withExamples) {
         Alert.alert("More examples and quizzes coming soon!");
@@ -72,18 +74,11 @@ const PatternList = ({
   };
 
   const iconName = (grammar) => {
-    if (completedGrammars[grammar.id] || completedAllQuizzes(grammar.quizzes)) {
+    if (completedGrammars[grammar.id] || GetCompletedAllQuizzes(grammar.quizzes)) {
       return "check";
     } else {
       return "leaf";
     }
-  };
-
-  const completedAllQuizzes = (quizzes) => {
-    const uncompletedQuizzes = quizzes.filter(
-      (quiz) => quiz.quiz_completed == null
-    );
-    return quizzes.length > 0 && uncompletedQuizzes.length == 0;
   };
 
   return (
