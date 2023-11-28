@@ -22,6 +22,7 @@ const ScreenLayout = (props) => {
     btnLabel,
     btnSubLabel,
     backComponentName,
+    navigationProps,
     children,
     onPressHandler,
     modal,
@@ -32,6 +33,14 @@ const ScreenLayout = (props) => {
   const link = createHttpLink({ uri: "http://localhost:3000/graphql" });
   const client = new ApolloClient({ link: link, cache: new InMemoryCache() });
 
+  const navigate = () => {
+    if (navigationProps) {
+      navigation.navigate(backComponentName, navigationProps)
+    } else {
+      navigation.navigate(backComponentName)
+    }
+  }
+
   return (
     <View>
       <HeaderContainer>
@@ -41,7 +50,7 @@ const ScreenLayout = (props) => {
               name="arrow-left"
               size={30}
               style={{ flex: 1, marginLeft: 10, alignSelf: "center" }}
-              onPress={() => navigation.navigate(backComponentName)}
+              onPress={navigate}
             />
             <Title
               style={{

@@ -77,6 +77,7 @@ const Dialects = ({ navigation, dispatch, dialects }) => {
       const selectedDialect = FindById(dialects, id);
       navigation.navigate("PatternList", {
         selectedDialect,
+        grammars,
       });
     } else {
       Alert.alert("Please select dialect");

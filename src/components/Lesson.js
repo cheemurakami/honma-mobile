@@ -1,7 +1,4 @@
-import * as a from "../rdx/actions";
-
 import React, { useState } from "react";
-
 import { Button } from "react-native-paper";
 import Commonness from "./Commonness";
 import { Image } from "react-native";
@@ -12,9 +9,10 @@ import { ScrollView } from "react-native";
 import SoundPlayButton from "../shared/SoundPlayButton";
 import styled from "styled-components/native";
 import yokudekimashita from "../../assets/yokudekimashita.png";
+import GetCompletedAllQuizzes from "./helpers/GetCompletedAllQuizzes";
 
-const Lesson = ({ route, navigation, dispatch }) => {
-  const { selectedDialect, grammar, allQuizzesCompleted } = route.params;
+const Lesson = ({ route, navigation }) => {
+  const { selectedDialect, grammar, grammars, allQuizzesCompleted } = route.params;
   const btnLabel = selectedDialect.complete_btn_text;
   const [showQuiz, setShowQuiz] = useState(false);
   const jpExample = grammar.examples.find(
@@ -25,16 +23,22 @@ const Lesson = ({ route, navigation, dispatch }) => {
   );
 
   const nextLessonBtn = () => {
-    const nextGrammar = selectedDialect.grammars.find(
-      (g) => g.position === grammar.position + 1
-    );
+    const nextGrammar = grammars.find((g) => g.position === grammar.position + 1);
     setShowQuiz(false);
+
     if (nextGrammar) {
-      const action = a.selectedGrammar(nextGrammar.id);
-      dispatch(action);
-      navigation.navigate("Lesson", { selectedDialect, grammar: nextGrammar });
+      quizzesCompleted = GetCompletedAllQuizzes(nextGrammar.quizzes)
+      navigation.navigate(
+        "Lesson",
+        {
+          selectedDialect,
+          grammar: nextGrammar,
+          grammars,
+          allQuizzesCompleted: quizzesCompleted
+        }
+      );
     } else {
-      navigation.navigate("PatternList", { selectedDialect });
+      navigation.navigate("PatternList", { selectedDialect, dialectGrammars: grammars });
     }
   };
 
@@ -78,7 +82,8 @@ const Lesson = ({ route, navigation, dispatch }) => {
       btnLabel={allQuizzesCompleted ? btnLabel : null}
       btnSubLabel="Next lesson"
       backComponentName={"PatternList"}
-      onPressHandler={() => nextLessonBtn()}
+      navigationProps={{ selectedDialect, dialectGrammars: grammars }}
+      onPressHandler={nextLessonBtn}
     >
       <ScrollView>
         <KeyboardAwareScrollView
