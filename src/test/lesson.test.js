@@ -63,7 +63,7 @@ describe("Lesson tests", () => {
     key: "Lesson-CpYLFUxzpmxStg-7Ti3tQ",
     name: "Lesson",
     params: {
-      allQuizzesCompleted: true,
+      allQuizzesCompleted: false,
       grammar: grammarWithMultipleQuiz,
       selectedDialect: dialectData,
     },
@@ -143,19 +143,8 @@ describe("Lesson tests", () => {
   });
 
   it("shows most completed at date when all the quizzes are completed", async () => {
-    renderComponent("multiple quizzes");
-   
-    const formattedDate = "9/7/2023";
-    const completedAtText = screen.queryByText(`Completed at ${formattedDate}`);
+    renderComponent("completed all quizzes");
 
-    await waitFor(() => {
-      expect(completedAtText).not.toBeTruthy();
-    });
-  });
-
-  it("does not show completed at date when all the quizzes are not completed", async () => {
-    renderComponent("quizzes completed");
-    
     const formattedDate = "9/30/2023";
     const completedAtText = screen.getByText(`Completed at ${formattedDate}`);
 
@@ -163,4 +152,48 @@ describe("Lesson tests", () => {
       expect(completedAtText).toBeTruthy();
     });
   });
+
+  it("does not show completed at date when all the quizzes are not completed", async () => {
+    renderComponent("multiple quizzes");
+
+    const completedAtText = screen.queryByText("Completed at");
+    await waitFor(() => {
+      expect(completedAtText).not.toBeTruthy();
+    });
+  });
+
+  describe('buttons', () => {
+    it("shows proper buttons when all the quizzes are completed", async () => {
+      renderComponent("one quiz")
+
+      const quizButton = screen.getByLabelText("quiz-button")
+      const resetButton = screen.getByLabelText("reset-quizzes-button")
+      const quizButtonText = screen.getByText("正解したクイズを見る")
+      const startQuizText = screen.queryByText("クイズに挑戦🌟")
+
+      await waitFor(() => {
+        expect(quizButton).toBeTruthy();
+        expect(resetButton).toBeTruthy();
+        expect(quizButtonText).toBeTruthy();
+        expect(startQuizText).not.toBeTruthy();
+      });
+    });
+
+    it("shows proper button when the quizzes are not completed", async () => {
+      renderComponent("multiple quizzes")
+
+      const quizButton = screen.getByLabelText("quiz-button")
+      const resetButton = screen.queryByLabelText("reset-quizzes-button")
+      const quizButtonText = screen.queryByText("正解したクイズを見る")
+      const startQuizText = screen.getByText("クイズに挑戦🌟")
+
+
+      await waitFor(() => {
+        expect(quizButton).toBeTruthy();
+        expect(resetButton).not.toBeTruthy();
+        expect(quizButtonText).not.toBeTruthy();
+        expect(startQuizText).toBeTruthy();
+      });
+    });
+  })
 });

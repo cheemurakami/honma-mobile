@@ -10,42 +10,46 @@ import SoundPlayButton from "../shared/SoundPlayButton";
 import styled from "styled-components/native";
 import yokudekimashita from "../../assets/yokudekimashita.png";
 import GetCompletedAllQuizzes from "./helpers/GetCompletedAllQuizzes";
+import PropTypes from 'prop-types';
 
 const Lesson = ({ route, navigation }) => {
-  const { selectedDialect, grammar, grammars, allQuizzesCompleted } = route.params;
+  const { selectedDialect, grammar, grammars, allQuizzesCompleted } =
+    route.params;
   const btnLabel = selectedDialect.complete_btn_text;
   const [showQuiz, setShowQuiz] = useState(false);
   const jpExample = grammar.examples.find(
-    (example) => example.language === "jp"
+    (example) => example.language === "jp",
   );
   const enExample = grammar.examples.find(
-    (example) => example.language === "en"
+    (example) => example.language === "en",
   );
 
   const nextLessonBtn = () => {
-    const nextGrammar = grammars.find((g) => g.position === grammar.position + 1);
+    const nextGrammar = grammars.find(
+      (g) => g.position === grammar.position + 1,
+    );
     setShowQuiz(false);
 
     if (nextGrammar) {
-      quizzesCompleted = GetCompletedAllQuizzes(nextGrammar.quizzes)
-      navigation.navigate(
-        "Lesson",
-        {
-          selectedDialect,
-          grammar: nextGrammar,
-          grammars,
-          allQuizzesCompleted: quizzesCompleted
-        }
-      );
+      quizzesCompleted = GetCompletedAllQuizzes(nextGrammar.quizzes);
+      navigation.navigate("Lesson", {
+        selectedDialect,
+        grammar: nextGrammar,
+        grammars,
+        allQuizzesCompleted: quizzesCompleted,
+      });
     } else {
-      navigation.navigate("PatternList", { selectedDialect, dialectGrammars: grammars });
+      navigation.navigate("PatternList", {
+        selectedDialect,
+        dialectGrammars: grammars,
+      });
     }
   };
 
   const showCompletedAt = () => {
     if (mostRecentlyCompletedQuiz(grammar.quizzes)) {
       const completedDate = mostRecentlyCompletedQuiz(
-        grammar.quizzes
+        grammar.quizzes,
       ).quiz_completed;
       return (
         <BodySubText>
@@ -58,21 +62,13 @@ const Lesson = ({ route, navigation }) => {
   const mostRecentlyCompletedQuiz = (quizzes) => {
     const quizLength = quizzes.length;
     const completedQuizzes = quizzes.filter(
-      (quiz) => quiz.quiz_completed !== null
+      (quiz) => quiz.quiz_completed !== null,
     );
 
     if (completedQuizzes.length === quizLength) {
       return completedQuizzes.reduce((a, b) =>
-        a.quiz_completed > b.quiz_completed ? a : b
+        a.quiz_completed > b.quiz_completed ? a : b,
       );
-    }
-  };
-
-  const buttonText = () => {
-    if (allQuizzesCompleted) {
-      return "正解したクイズを見る";
-    } else {
-      return "クイズに挑戦🌟";
     }
   };
 
@@ -110,7 +106,7 @@ const Lesson = ({ route, navigation }) => {
             <Quiz selectedDialect={selectedDialect} grammar={grammar} />
           ) : (
             <>
-              <ButtonContainer>
+              <ButtonContainer completed={allQuizzesCompleted}>
                 <Button
                   mode="contained"
                   onPress={() => setShowQuiz(true)}
@@ -121,20 +117,45 @@ const Lesson = ({ route, navigation }) => {
                     height: 45,
                     justifyContent: "center",
                   }}
+                  accessibilityLabel="quiz-button"
                 >
-                  {buttonText()}
+                  {allQuizzesCompleted ? "正解したクイズを見る" : "クイズに挑戦🌟"}
                 </Button>
               </ButtonContainer>
+              {allQuizzesCompleted && (
+                <ButtonContainer completed={allQuizzesCompleted}>
+                  <Button
+                    mode="contained"
+                    onPress={() => setShowQuiz(true)}
+                    color="#1B70B1"
+                    labelStyle={{ color: "#fff", fontSize: 18 }}
+                    style={{
+                      width: "60%",
+                      height: 50,
+                      justifyContent: "center",
+                    }}
+                    accessibilityLabel="reset-quizzes-button"
+                  >
+                    全てのクイズをリセット
+                  </Button>
+                </ButtonContainer>
+              )}
             </>
           )}
-          {allQuizzesCompleted ? (
-            <>
-              <Image
-                source={yokudekimashita}
-                style={{ width: 100, height: 100 }}
-              ></Image>
-            </>
-          ) : null}
+          {allQuizzesCompleted && (
+            <Image
+              source={yokudekimashita}
+              style={{
+                left: '60%',
+                height: 170,
+                opacity: 0.3,
+                position: "absolute",
+                top: '60%',
+                transform: [{ rotate: "20deg" }],
+                width: 170,
+              }}
+            ></Image>
+          )}
         </KeyboardAwareScrollView>
       </ScrollView>
     </ScreenLayout>
@@ -170,8 +191,12 @@ const ExampleContainer = styled.View`
   margin-top: 10px;
 `;
 const ButtonContainer = styled.View`
-  align-items: center;
+  align-items: ${(props) => (props.completed ? null : 'center')};
   margin: 10px;
 `;
+
+ButtonContainer.propTypes = {
+  completed: PropTypes.bool,
+};
 
 export default Lesson;
